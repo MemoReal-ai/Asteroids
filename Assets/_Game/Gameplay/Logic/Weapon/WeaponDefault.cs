@@ -1,4 +1,5 @@
 using _Game.Gameplay.Logic.Service;
+using _Game.Gameplay.Logic.Service.ObjectPool;
 
 namespace _Game.Gameplay.Logic.Weapon
 {

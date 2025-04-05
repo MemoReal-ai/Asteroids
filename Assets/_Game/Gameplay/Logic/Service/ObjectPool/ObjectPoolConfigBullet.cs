@@ -4,7 +4,7 @@ using UnityEngine;
 namespace _Game.Gameplay.Logic.Service.ObjectPool
 {
     [CreateAssetMenu(fileName = "BulletConfig", menuName = "Config/ObjectPoolConfig/Bullet/Create", order = 0)]
-    public class BulletConfig : ObjectPoolConfig<Bullet>
+    public class ObjectPoolConfigBullet : ObjectPoolConfig<Bullet>
     {
     
     }

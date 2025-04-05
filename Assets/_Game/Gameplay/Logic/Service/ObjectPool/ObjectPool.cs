@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using _Game.Gameplay.Logic.Weapon;
 using UnityEngine;
 
-namespace _Game.Gameplay.Logic.Service
+namespace _Game.Gameplay.Logic.Service.ObjectPool
 {
     public class ObjectPool<T> where T : MonoBehaviour
     {

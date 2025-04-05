@@ -13,7 +13,8 @@ namespace _Game.Gameplay.Logic.Infrastructure
         private readonly ObjectPoolConfig<Bullet> _objectPoolBulletPrefab;
         private readonly ObjectPoolConfig<Bullet> _objectPoolLaserPrefab;
         private readonly List<IWeapon> _weapons = new();
-
+        
+        
         private ObjectPool<Bullet> _bulletsDefault;
         private ObjectPool<Bullet> _bulletsLaser;
         private readonly Shoot _shoot;
@@ -40,6 +41,11 @@ namespace _Game.Gameplay.Logic.Infrastructure
                 _objectPoolLaserPrefab.ObjectSize,
                 null,
                 _objectPoolLaserPrefab.AutoExpand);
+        }
+
+        private void CreateEnemies()
+        {
+            
         }
 
         public void Initialize()

@@ -14,21 +14,22 @@ namespace _Game.Gameplay.Logic.Infrastructure
         [SerializeField] private ShipDefault _shipDefault;
         [SerializeField] private StartSpawnPointShip _startSpawnPointShip;
         [SerializeField] private ShipConfig _shipConfig;
-        [SerializeField] private Camera _mainCamera;
-        [SerializeField] private BulletConfig _bulletConfig;
-        [SerializeField] private BulletConfig _bulletConfigLaser;
+        [SerializeField] private Camera _mainCamera; 
+        [SerializeField] private ObjectPoolConfigBullet _objectPoolConfigBullet; 
+        [SerializeField] private ObjectPoolConfigBullet _objectPoolConfigBulletLaser;
         [SerializeField] private SpawnerPoints _spawnerPoints;
-
+        [SerializeField] private ObjectPoolConfigUFO _o;
         public override void InstallBindings()
         {
             InstallStartGame();
+            InstallSpawn();
             InstallShip();
         }
 
         private void InstallStartGame()
         {
-            Container.Bind<ObjectPoolConfig<Bullet>>().WithId("Default").FromInstance(_bulletConfig).AsCached();
-            Container.Bind<ObjectPoolConfig<Bullet>>().WithId("Laser").FromInstance(_bulletConfigLaser).AsCached();
+            Container.Bind<ObjectPoolConfig<Bullet>>().WithId("Default").FromInstance(_objectPoolConfigBullet).AsCached();
+            Container.Bind<ObjectPoolConfig<Bullet>>().WithId("Laser").FromInstance(_objectPoolConfigBulletLaser).AsCached();
             Container.BindInterfacesTo<EntryPoint>().AsCached();
             Container.Bind<Shoot>().AsCached();
             Container.BindInterfacesTo<InputPlayer>().AsCached();
@@ -47,6 +48,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
         {
             Container.BindInterfacesTo<Spawner>().AsCached();
             Container.Bind<SpawnerPoints>().FromInstance(_spawnerPoints).AsCached();
+            Container.Bind<ObjectPoolConfigUFO>().FromInstance(_o).AsCached();
         }
     }
 }

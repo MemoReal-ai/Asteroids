@@ -1,21 +1,22 @@
 using System;
-using System.Collections.Generic;
+using _Game.Gameplay.Logic.Service.ObjectPool;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 using Zenject;
 
 namespace _Game.Gameplay.Logic.Enemy
 {
     public class Spawner : ITickable
     {
-        private List<IEnemy> _enemies;
+        private ObjectPool<UFO> _enemieUFO;
+        private ObjectPool<Comet> _enemieComet;
         private SpawnerPoints _spawnerPoints;
         private readonly float _timerToSpawn=1.5f;
         private bool _isSpawning;
 
-        public Spawner(List<IEnemy> enemies, SpawnerPoints spawnerPoints)
+        public Spawner(ObjectPool<UFO> enemiesUFO,ObjectPool<Comet> enemiesComet, SpawnerPoints spawnerPoints)
         {
-            _enemies = enemies;
+            _enemieUFO = enemiesUFO;
+            _enemieComet = enemiesComet;
             _spawnerPoints = spawnerPoints;
         }
 
@@ -30,7 +31,6 @@ namespace _Game.Gameplay.Logic.Enemy
         async UniTask Spawn()
         {
             _isSpawning = true;
-
             await UniTask.Delay(TimeSpan.FromSeconds(_timerToSpawn));
 
             _isSpawning = false;

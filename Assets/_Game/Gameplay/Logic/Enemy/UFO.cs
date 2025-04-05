@@ -40,6 +40,12 @@ namespace _Game.Gameplay.Logic.Enemy
             _targetShip = targetShip;
         }
 
+        public void Spawn(Vector3 position)
+        {
+            transform.position = position;
+            gameObject.SetActive(true);
+        }
+
         public void Move()
         {
             Vector2 direction = (_targetShip.transform.position - transform.position).normalized;
@@ -51,5 +57,6 @@ namespace _Game.Gameplay.Logic.Enemy
         {
             transform.right = direction;
         }
+        
     }
 }
