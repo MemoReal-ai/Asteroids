@@ -1,5 +1,4 @@
-using System;
-using _Game.Gameplay.Logic.Enemy;
+using _Game.CustomEditorScripts.ReadOnlyAttribute;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
@@ -14,6 +13,12 @@ namespace _Game.Gameplay.Logic.Weapon
         [SerializeField] private float _distanceToFade = 15f;
         [SerializeField] private float _speed = 3f;
         //Вынести в конфиг
+        
+        [SerializeField] protected float _reloadTime = 4f;
+        [field: SerializeField, ReadOnly]
+        public bool IsAvailable { get; protected set; } = true;
+        //Тут меня уже понесло ибо не хватает знанией как переместить это все в LaserBullet
+        
         private Rigidbody2D _rigidbody;
         private Vector3 _startPosition;
 
@@ -37,13 +42,13 @@ namespace _Game.Gameplay.Logic.Weapon
             _rigidbody.AddForce(transform.right * _speed, ForceMode2D.Impulse);
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             gameObject.transform.position = Vector2.zero;
             gameObject.transform.rotation = Quaternion.identity;
         }
 
-        public virtual void Fade()
+        protected virtual void Fade()
         {
             gameObject.SetActive(false);
         }
@@ -64,7 +69,5 @@ namespace _Game.Gameplay.Logic.Weapon
             _startPosition = transform.position = targetTransform.position;
             transform.rotation = targetTransform.rotation;
         }
-
-      
     }
 }

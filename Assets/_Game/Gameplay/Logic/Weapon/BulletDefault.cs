@@ -9,7 +9,7 @@ namespace _Game.Gameplay.Logic.Weapon
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out IEnemy enemy))
+            if (other.TryGetComponent(out EnemyAbstract enemy))
             {
                 Fade();
             }

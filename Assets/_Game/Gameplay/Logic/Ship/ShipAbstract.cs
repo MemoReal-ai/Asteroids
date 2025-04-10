@@ -1,3 +1,5 @@
+using System;
+using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Ship.Effects;
 using _Game.Gameplay.Logic.Weapon;
 using UnityEngine;
@@ -8,26 +10,37 @@ namespace _Game.Gameplay.Logic.Ship
     [RequireComponent(typeof(Rigidbody2D))]
     public abstract class ShipAbstract : MonoBehaviour
     {
+        public event Action OnShipDestroyed;
+
         private ShipConfig _shipConfig;
-        private Rigidbody2D _rigidbody2D;
         private Vector2 _direction;
         private float _currentRotationAngle;
         private EffectsMove _effectsMove;
+
+        public Rigidbody2D Rigidbody2D { get; private set; }
 
         [field: SerializeField]
         public Transform ShipShootPoint { get; private set; }
 
         private void Start()
         {
-            _rigidbody2D = GetComponent<Rigidbody2D>();
-            _rigidbody2D.gravityScale = 0;
+            Rigidbody2D = GetComponent<Rigidbody2D>();
+            Rigidbody2D.gravityScale = 0;
             _currentRotationAngle = transform.eulerAngles.z;
         }
 
         private void FixedUpdate()
         {
-            _rigidbody2D.AddForce(_direction * (_shipConfig.Speed * Time.fixedDeltaTime), ForceMode2D.Impulse);
+            Rigidbody2D.AddForce(_direction * (_shipConfig.Speed * Time.fixedDeltaTime), ForceMode2D.Impulse);
             transform.rotation = Quaternion.Euler(0, 0, _currentRotationAngle);
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.TryGetComponent(out IEnemy enemy))
+            {
+                OnShipDestroyed?.Invoke();
+            }
         }
 
         [Inject]
@@ -35,6 +48,8 @@ namespace _Game.Gameplay.Logic.Ship
         {
             _shipConfig = shipConfig;
         }
+
+
 
         public void SetDirection(Vector3 direction)
         {

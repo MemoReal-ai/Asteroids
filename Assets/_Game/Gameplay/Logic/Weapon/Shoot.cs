@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _Game.Gameplay.Logic.Ship;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace _Game.Gameplay.Logic.Weapon
         private ShipAbstract _ship;
         private int _currentIndexWeapon;
 
+        public IEnumerable<IWeapon> Weapons => _weapons;
+
         public void Init(List<IWeapon> weapons, ShipAbstract shotPoint)
         {
             _weapons = weapons;
@@ -22,7 +25,10 @@ namespace _Game.Gameplay.Logic.Weapon
         public void Shooting()
         {
             var bullet = _currentWeapon.GetBullets();
-            SetDirection(bullet);
+            if (bullet)
+            {
+                SetDirection(bullet);
+            }
         }
 
         private void SetDirection(Bullet bullet)

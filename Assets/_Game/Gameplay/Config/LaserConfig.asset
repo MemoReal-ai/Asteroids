@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: LaserConfig
   m_EditorClassIdentifier: 
   <Object>k__BackingField: {fileID: 6353721242688980340, guid: a8b23ff0141b0834e8f4619cc4031308, type: 3}
-  <ObjectSize>k__BackingField: 5
+  <ObjectSize>k__BackingField: 3
   <AutoExpand>k__BackingField: 0
