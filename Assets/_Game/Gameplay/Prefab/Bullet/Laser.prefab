@@ -177,5 +177,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _distanceToFade: 15
   _speed: 3
-  _reloadTime: 15
-  <_isAvailable>k__BackingField: 1
+  _reloadTime: 5
+  <IsAvailable>k__BackingField: 1

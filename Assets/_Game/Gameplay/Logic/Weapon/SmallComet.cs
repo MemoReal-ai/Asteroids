@@ -5,10 +5,13 @@ using UnityEngine;
 namespace _Game.Gameplay.Logic.Weapon
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class SmallComet : MonoBehaviour,IEnemy
+    public class SmallComet : MonoBehaviour, IEnemy
     {
+        public event Action<int> OnDied;
+
         [SerializeField] private float _speed;
         [SerializeField] private float _distanceToFade = 10f;
+        [SerializeField] private int _reward=1;
         private Vector2 _direction;
         private Rigidbody2D _rigidbody2D;
         private Vector3 _startPosition;
@@ -25,7 +28,9 @@ namespace _Game.Gameplay.Logic.Weapon
             Move();
             if (TryFade())
             {
+                OnDied?.Invoke(_reward);
                 Destroy(gameObject);
+                
             }
         }
 

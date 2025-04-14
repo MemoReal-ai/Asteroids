@@ -9,7 +9,7 @@ namespace _Game.Gameplay.Logic.Weapon
     {
         private readonly ObjectPool<Bullet> _bullets;
 
-        public IEnumerable<Bullet> Bullets;
+        public readonly IEnumerable<Bullet> Bullets;
 
         public LaserWeapon(ObjectPool<Bullet> bullets)
         {

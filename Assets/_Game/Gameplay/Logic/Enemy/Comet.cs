@@ -1,34 +1,29 @@
-using System;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using Random = UnityEngine.Random;
 
 namespace _Game.Gameplay.Logic.Enemy
 {
     public class Comet : EnemyAbstract
     {
-        [SerializeField] private float _distanceToFade;
-        [SerializeField] private SmallComet _smallComet;
-        [SerializeField] private float _minSpeed;
-        [SerializeField] private int _countSmallComet = 3;
-        // мейби вынести в конфиг
+        [SerializeField] private CometConfig _cometConfig;
+
         private Vector3 _startPosition;
         private Vector3 _direction;
         private bool _initialized = false;
 
         private void OnValidate()
         {
-            if (_minSpeed > _maxSpeed)
+            if (_cometConfig.MinSpeed > _maxSpeed)
             {
-                _maxSpeed = _minSpeed + 1;
+                _maxSpeed = _cometConfig.MinSpeed + 1;
             }
         }
 
         private void OnEnable()
         {
-            _maxSpeed = Random.Range(_minSpeed, _maxSpeed);
+            _maxSpeed = Random.Range(_cometConfig.MinSpeed, _maxSpeed);
         }
 
         protected override void Move()
@@ -56,22 +51,24 @@ namespace _Game.Gameplay.Logic.Enemy
             if (other.TryGetComponent(out BulletDefault bullet))
             {
                 Explode();
+                InvokeOnDied();
                 gameObject.SetActive(false);
             }
 
             if (other.TryGetComponent(out LaserBullet laserBullet))
             {
+                InvokeOnDied();
                 gameObject.SetActive(false);
             }
         }
 
         private void Explode()
         {
-            for (int i = 0; i < _countSmallComet; i++)
+            for (int i = 0; i < _cometConfig.CountSmallComet; i++)
             {
-                var angle = i * (360 / _countSmallComet);
+                var angle = i * (360 / _cometConfig.CountSmallComet);
                 Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
-                var smallComet = Instantiate(_smallComet, transform.position, Quaternion.identity);
+                var smallComet = Instantiate(_cometConfig.SmallComet, transform.position, Quaternion.identity);
                 smallComet.SetDirection(direction);
             }
         }
@@ -80,7 +77,7 @@ namespace _Game.Gameplay.Logic.Enemy
         {
             var magnitudeDistance = (transform.position - _startPosition).magnitude;
 
-            if (magnitudeDistance > _distanceToFade)
+            if (magnitudeDistance > _cometConfig.DistanceToFade)
             {
                 gameObject.SetActive(false);
             }

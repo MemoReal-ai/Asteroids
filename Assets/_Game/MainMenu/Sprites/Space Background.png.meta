@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 38dec6ed08cafc845a39ef71f8b1753c
+guid: 040fa494b2a1c1c499f26adc43024e77
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2385421847165274040
-    second: TileSheet-v1_0
+      213: -1403630818877167103
+    second: Space Background_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TileSheet-v1_0
+      name: Space Background_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8b70ebf0888ba1120800000000000000
-      internalID: 2385421847165274040
+      spriteID: 10a290df43d458ce0800000000000000
+      internalID: -1403630818877167103
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      TileSheet-v1_0: 2385421847165274040
+      Space Background_0: -1403630818877167103
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

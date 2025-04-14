@@ -949,6 +949,7 @@ MonoBehaviour:
   _objectPoolConfigComet: {fileID: 11400000, guid: 30f549a871ba5eb418f855389a8e33ec, type: 2}
   _loseView: {fileID: 2544135379825862910, guid: eda2c86595327404e835f623e2bc7897, type: 3}
   _userView: {fileID: 4900979629134982135, guid: ab3fb3b436a2c0641981b54aa0722dfa, type: 3}
+  _pauseView: {fileID: 7143721209959128512, guid: df5d575419c7dcd42bec2759e4d37727, type: 3}
 --- !u!114 &1070866527
 MonoBehaviour:
   m_ObjectHideFlags: 0

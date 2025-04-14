@@ -191,10 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSpeed: 30
-  _distanceToFade: 20
-  _smallComet: {fileID: 4595711605002116894, guid: 2fd43627e539e354a82b17711791758a, type: 3}
-  _minSpeed: 10
-  _countSmallComet: 3
+  _cometConfig: {fileID: 11400000, guid: 322f81018938f1647a4fd867b056498e, type: 2}
 --- !u!50 &302313397018881324
 Rigidbody2D:
   serializedVersion: 5

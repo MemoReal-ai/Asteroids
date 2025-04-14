@@ -12,7 +12,7 @@ namespace _Game.Gameplay.Logic.Weapon
     {
         [SerializeField] private float _distanceToFade = 15f;
         [SerializeField] private float _speed = 3f;
-        //Вынести в конфиг
+        //Возможно  вынести в конфиг
         
         [SerializeField] protected float _reloadTime = 4f;
         [field: SerializeField, ReadOnly]

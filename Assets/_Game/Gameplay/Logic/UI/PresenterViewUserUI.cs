@@ -11,6 +11,8 @@ namespace _Game.Gameplay.Logic.UI
         private readonly ShipAbstract _ship;
         private readonly Shoot _shoot;
 
+        private bool _isSubscribe = false;
+
         public PresenterViewUserUI(UserView userView, ShipAbstract ship, Shoot shoot)
         {
             _userView = userView;
@@ -40,6 +42,14 @@ namespace _Game.Gameplay.Logic.UI
                     var counter = 0;
                     foreach (var bullet in laserWeapon.Bullets)
                     {
+                        if (_isSubscribe != true)
+                        {
+                            if (bullet is LaserBullet laserBullet)
+                            {
+                                laserBullet.OnLaserReload += _userView.SetTimeReloadLaser;
+                            }
+                        }
+
                         if (bullet.IsAvailable)
                         {
                             counter++;
@@ -49,6 +59,8 @@ namespace _Game.Gameplay.Logic.UI
                     _userView.SetCountLaser(counter);
                 }
             }
+
+            _isSubscribe = false;
         }
     }
 }

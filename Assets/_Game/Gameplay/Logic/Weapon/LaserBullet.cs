@@ -8,8 +8,9 @@ namespace _Game.Gameplay.Logic.Weapon
     [RequireComponent(typeof(BoxCollider2D))]
     public class LaserBullet : Bullet
     {
-        private CancellationTokenSource _cancellationTokenSource;
+        public event Action<float> OnLaserReload;
 
+        private CancellationTokenSource _cancellationTokenSource;
 
         protected override void OnDisable()
         {
@@ -34,7 +35,13 @@ namespace _Game.Gameplay.Logic.Weapon
             IsAvailable = false;
             try
             {
-                await UniTask.Delay(TimeSpan.FromSeconds(_reloadTime));
+                var elepsedTime = 0f;
+                while (elepsedTime<_reloadTime)
+                {
+                    elepsedTime += Time.deltaTime;
+                    OnLaserReload?.Invoke(elepsedTime / _reloadTime);
+                    await UniTask.Yield();
+                }
             }
             catch (OperationCanceledException)
             {

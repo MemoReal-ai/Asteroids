@@ -1,3 +1,4 @@
+using System;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
@@ -7,10 +8,13 @@ namespace _Game.Gameplay.Logic.Enemy
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(CircleCollider2D))]
-    public abstract class EnemyAbstract : MonoBehaviour, IPoolCreature,IEnemy
+    public abstract class EnemyAbstract : MonoBehaviour, IPoolCreature, IEnemy
     {
+        public event Action<int> OnDied;
+
         [SerializeField] protected float _maxSpeed;
-        //хз мб нужно вынести в конфиг
+        [SerializeField] protected int _reward;
+
         protected Rigidbody2D Rigidbody;
         protected ShipAbstract TargetShip;
 
@@ -29,6 +33,7 @@ namespace _Game.Gameplay.Logic.Enemy
         {
             if (other.TryGetComponent(out Bullet bullet) || other.TryGetComponent(out SmallComet smallComet))
             {
+                InvokeOnDied();
                 gameObject.SetActive(false);
             }
         }
@@ -39,5 +44,10 @@ namespace _Game.Gameplay.Logic.Enemy
 
 
         protected abstract void Move();
+
+        protected void InvokeOnDied()
+        {
+            OnDied?.Invoke(_reward);
+        }
     }
 }

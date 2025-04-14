@@ -23,6 +23,8 @@ namespace _Game.Gameplay.Logic.Infrastructure
         [SerializeField] private ObjectPoolConfigEnemy _objectPoolConfigComet;
         [SerializeField] private LoseView _loseView;
         [SerializeField] private UserView _userView;
+        [SerializeField] private PauseView _pauseView;
+
         public override void InstallBindings()
         {
             InstallStartGame();
@@ -40,11 +42,14 @@ namespace _Game.Gameplay.Logic.Infrastructure
             Container.Bind<Containers>().FromComponentInHierarchy().AsCached();
             Container.Bind<SceneHandler>().AsCached();
             Container.BindInterfacesTo<EntryPoint>().AsCached();
-            Container.BindInterfacesTo<LoseHandler>().AsCached();
+            Container.BindInterfacesTo<GameTimeHandler>().AsCached();
             Container.Bind<Shoot>().AsCached();
             Container.BindInterfacesTo<InputPlayer>().AsCached();
+            Container.Bind<InputPlayer>().AsCached();
             Container.BindInterfacesTo<Warp>().AsCached();
             Container.Bind<Camera>().FromInstance(_mainCamera).AsCached();
+            Container.Bind<GameTimeHandler>().AsCached();
+            Container.BindInterfacesTo<ScoreCounter>().AsCached();
         }
 
         private void InstallShip()
@@ -69,6 +74,11 @@ namespace _Game.Gameplay.Logic.Infrastructure
             Container.Bind<UserView>().FromInstance(userView).AsCached();
             Container.BindInterfacesTo<PresenterViewLose>().AsCached();
             Container.BindInterfacesTo<PresenterViewUserUI>().AsSingle();
+            var pauseView = Container.InstantiatePrefabForComponent<PauseView>(_pauseView);
+            Container.Bind<PauseView>().FromInstance(pauseView).AsCached();
+            Container.BindInterfacesTo<PresenterPause>().AsCached();
+            Container.Bind<PresenterPause>().AsCached();
+
         }
     }
 }
