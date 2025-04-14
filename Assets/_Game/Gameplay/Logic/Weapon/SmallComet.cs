@@ -1,21 +1,21 @@
 using System;
 using _Game.Gameplay.Logic.Enemy;
+using _Game.Gameplay.Logic.Infrastructure;
 using UnityEngine;
+using Zenject;
 
 namespace _Game.Gameplay.Logic.Weapon
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class SmallComet : MonoBehaviour, IEnemy
     {
-        public event Action<int> OnDied;
-
         [SerializeField] private float _speed;
         [SerializeField] private float _distanceToFade = 10f;
         [SerializeField] private int _reward=1;
         private Vector2 _direction;
         private Rigidbody2D _rigidbody2D;
         private Vector3 _startPosition;
-
+        private SignalBus _signalBus;
         private void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -28,9 +28,8 @@ namespace _Game.Gameplay.Logic.Weapon
             Move();
             if (TryFade())
             {
-                OnDied?.Invoke(_reward);
+                _signalBus.Fire(new EnemyDiedSignal(_reward));
                 Destroy(gameObject);
-                
             }
         }
 
@@ -47,9 +46,10 @@ namespace _Game.Gameplay.Logic.Weapon
             _rigidbody2D.AddForce(_direction * _speed);
         }
 
-        public void SetDirection(Vector2 direction)
+        public void Setup(Vector2 direction,SignalBus signalBus)
         {
             _direction = direction;
+            _signalBus = signalBus;
         }
 
         private bool TryFade()

@@ -14,15 +14,18 @@ namespace _Game.Gameplay.Logic.Enemy
         private SpawnerPoints _spawnerPoints;
         private readonly ShipAbstract _ship;
         private readonly float _timerToSpawn = 1.5f;
+        private readonly SignalBus _signalBus;
         private bool _isSpawning = false;
 
-        public Spawner(List<ObjectPool<EnemyAbstract>> poolEnemy,SpawnerPoints spawnerPoints, ShipAbstract ship)
+        public Spawner(List<ObjectPool<EnemyAbstract>> poolEnemy, SpawnerPoints spawnerPoints, ShipAbstract ship,
+            SignalBus signalBus)
         {
             _spawnerPoints = spawnerPoints;
             _ship = ship;
             _pools = poolEnemy;
+            _signalBus = signalBus;
         }
-        
+
         public void Tick()
         {
             if (_isSpawning == false)
@@ -37,8 +40,8 @@ namespace _Game.Gameplay.Logic.Enemy
             var randomEnemyIndex = Random.Range(0, _pools.Count);
             var randomSpawnPointIndex = Random.Range(0, _spawnerPoints.Points.Count);
             var enemy = _pools[randomEnemyIndex].GetObject();
-            
-            enemy.Spawn(_spawnerPoints.Points[randomSpawnPointIndex].position, _ship);
+
+            enemy.Spawn(_spawnerPoints.Points[randomSpawnPointIndex].position, _ship,_signalBus);
 
             await UniTask.Delay(TimeSpan.FromSeconds(_timerToSpawn));
 

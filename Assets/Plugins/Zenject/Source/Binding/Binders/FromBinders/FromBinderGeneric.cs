@@ -80,7 +80,7 @@ namespace Zenject
             return FromResolveGetterBase<TObj, TContract>(identifier, method, source, true);
         }
 
-        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromInstance(object instance)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromInstance(TContract instance)
         {
             return FromInstanceBase(instance);
         }

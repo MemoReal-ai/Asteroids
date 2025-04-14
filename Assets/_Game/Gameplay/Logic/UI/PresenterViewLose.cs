@@ -1,4 +1,5 @@
 using System;
+using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Ship;
 using Zenject;
@@ -10,12 +11,13 @@ namespace _Game.Gameplay.Logic.UI
         private readonly ShipAbstract _ship;
         private readonly LoseView _loseView;
         private readonly SceneHandler _sceneHandler;
-
-        public PresenterViewLose(ShipAbstract ship, LoseView loseView, SceneHandler sceneHandler)
+        private readonly ScoreCounter _scoreCounter;
+        public PresenterViewLose(ShipAbstract ship, LoseView loseView, SceneHandler sceneHandler, ScoreCounter scoreCounter)
         {
             _loseView = loseView;
             _ship = ship;
             _sceneHandler = sceneHandler;
+            _scoreCounter = scoreCounter;
         }
 
 
@@ -30,6 +32,7 @@ namespace _Game.Gameplay.Logic.UI
         private void Show()
         {
             _loseView.gameObject.SetActive(true);
+            _loseView.SetPoint(_scoreCounter.GetCurrentSessionScore().ToString());
         }
 
         public void Dispose()

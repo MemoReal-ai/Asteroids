@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c6bc1e10e4af14995a186e827ed1e0, type: 3}
   m_Name: CometConfig
   m_EditorClassIdentifier: 
-  <DistanceToFade>k__BackingField: 15
+  <DistanceToFade>k__BackingField: 30
   <SmallComet>k__BackingField: {fileID: 4595711605002116894, guid: 2fd43627e539e354a82b17711791758a, type: 3}
   <MinSpeed>k__BackingField: 10
   <CountSmallComet>k__BackingField: 3

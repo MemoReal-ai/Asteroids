@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSpeed: 30
+  _reward: 5
   _cometConfig: {fileID: 11400000, guid: 322f81018938f1647a4fd867b056498e, type: 2}
 --- !u!50 &302313397018881324
 Rigidbody2D:

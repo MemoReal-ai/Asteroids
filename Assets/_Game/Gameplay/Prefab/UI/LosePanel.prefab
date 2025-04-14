@@ -662,6 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1760a67da285614418b4ec7114192ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pointLabel: {fileID: 9086926324340412785}
   <RestartButton>k__BackingField: {fileID: 2139009151074830902}
   <QuitButton>k__BackingField: {fileID: 8905999327161523612}
 --- !u!1 &4822071562460597977

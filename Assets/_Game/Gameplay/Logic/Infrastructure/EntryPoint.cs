@@ -28,6 +28,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
         private ObjectPool<Bullet> _bulletsLaser;
         private readonly SpawnerPoints _spawnerPoints;
         private readonly Containers _containers;
+        private readonly SignalBus _signalBus;
 
         public EntryPoint([Inject(Id = "Default")] ObjectPoolConfig<Bullet> objectPoolBulletPrefab, Shoot shoot,
             ShipAbstract shootPoint,
@@ -35,7 +36,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
             ObjectPoolConfig<Bullet> objectPoolLaserPrefab,
             [Inject(Id = "Comet")]
             ObjectPoolConfigEnemy objectPoolConfigComet, [Inject(Id = "UFO")] ObjectPoolConfigEnemy objectPoolConfigUFO,
-            SpawnerPoints spawnerPoints, Containers containers)
+            SpawnerPoints spawnerPoints, Containers containers, SignalBus signalBus)
         {
             _objectPoolBulletPrefab = objectPoolBulletPrefab;
             _objectPoolLaserPrefab = objectPoolLaserPrefab;
@@ -45,6 +46,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
             _objectPoolConfigComet = objectPoolConfigComet;
             _spawnerPoints = spawnerPoints;
             _containers = containers;
+            _signalBus = signalBus;
         }
 
         private void CreateBullets()
@@ -79,7 +81,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
             CreateWeapon();
             CreateEnemies();
             _shoot.Init(_weapons, _shootPoint);
-            _spawner = new Spawner(_pools, _spawnerPoints, _shootPoint);
+            _spawner = new Spawner(_pools, _spawnerPoints, _shootPoint,_signalBus);
         }
 
         private void CreateWeapon()

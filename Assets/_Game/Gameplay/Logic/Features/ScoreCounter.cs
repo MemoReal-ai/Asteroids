@@ -1,4 +1,6 @@
 using System;
+using _Game.Gameplay.Logic.Infrastructure;
+using UnityEngine;
 using Zenject;
 
 namespace _Game.Gameplay.Logic.Features
@@ -16,10 +18,12 @@ namespace _Game.Gameplay.Logic.Features
 
         public void Initialize()
         {
+            _signalBus.Subscribe<EnemyDiedSignal>(CalculateScore);
         }
 
         public void Dispose()
         {
+            _signalBus.Unsubscribe<EnemyDiedSignal>(CalculateScore);
         }
 
         public int GetCurrentSessionScore()
@@ -27,9 +31,12 @@ namespace _Game.Gameplay.Logic.Features
             return _currentSessionScore;
         }
 
-        private void CalculateScore(int value)
+        private void CalculateScore(EnemyDiedSignal signal)
         {
-            _currentSessionScore += value;
+            _currentSessionScore += signal.Reward;
+            Debug.Log("Score: " + _currentSessionScore);
         }
+        
+        
     }
 }

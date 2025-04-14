@@ -27,6 +27,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
         public override void InstallBindings()
         {
+            SignalBusInstaller.Install(Container);
             InstallStartGame();
             InstallSpawn();
             InstallShip();
@@ -44,12 +45,12 @@ namespace _Game.Gameplay.Logic.Infrastructure
             Container.BindInterfacesTo<EntryPoint>().AsCached();
             Container.BindInterfacesTo<GameTimeHandler>().AsCached();
             Container.Bind<Shoot>().AsCached();
-            Container.BindInterfacesTo<InputPlayer>().AsCached();
-            Container.Bind<InputPlayer>().AsCached();
+            Container.BindInterfacesAndSelfTo<InputPlayer>().AsCached();
             Container.BindInterfacesTo<Warp>().AsCached();
             Container.Bind<Camera>().FromInstance(_mainCamera).AsCached();
             Container.Bind<GameTimeHandler>().AsCached();
-            Container.BindInterfacesTo<ScoreCounter>().AsCached();
+            Container.DeclareSignal<EnemyDiedSignal>();
+            Container.BindInterfacesAndSelfTo<ScoreCounter>().AsCached();
         }
 
         private void InstallShip()
@@ -78,7 +79,6 @@ namespace _Game.Gameplay.Logic.Infrastructure
             Container.Bind<PauseView>().FromInstance(pauseView).AsCached();
             Container.BindInterfacesTo<PresenterPause>().AsCached();
             Container.Bind<PresenterPause>().AsCached();
-
         }
     }
 }

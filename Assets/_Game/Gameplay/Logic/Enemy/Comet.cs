@@ -1,6 +1,7 @@
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace _Game.Gameplay.Logic.Enemy
@@ -39,10 +40,11 @@ namespace _Game.Gameplay.Logic.Enemy
             Fade();
         }
 
-        public override void Spawn(Vector3 position, ShipAbstract targetShip)
+        public override void Spawn(Vector3 position, ShipAbstract targetShip, SignalBus signalBus)
         {
             TargetShip = targetShip;
             transform.position = position;
+            SignalBus = signalBus;
             gameObject.SetActive(true);
         }
 
@@ -69,7 +71,7 @@ namespace _Game.Gameplay.Logic.Enemy
                 var angle = i * (360 / _cometConfig.CountSmallComet);
                 Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
                 var smallComet = Instantiate(_cometConfig.SmallComet, transform.position, Quaternion.identity);
-                smallComet.SetDirection(direction);
+                smallComet.Setup(direction,SignalBus);
             }
         }
 
