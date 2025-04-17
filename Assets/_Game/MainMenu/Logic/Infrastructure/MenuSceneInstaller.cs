@@ -17,9 +17,9 @@ namespace _Game.MainMenu.Logic.Infrastructure
         private void InstallUI()
         {
             Container.Bind<SceneHandler>().AsCached();
+            Container.BindInterfacesAndSelfTo<MainMenuViewModel>().AsCached().NonLazy();
             var viewMainMenu = Container.InstantiatePrefabForComponent<ViewMainMenu>(_viewMainMenu);
             Container.Bind<ViewMainMenu>().FromInstance(viewMainMenu).AsSingle();
-            Container.BindInterfacesAndSelfTo<PresenterMainMenu>().AsSingle();
         }
     }
 }

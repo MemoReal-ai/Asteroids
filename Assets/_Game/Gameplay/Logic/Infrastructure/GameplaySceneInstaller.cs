@@ -69,16 +69,20 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
         private void InstallUI()
         {
+            Container.BindInterfacesAndSelfTo<ViewModelLose>().AsCached();
+            Container.BindInterfacesAndSelfTo<ViewModelUserStats>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PauseViewModel>().AsCached();
+            Container.BindInterfacesAndSelfTo<PresenterReloadView>().AsCached();
+           
             var loseView = Container.InstantiatePrefabForComponent<LoseView>(_loseView);
             Container.Bind<LoseView>().FromInstance(loseView).AsCached();
             var userView = Container.InstantiatePrefabForComponent<UserView>(_userView);
             Container.Bind<UserView>().FromInstance(userView).AsCached();
-            Container.BindInterfacesTo<PresenterViewLose>().AsCached();
-            Container.BindInterfacesTo<PresenterViewUserUI>().AsSingle();
             var pauseView = Container.InstantiatePrefabForComponent<PauseView>(_pauseView);
             Container.Bind<PauseView>().FromInstance(pauseView).AsCached();
-            Container.BindInterfacesTo<PresenterPause>().AsCached();
-            Container.Bind<PresenterPause>().AsCached();
+            var reloadView = userView.GetComponent<ReloadView>();
+            Container.Bind<ReloadView>().FromInstance(reloadView).AsCached();
+            Container.BindInterfacesAndSelfTo<HandlerPopup>().AsCached();
         }
     }
 }

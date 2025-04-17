@@ -1,3 +1,5 @@
+using System;
+using MVVM;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,16 +8,13 @@ namespace _Game.Gameplay.Logic.UI
 {
     public class LoseView : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _pointLabel;
-        [field: SerializeField]
-        public Button RestartButton { get; private set; }
+        [Data("Points")] public TextMeshProUGUI PointLabel;
+        [Data("Restart")] public Button RestartButton;
+        [Data("Quit")] public Button QuitButton;
 
-        [field: SerializeField]
-        public Button QuitButton { get; private set; }
-
-        public void SetPoint(string points)
+        private void Start()
         {
-            _pointLabel.text = $"You points - {points}";
+            gameObject.SetActive(false);
         }
     }
 }

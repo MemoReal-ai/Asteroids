@@ -558,6 +558,7 @@ GameObject:
   - component: {fileID: 5189254634941632333}
   - component: {fileID: 1487666573083080962}
   - component: {fileID: 2544135379825862910}
+  - component: {fileID: 2015454155128473036}
   m_Layer: 5
   m_Name: LosePanel
   m_TagString: Untagged
@@ -649,7 +650,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &2544135379825862910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,9 +663,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1760a67da285614418b4ec7114192ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointLabel: {fileID: 9086926324340412785}
-  <RestartButton>k__BackingField: {fileID: 2139009151074830902}
-  <QuitButton>k__BackingField: {fileID: 8905999327161523612}
+  PointLabel: {fileID: 9086926324340412785}
+  RestartButton: {fileID: 2139009151074830902}
+  QuitButton: {fileID: 8905999327161523612}
+--- !u!114 &2015454155128473036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4652649317558471738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6969c7bbd125464fbe9dd09cfc35f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewBinding: 0
+  view: {fileID: 2544135379825862910}
+  viewType: {fileID: 0}
+  viewId: 
+  viewModelBinding: 1
+  viewModel: {fileID: 11500000, guid: c16806169a990c848854d1a5a035723a, type: 3}
+  viewModelType: {fileID: 11500000, guid: c16806169a990c848854d1a5a035723a, type: 3}
+  viewModelId: 
 --- !u!1 &4822071562460597977
 GameObject:
   m_ObjectHideFlags: 0
