@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: ShipConfig
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Basic
-  <Speed>k__BackingField: 3
-  <RotationSpeed>k__BackingField: 100
+  <Speed>k__BackingField: 9
+  <RotationSpeed>k__BackingField: 200
+  <StopAcceleration>k__BackingField: 0.5

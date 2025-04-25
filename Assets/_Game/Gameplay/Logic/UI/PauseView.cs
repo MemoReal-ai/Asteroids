@@ -1,5 +1,3 @@
-using System;
-using MVVM;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,10 +5,8 @@ namespace _Game.Gameplay.Logic.UI
 {
     public class PauseView : MonoBehaviour
     { 
-        [Data("ResumeGame")]
         public Button ResumeButton;
        
-        [Data("GoToMainMenu")]
         public Button ExitButton;
 
         private void Start()

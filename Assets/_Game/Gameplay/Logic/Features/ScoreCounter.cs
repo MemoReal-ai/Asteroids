@@ -8,8 +8,8 @@ namespace _Game.Gameplay.Logic.Features
     public class ScoreCounter : IInitializable, IDisposable
     {
         private readonly SignalBus _signalBus;
-        private int _currentSessionScore;
         private int _maxScore;
+        public int CurrentSessionScore{get; private set;}
 
         public ScoreCounter(SignalBus signal)
         {
@@ -25,15 +25,11 @@ namespace _Game.Gameplay.Logic.Features
         {
             _signalBus.Unsubscribe<EnemyDiedSignal>(CalculateScore);
         }
-
-        public int GetCurrentSessionScore()
-        {
-            return _currentSessionScore;
-        }
+        
 
         private void CalculateScore(EnemyDiedSignal signal)
         {
-            _currentSessionScore += signal.Reward;
+            CurrentSessionScore += signal.Reward;
         }
         
         

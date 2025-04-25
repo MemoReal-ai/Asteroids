@@ -1,11 +1,10 @@
-using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using UnityEngine;
 using Zenject;
 
 namespace _Game.Gameplay.Logic.Enemy
 {
-    public class UFO : EnemyAbstract, IPoolCreature
+    public class UFO : EnemyAbstract
     {
         protected override void Move()
         {

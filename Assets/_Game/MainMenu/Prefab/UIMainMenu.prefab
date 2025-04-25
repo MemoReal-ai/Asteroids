@@ -495,7 +495,6 @@ GameObject:
   - component: {fileID: 6047467821206948553}
   - component: {fileID: 2418529125470784002}
   - component: {fileID: 5663423604739046875}
-  - component: {fileID: 6594693757881808974}
   m_Layer: 5
   m_Name: UIMainMenu
   m_TagString: Untagged
@@ -603,26 +602,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartGameButton: {fileID: 778445506720513585}
   ExitGameButton: {fileID: 1832446839791638834}
---- !u!114 &6594693757881808974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5010104059133570079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6969c7bbd125464fbe9dd09cfc35f26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewBinding: 0
-  view: {fileID: 5663423604739046875}
-  viewType: {fileID: 0}
-  viewId: 
-  viewModelBinding: 1
-  viewModel: {fileID: 5010104059133570079}
-  viewModelType: {fileID: 11500000, guid: 6352bb61191cd17459d452f2db100a92, type: 3}
-  viewModelId: 
 --- !u!1 &7463387537012523302
 GameObject:
   m_ObjectHideFlags: 0

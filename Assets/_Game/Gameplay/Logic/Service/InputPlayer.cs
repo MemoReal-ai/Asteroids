@@ -1,56 +1,62 @@
 using System;
 using _Game.Gameplay.Logic.Ship;
-using _Game.Gameplay.Logic.UI;
 using _Game.Gameplay.Logic.Weapon;
-using UnityEngine;
 using Zenject;
 
 namespace _Game.Gameplay.Logic.Service
 {
-    public class InputPlayer : ITickable
+    public class InputPlayer : ITickable, IInitializable, IDisposable
     {
-        public event Action OnPause;
         private readonly ShipAbstract _shipMover;
-        private Vector2 _inputVector;
-        private float _horizontalInput;
-        private float _verticalInput;
+        private float _rotateInput;
+        private float _moveInput;
         private readonly Shoot _shoot;
         private readonly GameTimeHandler _gameTimeHandler;
+        private readonly IInput _input;
 
-        public InputPlayer(ShipAbstract shipMover, Shoot shoot, GameTimeHandler gameTimeHandler)
+
+        public InputPlayer(ShipAbstract shipMover, Shoot shoot, GameTimeHandler gameTimeHandler, IInput input)
         {
             _shipMover = shipMover;
             _shoot = shoot;
             _gameTimeHandler = gameTimeHandler;
+            _input = input;
+        }
+
+        public void Initialize()
+        {
+            _input.OnShoot += _shoot.Shooting;
+            _input.OnChangeAmmo += _shoot.ChangeWeapon;
+            _input.OnPressedPause += _gameTimeHandler.Pause;
+            _input.OnPressedResume += _gameTimeHandler.Unpause;
         }
 
         public void Tick()
         {
-            _verticalInput = Input.GetAxis("Vertical");
-            _horizontalInput = Input.GetAxis("Horizontal");
-            _inputVector = new Vector2(_horizontalInput, _verticalInput).normalized;
-            _shipMover.SetDirection(_inputVector);
-
+            GetAxisInput();
             HandleInput();
         }
 
-        private void HandleInput()
+        public void Dispose()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                _shoot.Shooting();
-            }
+            _input.OnShoot -= _shoot.Shooting;
+            _input.OnChangeAmmo -= _shoot.ChangeWeapon;
+            _input.OnPressedPause -= _gameTimeHandler.Pause;
+            _input.OnPressedResume -= _gameTimeHandler.Unpause;
+        }
 
-            if (Input.GetMouseButtonDown(1))
-            {
-                _shoot.ChangeWeapon();
-            }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                OnPause?.Invoke();
-                _gameTimeHandler.Pause();
-            }
+        public void HandleInput()
+        {
+            
+            _shipMover.SetDirection(_moveInput);
+            _shipMover.SetRotationAngle(_rotateInput);
+        }
+
+        public void GetAxisInput()
+        {
+            _moveInput = _input.GetAxisVertical();
+            _rotateInput = _input.GetAxisHorizontal();
         }
     }
 }

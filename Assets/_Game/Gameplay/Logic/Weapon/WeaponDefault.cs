@@ -1,5 +1,6 @@
 using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Service.ObjectPool;
+using Zenject;
 
 namespace _Game.Gameplay.Logic.Weapon
 {
@@ -8,7 +9,7 @@ namespace _Game.Gameplay.Logic.Weapon
         private readonly ObjectPool<Bullet> _bullets;
 
 
-        public WeaponDefault(ObjectPool<Bullet> bullets)
+        public WeaponDefault([Inject(Id = EnumBullet.Default)]ObjectPool<Bullet> bullets)
         {
             _bullets = bullets;
         }

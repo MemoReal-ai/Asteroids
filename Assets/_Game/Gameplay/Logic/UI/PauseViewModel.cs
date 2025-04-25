@@ -1,8 +1,5 @@
 using System;
 using _Game.Gameplay.Logic.Service;
-using MVVM;
-using UnityEngine;
-using Object = System.Object;
 
 
 namespace _Game.Gameplay.Logic.UI
@@ -19,16 +16,13 @@ namespace _Game.Gameplay.Logic.UI
             _sceneHandler = sceneHandler;
             _gameTimeHandler = gameTimeHandler;
         }
-
-
-        [Method("ResumeGame")]
+        
         public void ResumeGame()
         {
             _gameTimeHandler.Unpause();
             OnRemovePause?.Invoke();
         }
-
-        [Method("GoToMainMenu")]
+        
         public void GoToMainMenu()
         {
             _sceneHandler.SceneTransition("MainMenu");

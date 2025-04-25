@@ -2,7 +2,6 @@ using System;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Ship;
-using MVVM;
 using R3;
 using Zenject;
 
@@ -12,7 +11,6 @@ namespace _Game.Gameplay.Logic.UI
     {
         public event Action OnLose;
         
-        [Data("Points")]
         public readonly ReactiveProperty<string> Points = new();
         
         private readonly ShipAbstract _ship;
@@ -38,17 +36,15 @@ namespace _Game.Gameplay.Logic.UI
 
         private void Show()
         {
-            Points.Value = $"You points :{_scoreCounter.GetCurrentSessionScore()} ";
+            Points.Value = $"You points :{_scoreCounter.CurrentSessionScore} ";
             OnLose?.Invoke();
         }
-
-        [Method("Restart")]
+        
         public void Restart()
         {
             _sceneHandler.Restart();
         }
-
-        [Method("Quit")]
+        
         public void Quit()
         {
             _sceneHandler.SceneTransition("MainMenu");

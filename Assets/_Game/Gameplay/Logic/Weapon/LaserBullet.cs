@@ -36,10 +36,10 @@ namespace _Game.Gameplay.Logic.Weapon
             try
             {
                 var elepsedTime = 0f;
-                while (elepsedTime<_reloadTime)
+                while (elepsedTime < BulletStatsConfig.ReloadTime)
                 {
                     elepsedTime += Time.deltaTime;
-                    OnLaserReload?.Invoke(elepsedTime / _reloadTime);
+                    OnLaserReload?.Invoke(elepsedTime / BulletStatsConfig.ReloadTime);
                     await UniTask.Yield();
                 }
             }

@@ -175,7 +175,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8867f679c82d7f34fade9d64bd1e3f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distanceToFade: 15
-  _speed: 3
-  _reloadTime: 5
-  <IsAvailable>k__BackingField: 1
+  BulletStatsConfig: {fileID: 11400000, guid: 86d1bcbef69a2bf4698edf714f6f1222, type: 2}

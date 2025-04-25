@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _Game.Gameplay.Logic.Enemy;
+using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
@@ -8,94 +9,65 @@ using Zenject;
 
 namespace _Game.Gameplay.Logic.Infrastructure
 {
-    public class EntryPoint : IInitializable, ITickable
+    public class EntryPoint : IInitializable
 
     {
-        private readonly ObjectPoolConfig<Bullet> _objectPoolBulletPrefab;
-        private readonly ObjectPoolConfig<Bullet> _objectPoolLaserPrefab;
+        private readonly ObjectPool<Bullet> _objectPoolBulletDefault;
+        private readonly ObjectPool<Bullet> _objectPoolBulletLaser;
         private readonly List<IWeapon> _weapons = new();
-        private readonly ObjectPoolConfigEnemy _objectPoolConfigUFO;
-        private readonly ObjectPoolConfigEnemy _objectPoolConfigComet;
         private readonly Shoot _shoot;
-        private readonly ShipAbstract _shootPoint;
+        private readonly ShipAbstract _ship;
+        private readonly List<ObjectPool<EnemyAbstract>> _pools;
+        private readonly List<IWarping> _warpingCreature = new();
+        private readonly Warp _warp;
+        private readonly Camera _camera;
 
-
-        private Spawner _spawner;
-        private List<ObjectPool<EnemyAbstract>> _pools = new();
-        private ObjectPool<EnemyAbstract> _cometPool;
-        private ObjectPool<EnemyAbstract> _ufoPool;
-        private ObjectPool<Bullet> _bulletsDefault;
-        private ObjectPool<Bullet> _bulletsLaser;
-        private readonly SpawnerPoints _spawnerPoints;
-        private readonly Containers _containers;
-        private readonly SignalBus _signalBus;
-
-        public EntryPoint([Inject(Id = "Default")] ObjectPoolConfig<Bullet> objectPoolBulletPrefab, Shoot shoot,
-            ShipAbstract shootPoint,
-            [Inject(Id = "Laser")]
-            ObjectPoolConfig<Bullet> objectPoolLaserPrefab,
-            [Inject(Id = "Comet")]
-            ObjectPoolConfigEnemy objectPoolConfigComet, [Inject(Id = "UFO")] ObjectPoolConfigEnemy objectPoolConfigUFO,
-            SpawnerPoints spawnerPoints, Containers containers, SignalBus signalBus)
+        public EntryPoint([Inject(Id = EnumBullet.Default)] ObjectPool<Bullet> objectPoolBulletsDefault,
+            [Inject(Id = EnumBullet.Laser)]
+            ObjectPool<Bullet> objectPoolBulletLaser,
+            List<ObjectPool<EnemyAbstract>> pools,
+            Shoot shoot,
+            ShipAbstract ship,
+            SignalBus signalBus, Camera camera,
+            Warp warp)
         {
-            _objectPoolBulletPrefab = objectPoolBulletPrefab;
-            _objectPoolLaserPrefab = objectPoolLaserPrefab;
-            _shootPoint = shootPoint;
+            _pools = pools;
+            _objectPoolBulletLaser = objectPoolBulletLaser;
+            _warp = warp;
+            _objectPoolBulletDefault = objectPoolBulletsDefault;
+            _ship = ship;
             _shoot = shoot;
-            _objectPoolConfigUFO = objectPoolConfigUFO;
-            _objectPoolConfigComet = objectPoolConfigComet;
-            _spawnerPoints = spawnerPoints;
-            _containers = containers;
-            _signalBus = signalBus;
         }
 
-        private void CreateBullets()
-        {
-            _bulletsDefault = new ObjectPool<Bullet>(_objectPoolBulletPrefab.Object,
-                _objectPoolBulletPrefab.ObjectSize,
-                _containers.Bullet,
-                _objectPoolBulletPrefab.AutoExpand);
-            _bulletsLaser = new ObjectPool<Bullet>(_objectPoolLaserPrefab.Object,
-                _objectPoolLaserPrefab.ObjectSize,
-                _containers.Laser,
-                _objectPoolLaserPrefab.AutoExpand);
-        }
 
-        private void CreateEnemies()
-        {
-            _ufoPool = new ObjectPool<EnemyAbstract>(_objectPoolConfigUFO.Object,
-                _objectPoolConfigUFO.ObjectSize,
-                _containers.UFO,
-                _objectPoolConfigUFO.AutoExpand);
-            _pools.Add(_ufoPool);
-            _cometPool = new ObjectPool<EnemyAbstract>(_objectPoolConfigComet.Object,
-                _objectPoolConfigComet.ObjectSize,
-                _containers.Comet,
-                _objectPoolConfigComet.AutoExpand);
-            _pools.Add(_cometPool);
-        }
 
         public void Initialize()
         {
-            CreateBullets();
             CreateWeapon();
-            CreateEnemies();
-            _shoot.Init(_weapons, _shootPoint);
-            _spawner = new Spawner(_pools, _spawnerPoints, _shootPoint,_signalBus);
+            CastAllEnemiesToIWarping();
+            _warp.Init(_warpingCreature);
+            _shoot.Init(_weapons, _ship);
         }
 
         private void CreateWeapon()
         {
-            var laserWeapon = new LaserWeapon(_bulletsLaser);
-            var defaultWeapon = new WeaponDefault(_bulletsDefault);
+            var laserWeapon = new LaserWeapon(_objectPoolBulletLaser);
+            var defaultWeapon = new WeaponDefault(_objectPoolBulletDefault);
             _weapons.Add(defaultWeapon);
             _weapons.Add(laserWeapon);
         }
 
-
-        public void Tick()
+        private void CastAllEnemiesToIWarping()
         {
-            _spawner.Tick();
+            foreach (var enemyVariable in _pools)
+            {
+                foreach (var enemy in enemyVariable.Objects)
+                {
+                    _warpingCreature.Add(enemy);
+                }
+            }
+
+            _warpingCreature.Add(_ship);
         }
     }
 }

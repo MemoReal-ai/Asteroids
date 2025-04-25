@@ -11,5 +11,7 @@ namespace _Game.Gameplay.Logic.Ship
         public float Speed { get; private set; }
         [field: SerializeField]
         public float RotationSpeed { get; private set; }
+        [field: SerializeField]
+        public float StopAcceleration { get; private set; }
     }
 }

@@ -1,6 +1,7 @@
-using _Game.CustomEditorScripts.ReadOnlyAttribute;
 using _Game.Gameplay.Logic.Service.ObjectPool;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -9,18 +10,12 @@ namespace _Game.Gameplay.Logic.Weapon
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public abstract class Bullet : MonoBehaviour, IPoolCreature
-    {
-        [SerializeField] private float _distanceToFade = 15f;
-        [SerializeField] private float _speed = 3f;
-        //Возможно  вынести в конфиг
-        
-        [SerializeField] protected float _reloadTime = 4f;
-        [field: SerializeField, ReadOnly]
-        public bool IsAvailable { get; protected set; } = true;
-        //Тут меня уже понесло ибо не хватает знанией как переместить это все в LaserBullet
+    { 
+        [SerializeField] protected BulletStatsConfig BulletStatsConfig;
         
         private Rigidbody2D _rigidbody;
         private Vector3 _startPosition;
+        public bool IsAvailable { get; protected set; } = true;
 
         protected void Start()
         {
@@ -39,7 +34,7 @@ namespace _Game.Gameplay.Logic.Weapon
 
         private void Move()
         {
-            _rigidbody.AddForce(transform.right * _speed, ForceMode2D.Impulse);
+            _rigidbody.AddForce(transform.right * BulletStatsConfig.Speed, ForceMode2D.Impulse);
         }
 
         protected virtual void OnDisable()
@@ -56,7 +51,7 @@ namespace _Game.Gameplay.Logic.Weapon
         protected bool CheckDistance()
         {
             var distance = (transform.position - _startPosition).magnitude;
-            if (distance < _distanceToFade)
+            if (distance < BulletStatsConfig.DistanceToFade)
             {
                 return false;
             }

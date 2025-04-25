@@ -1,29 +1,39 @@
 using System;
 using _Game.Gameplay.Logic.Enemy;
+using _Game.Gameplay.Logic.Features;
+using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Ship.Effects;
-using _Game.Gameplay.Logic.Weapon;
 using UnityEngine;
 using Zenject;
 
 namespace _Game.Gameplay.Logic.Ship
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public abstract class ShipAbstract : MonoBehaviour
+    public abstract class ShipAbstract : MonoPauseBehaviour, IWarping
     {
         public event Action OnShipDestroyed;
 
         private ShipConfig _shipConfig;
         private Vector2 _direction;
+        private float _inputDirection;
         private float _currentRotationAngle;
         private EffectsMove _effectsMove;
+        private float _targetAngle;
 
         public Rigidbody2D Rigidbody2D { get; private set; }
 
         [field: SerializeField]
         public Transform ShipShootPoint { get; private set; }
 
-        private void Start()
+        [Inject]
+        public void Construct(ShipConfig shipConfig)
         {
+            _shipConfig = shipConfig;
+        }
+
+        protected override void Start()
+        {
+            base.Start();
             Rigidbody2D = GetComponent<Rigidbody2D>();
             Rigidbody2D.gravityScale = 0;
             _currentRotationAngle = transform.eulerAngles.z;
@@ -31,8 +41,8 @@ namespace _Game.Gameplay.Logic.Ship
 
         private void FixedUpdate()
         {
-            Rigidbody2D.AddForce(_direction * (_shipConfig.Speed * Time.fixedDeltaTime), ForceMode2D.Impulse);
-            transform.rotation = Quaternion.Euler(0, 0, _currentRotationAngle);
+            HandleMovement();
+            RotateShip();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -43,28 +53,54 @@ namespace _Game.Gameplay.Logic.Ship
             }
         }
 
-        [Inject]
-        public void Construct(ShipConfig shipConfig)
+        private void HandleMovement()
         {
-            _shipConfig = shipConfig;
-        }
-
-
-
-        public void SetDirection(Vector3 direction)
-        {
-            _direction = direction;
-
-            if (direction == Vector3.zero)
+            if (_inputDirection < 0)
             {
+                Rigidbody2D.linearVelocity = Vector2.Lerp(Rigidbody2D.linearVelocity,
+                    Vector2.zero,
+                    _shipConfig.StopAcceleration * Time.fixedDeltaTime);
                 return;
             }
 
+            _direction = transform.right * (_inputDirection * (_shipConfig.Speed * Time.fixedDeltaTime));
+            Rigidbody2D.AddForce(_direction, ForceMode2D.Impulse);
+        }
 
-            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            _currentRotationAngle = Mathf.MoveTowardsAngle(_currentRotationAngle,
-                angle,
-                _shipConfig.RotationSpeed * Time.fixedDeltaTime);
+        protected override void OnPause()
+        {
+            Debug.Log("OnPause");
+        }
+
+        protected override void OnResume()
+        {
+            Debug.Log("OnResume");
+        }
+
+        public void SetDirection(float direction)
+        {
+            _inputDirection = direction;
+        }
+
+        public void SetRotationAngle(float directionRotation)
+        {
+            _targetAngle = directionRotation;
+        }
+
+        private void RotateShip()
+        {
+            _currentRotationAngle -= _targetAngle * _shipConfig.RotationSpeed * Time.fixedDeltaTime;
+            transform.rotation = Quaternion.Euler(0, 0, _currentRotationAngle);
+        }
+
+        public Transform GetTransform()
+        {
+            return transform;
+        }
+
+        public void SetPosition(Vector3 warpingPosition)
+        {
+            transform.position = warpingPosition;
         }
     }
 }

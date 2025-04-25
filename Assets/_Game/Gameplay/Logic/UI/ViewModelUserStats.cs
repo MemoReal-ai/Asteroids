@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
-using MVVM;
 using Zenject;
 using R3;
 using UnityEngine.UI;
@@ -11,26 +10,21 @@ namespace _Game.Gameplay.Logic.UI
 {
     public class ViewModelUserStats : ITickable, IInitializable
     {
-        [Data("CoordinateX")]
         public readonly ReactiveProperty<string> CoordinateX = new();
 
-        [Data("CoordinateY")]
         public readonly ReactiveProperty<string> CoordinateY = new();
 
-        [Data("Velocity")] public readonly ReactiveProperty<string> Velocity = new();
+        public readonly ReactiveProperty<string> Velocity = new();
 
-        [Data("AngleRotation")]
         public readonly ReactiveProperty<string> AngleRotation = new();
 
-        [Data("BulletCount")]
         public readonly ReactiveProperty<string> BulletCount = new();
 
-    
+
         private readonly ShipAbstract _ship;
         private readonly Shoot _shoot;
 
         private List<LaserBullet> _laserBullets = new();
-        private bool _isSubscribe = false;
 
         public ViewModelUserStats(ShipAbstract ship, Shoot shoot)
         {
@@ -57,7 +51,7 @@ namespace _Game.Gameplay.Logic.UI
             Velocity.Value = $"{Math.Round(_ship.Rigidbody2D.linearVelocity.magnitude, 2)}";
             AngleRotation.Value = $"{Math.Round(_ship.transform.eulerAngles.z)}";
         }
-        
+
 
         private void BulletCounter()
         {
@@ -68,7 +62,6 @@ namespace _Game.Gameplay.Logic.UI
                     var counter = 0;
                     foreach (var bullet in laserWeapon.Bullets)
                     {
-
                         if (bullet.IsAvailable)
                         {
                             counter++;
@@ -78,9 +71,6 @@ namespace _Game.Gameplay.Logic.UI
                     BulletCount.Value = $"{counter}";
                 }
             }
-
-            _isSubscribe = false;
         }
-        
     }
 }

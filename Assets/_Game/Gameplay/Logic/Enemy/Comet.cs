@@ -1,5 +1,7 @@
+using System;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -14,27 +16,21 @@ namespace _Game.Gameplay.Logic.Enemy
         private Vector3 _direction;
         private bool _initialized = false;
 
-        private void OnValidate()
-        {
-            if (_cometConfig.MinSpeed > _maxSpeed)
-            {
-                _maxSpeed = _cometConfig.MinSpeed + 1;
-            }
-        }
 
         private void OnEnable()
         {
             _maxSpeed = Random.Range(_cometConfig.MinSpeed, _maxSpeed);
+            _initialized = true;
         }
 
         protected override void Move()
         {
-            if (_initialized == false)
+            if (_initialized)
             {
                 _startPosition = transform.position;
                 _direction = (TargetShip.transform.position - _startPosition).normalized;
-                _initialized = true;
-            } // Этот участок кода смущает :)
+                _initialized = false;
+            }
 
             Rigidbody.AddForce(_direction * (_maxSpeed * Time.fixedDeltaTime), ForceMode2D.Force);
             Fade();
@@ -71,7 +67,7 @@ namespace _Game.Gameplay.Logic.Enemy
                 var angle = i * (360 / _cometConfig.CountSmallComet);
                 Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
                 var smallComet = Instantiate(_cometConfig.SmallComet, transform.position, Quaternion.identity);
-                smallComet.Setup(direction,SignalBus);
+                smallComet.Setup(direction, SignalBus);
             }
         }
 
@@ -82,6 +78,15 @@ namespace _Game.Gameplay.Logic.Enemy
             if (magnitudeDistance > _cometConfig.DistanceToFade)
             {
                 gameObject.SetActive(false);
+            }
+        }
+
+
+        private void OnValidate()
+        {
+            if (_cometConfig.MinSpeed > _maxSpeed)
+            {
+                _maxSpeed = _cometConfig.MinSpeed + 1;
             }
         }
     }

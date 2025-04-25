@@ -102,8 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca3f415a900ccc43821c0e6bf0f7e55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distanceToFade: 15
-  _speed: 3
+  BulletStatsConfig: {fileID: 11400000, guid: 86d1bcbef69a2bf4698edf714f6f1222, type: 2}
 --- !u!50 &8929059701988788611
 Rigidbody2D:
   serializedVersion: 5

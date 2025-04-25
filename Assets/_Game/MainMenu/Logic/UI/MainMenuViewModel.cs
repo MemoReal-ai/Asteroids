@@ -1,5 +1,4 @@
 using _Game.Gameplay.Logic.Service;
-using MVVM;
 
 namespace _Game.MainMenu.Logic.UI
 {
@@ -13,13 +12,11 @@ namespace _Game.MainMenu.Logic.UI
             _sceneHandler = sceneHandler;
         }
 
-        [Method("OnGoToGameplayScene")]
         public void OnGoToGameplayScene()
         {
             _sceneHandler.SceneTransition("Gameplay");
         }
-
-        [Method("OnExitGameplayScene")]
+        
         public void OnExitGameplayScene()
         {
             _sceneHandler.Quit();

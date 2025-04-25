@@ -399,7 +399,6 @@ GameObject:
   - component: {fileID: 351663169339157598}
   - component: {fileID: 7174366599492478857}
   - component: {fileID: 4900979629134982135}
-  - component: {fileID: 1085816717740387445}
   - component: {fileID: 645512521026728465}
   m_Layer: 5
   m_Name: UIUser
@@ -508,26 +507,6 @@ MonoBehaviour:
   Velocity: {fileID: 8351817221036154769}
   AngleRotation: {fileID: 16551264770477515}
   CountLaser: {fileID: 3796839664574092148}
---- !u!114 &1085816717740387445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1905094081112857149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6969c7bbd125464fbe9dd09cfc35f26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewBinding: 0
-  view: {fileID: 4900979629134982135}
-  viewType: {fileID: 0}
-  viewId: 
-  viewModelBinding: 1
-  viewModel: {fileID: 0}
-  viewModelType: {fileID: 11500000, guid: ff51a734298d6ac40be8ed08d51d076f, type: 3}
-  viewModelId: 
 --- !u!114 &645512521026728465
 MonoBehaviour:
   m_ObjectHideFlags: 0

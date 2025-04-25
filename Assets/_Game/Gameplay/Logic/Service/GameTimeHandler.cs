@@ -1,6 +1,5 @@
 using System;
 using _Game.Gameplay.Logic.Ship;
-using UnityEngine;
 using Zenject;
 
 namespace _Game.Gameplay.Logic.Service
@@ -8,6 +7,9 @@ namespace _Game.Gameplay.Logic.Service
     public class GameTimeHandler : IInitializable, IDisposable
     {
         private readonly ShipAbstract _ship;
+
+        public event Action OnPaused;
+        public event Action OnResume;
 
         public GameTimeHandler(ShipAbstract ship)
         {
@@ -27,12 +29,12 @@ namespace _Game.Gameplay.Logic.Service
 
         public void Pause()
         {
-            Time.timeScale = 0;
+            OnPaused?.Invoke();
         }
 
         public void Unpause()
         {
-            Time.timeScale = 1;
+            OnResume?.Invoke();
         }
     }
 }
