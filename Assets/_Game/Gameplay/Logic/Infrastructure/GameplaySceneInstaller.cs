@@ -40,8 +40,8 @@ namespace _Game.Gameplay.Logic.Infrastructure
             SignalBusInstaller.Install(Container);
             InstallStartGame();
             CreateAndBindObjectPools();
-            InstallSpawn();
             InstallShip();
+            InstallSpawn();
             InstallUI();
         }
 
@@ -49,7 +49,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
         {
             Container.Bind<SceneHandler>().AsCached();
             Container.BindInterfacesTo<EntryPoint>().AsCached();
-            Container.BindInterfacesAndSelfTo<GameTimeHandler>().AsCached();
+            Container.BindInterfacesAndSelfTo<GameTimeHandler>().AsSingle().NonLazy();
             Container.Bind<Shoot>().AsCached();
             Container.BindInterfacesAndSelfTo<KeyboardInput>().AsCached();
             Container.BindInterfacesTo<InputPlayer>().AsCached();
@@ -62,8 +62,8 @@ namespace _Game.Gameplay.Logic.Infrastructure
         private void InstallShip()
         {
             Container.BindInterfacesAndSelfTo<ShipAbstract>().FromComponentInNewPrefab(_shipDefault)
-                .UnderTransform(_startSpawnPointShip.SpawnPoint.transform).AsCached();
-            Container.Bind<ShipConfig>().FromInstance(_shipConfig).AsCached();
+                .UnderTransform(_startSpawnPointShip.SpawnPoint.transform).AsCached().NonLazy();
+            Container.Bind<ShipConfig>().FromInstance(_shipConfig).AsSingle();
         }
 
         private void InstallSpawn()
@@ -102,6 +102,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
                 _containers.UFO,
                 _objectPoolConfigUFO.AutoExpand,
                 _instantiator);
+            
             _poolsEnemies.Add(_objectPoolUFO);
             
             Container.Bind<List<ObjectPool<EnemyAbstract>>>().FromInstance(_poolsEnemies).AsCached();

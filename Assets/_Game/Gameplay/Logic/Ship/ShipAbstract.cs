@@ -1,7 +1,6 @@
 using System;
 using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Features;
-using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Ship.Effects;
 using UnityEngine;
 using Zenject;
@@ -9,7 +8,7 @@ using Zenject;
 namespace _Game.Gameplay.Logic.Ship
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public abstract class ShipAbstract : MonoPauseBehaviour, IWarping
+    public abstract class ShipAbstract : MonoBehaviour, IWarping
     {
         public event Action OnShipDestroyed;
 
@@ -31,9 +30,8 @@ namespace _Game.Gameplay.Logic.Ship
             _shipConfig = shipConfig;
         }
 
-        protected override void Start()
+        protected virtual void Start()
         {
-            base.Start();
             Rigidbody2D = GetComponent<Rigidbody2D>();
             Rigidbody2D.gravityScale = 0;
             _currentRotationAngle = transform.eulerAngles.z;
@@ -66,17 +64,7 @@ namespace _Game.Gameplay.Logic.Ship
             _direction = transform.right * (_inputDirection * (_shipConfig.Speed * Time.fixedDeltaTime));
             Rigidbody2D.AddForce(_direction, ForceMode2D.Impulse);
         }
-
-        protected override void OnPause()
-        {
-            Debug.Log("OnPause");
-        }
-
-        protected override void OnResume()
-        {
-            Debug.Log("OnResume");
-        }
-
+        
         public void SetDirection(float direction)
         {
             _inputDirection = direction;

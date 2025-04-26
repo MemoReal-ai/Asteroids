@@ -12,7 +12,7 @@ namespace _Game.Gameplay.Logic.Enemy
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(CircleCollider2D))]
-    public abstract class EnemyAbstract : MonoPauseBehaviour, IPoolCreature, IEnemy,IWarping
+    public abstract class EnemyAbstract : MonoBehaviour, IPoolCreature, IEnemy,IWarping
     {
         [SerializeField] protected float _maxSpeed;
         [SerializeField] protected int _reward;
@@ -24,9 +24,8 @@ namespace _Game.Gameplay.Logic.Enemy
         protected SignalBus SignalBus;
 
 
-        protected override void Start()
+        protected virtual void Start()
         {
-            base.Start();
             Rigidbody = GetComponent<Rigidbody2D>();
             Rigidbody.gravityScale = 0;
         }
@@ -57,16 +56,16 @@ namespace _Game.Gameplay.Logic.Enemy
         {
             SignalBus.Fire(new EnemyDiedSignal(_reward));
         }
-
-        protected override void OnResume()
-        {
-            _isPaused = false;
-        }
-        
-        protected override void OnPause()
-        {
-            _isPaused = true;
-        }
+        //
+        // protected override void OnResume()
+        // {
+        //     _isPaused = false;
+        // }
+        //
+        // protected override void OnPause()
+        // {
+        //     _isPaused = true;
+        // }
 
         public Transform GetTransform()
         {

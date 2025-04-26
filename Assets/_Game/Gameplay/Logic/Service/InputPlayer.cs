@@ -15,11 +15,11 @@ namespace _Game.Gameplay.Logic.Service
         private readonly IInput _input;
 
 
-        public InputPlayer(ShipAbstract shipMover, Shoot shoot, GameTimeHandler gameTimeHandler, IInput input)
+        public InputPlayer( GameTimeHandler gameTimeHandler,ShipAbstract shipMover, Shoot shoot, IInput input)
         {
+            _gameTimeHandler = gameTimeHandler;
             _shipMover = shipMover;
             _shoot = shoot;
-            _gameTimeHandler = gameTimeHandler;
             _input = input;
         }
 

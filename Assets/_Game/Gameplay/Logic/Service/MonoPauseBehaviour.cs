@@ -11,7 +11,6 @@ namespace _Game.Gameplay.Logic.Service
         public void Construct(GameTimeHandler gameTimeHandler)
         {
              _gameTimeHandler = gameTimeHandler;
-            print(1);
         }
 
         protected virtual void Start()
