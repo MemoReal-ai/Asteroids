@@ -6,7 +6,6 @@ using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.UI;
 using _Game.Gameplay.Logic.Weapon;
-using NUnit.Framework;
 using UnityEngine;
 using Zenject;
 
@@ -39,8 +38,8 @@ namespace _Game.Gameplay.Logic.Infrastructure
         {
             SignalBusInstaller.Install(Container);
             InstallStartGame();
-            CreateAndBindObjectPools();
             InstallShip();
+            CreateAndBindObjectPools();
             InstallSpawn();
             InstallUI();
         }
@@ -49,6 +48,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
         {
             Container.Bind<SceneHandler>().AsCached();
             Container.BindInterfacesTo<EntryPoint>().AsCached();
+            Container.BindInterfacesTo<PauseHandler>().AsCached();
             Container.BindInterfacesAndSelfTo<GameTimeHandler>().AsSingle().NonLazy();
             Container.Bind<Shoot>().AsCached();
             Container.BindInterfacesAndSelfTo<KeyboardInput>().AsCached();
@@ -68,7 +68,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
         private void InstallSpawn()
         {
-            Container.BindInterfacesTo<Spawner>().AsCached();
+            Container.BindInterfacesAndSelfTo<Spawner>().AsCached();
         }
 
         private void CreateAndBindObjectPools()
@@ -104,7 +104,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
                 _instantiator);
             
             _poolsEnemies.Add(_objectPoolUFO);
-            
+            //Жестко нарушение DRY но увы хз как сделать лучше;
             Container.Bind<List<ObjectPool<EnemyAbstract>>>().FromInstance(_poolsEnemies).AsCached();
         }
 

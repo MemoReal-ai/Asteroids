@@ -11,6 +11,7 @@ namespace _Game.Gameplay.Logic.Weapon
         private IWeapon _currentWeapon;
         private ShipAbstract _ship;
         private int _currentIndexWeapon;
+        private bool _isPaused = false;
 
         public IEnumerable<IWeapon> Weapons => _weapons;
 
@@ -24,6 +25,11 @@ namespace _Game.Gameplay.Logic.Weapon
 
         public void Shooting()
         {
+            if (_isPaused == true)
+            {
+                return;
+            }
+
             var bullet = _currentWeapon.GetBullets();
             if (bullet)
             {
@@ -49,6 +55,16 @@ namespace _Game.Gameplay.Logic.Weapon
             }
 
             _currentWeapon = _weapons[_currentIndexWeapon];
+        }
+
+        public void PauseObject()
+        {
+            _isPaused = true;
+        }
+
+        public void ResumeObject()
+        {
+            _isPaused = false;
         }
     }
 }

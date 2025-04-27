@@ -6,10 +6,10 @@ namespace _Game.Gameplay.Logic.Service
 {
     public class GameTimeHandler : IInitializable, IDisposable
     {
-        private readonly ShipAbstract _ship;
-
         public event Action OnPaused;
         public event Action OnResume;
+
+        private readonly ShipAbstract _ship;
 
         public GameTimeHandler(ShipAbstract ship)
         {
@@ -19,12 +19,12 @@ namespace _Game.Gameplay.Logic.Service
         public void Initialize()
         {
             Unpause();
-            _ship.OnShipDestroyed += Pause;
+           // _ship.OnShipDestroyed += Pause;
         }
 
         public void Dispose()
         {
-            _ship.OnShipDestroyed -= Pause;
+          //  _ship.OnShipDestroyed -= Pause;
         }
 
         public void Pause()

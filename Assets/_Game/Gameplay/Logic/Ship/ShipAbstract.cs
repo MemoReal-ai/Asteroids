@@ -1,6 +1,7 @@
 using System;
 using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Features;
+using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Ship.Effects;
 using UnityEngine;
 using Zenject;
@@ -18,6 +19,8 @@ namespace _Game.Gameplay.Logic.Ship
         private float _currentRotationAngle;
         private EffectsMove _effectsMove;
         private float _targetAngle;
+        private bool _isPaused=false;
+        private Vector2 _linearVelocityBeforePause;
 
         public Rigidbody2D Rigidbody2D { get; private set; }
 
@@ -39,6 +42,11 @@ namespace _Game.Gameplay.Logic.Ship
 
         private void FixedUpdate()
         {
+            if (_isPaused == true)
+            {
+                return;
+            }
+
             HandleMovement();
             RotateShip();
         }
@@ -64,7 +72,7 @@ namespace _Game.Gameplay.Logic.Ship
             _direction = transform.right * (_inputDirection * (_shipConfig.Speed * Time.fixedDeltaTime));
             Rigidbody2D.AddForce(_direction, ForceMode2D.Impulse);
         }
-        
+
         public void SetDirection(float direction)
         {
             _inputDirection = direction;
@@ -89,6 +97,19 @@ namespace _Game.Gameplay.Logic.Ship
         public void SetPosition(Vector3 warpingPosition)
         {
             transform.position = warpingPosition;
+        }
+
+        public void PauseObject()
+        {
+            _isPaused = true;
+            _linearVelocityBeforePause = Rigidbody2D.linearVelocity;
+            Rigidbody2D.linearVelocity = Vector2.zero;
+        }
+
+        public void ResumeObject()
+        {
+            _isPaused = false;
+            Rigidbody2D.linearVelocity = _linearVelocityBeforePause;
         }
     }
 }

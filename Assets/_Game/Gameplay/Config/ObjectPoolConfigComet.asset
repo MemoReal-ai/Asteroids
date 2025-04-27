@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Object>k__BackingField: {fileID: 1002414003758025981, guid: 70404b33fc4db8849bb5d368aeda3f45, type: 3}
   <ObjectSize>k__BackingField: 15
-  <AutoExpand>k__BackingField: 1
+  <AutoExpand>k__BackingField: 0

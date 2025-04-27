@@ -1,7 +1,5 @@
-using System;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Infrastructure;
-using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
@@ -12,17 +10,17 @@ namespace _Game.Gameplay.Logic.Enemy
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(CircleCollider2D))]
-    public abstract class EnemyAbstract : MonoBehaviour, IPoolCreature, IEnemy,IWarping
+    public abstract class EnemyAbstract : MonoBehaviour, IPoolCreature, IEnemy, IWarping
     {
         [SerializeField] protected float _maxSpeed;
         [SerializeField] protected int _reward;
-
-        private bool _isPaused;
 
         protected Rigidbody2D Rigidbody;
         protected ShipAbstract TargetShip;
         protected SignalBus SignalBus;
 
+        private bool _isPaused;
+        private Vector2 _linearVelocityBeforePause;
 
         protected virtual void Start()
         {
@@ -32,10 +30,14 @@ namespace _Game.Gameplay.Logic.Enemy
 
         private void FixedUpdate()
         {
-            if (!_isPaused)
+            if (_isPaused == true)
             {
-                Move();
+                _linearVelocityBeforePause = Rigidbody.linearVelocity;
+                Rigidbody.linearVelocity = Vector2.zero;
+                return;
             }
+
+            Move();
         }
 
         protected virtual void OnTriggerEnter2D(Collider2D other)
@@ -56,16 +58,6 @@ namespace _Game.Gameplay.Logic.Enemy
         {
             SignalBus.Fire(new EnemyDiedSignal(_reward));
         }
-        //
-        // protected override void OnResume()
-        // {
-        //     _isPaused = false;
-        // }
-        //
-        // protected override void OnPause()
-        // {
-        //     _isPaused = true;
-        // }
 
         public Transform GetTransform()
         {
@@ -75,6 +67,16 @@ namespace _Game.Gameplay.Logic.Enemy
         public void SetPosition(Vector3 warpingPosition)
         {
             transform.position = warpingPosition;
+        }
+
+        public void PauseObject()
+        {
+            _isPaused = true;
+        }
+
+        public void ResumeObject()
+        {
+            _isPaused = false;
         }
     }
 }
