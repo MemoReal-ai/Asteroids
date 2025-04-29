@@ -11,17 +11,17 @@ namespace _Game.Gameplay.Logic.UI
 
         private void Start()
         {
-            gameObject.SetActive(false);
+            Hide();
         }
 
         public void Show()
         {
-            this.gameObject.SetActive(true);
+            gameObject.SetActive(true);
         }
 
         public void Hide()
         {
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -5,6 +5,8 @@ using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.UI;
+using _Game.Gameplay.Logic.UI.LoseVVM;
+using _Game.Gameplay.Logic.UI.UserStatsVVM;
 using _Game.Gameplay.Logic.Weapon;
 using UnityEngine;
 using Zenject;
@@ -102,9 +104,9 @@ namespace _Game.Gameplay.Logic.Infrastructure
                 _containers.UFO,
                 _objectPoolConfigUFO.AutoExpand,
                 _instantiator);
-            
+
             _poolsEnemies.Add(_objectPoolUFO);
-            //Жестко нарушение DRY но увы хз как сделать лучше;
+            //Жесткое нарушение DRY но увы хз как сделать лучше;
             Container.Bind<List<ObjectPool<EnemyAbstract>>>().FromInstance(_poolsEnemies).AsCached();
         }
 
@@ -117,8 +119,14 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
             Container.Bind<LoseView>().FromComponentInNewPrefab(_loseView).AsCached();
             Container.Bind<PauseView>().FromComponentInNewPrefab(_pauseView).AsCached();
-            Container.Bind<UserView>().FromComponentsInNewPrefab(_userView).AsCached();
-            Container.Bind<ReloadView>().FromComponentInNewPrefab(_userView).AsCached();
+            
+            var userView = Container.InstantiatePrefabForComponent<UserView>(_userView);
+            Container.Bind<UserView>().FromInstance(userView).AsSingle();
+            Container.Bind<ReloadView>().FromInstance(userView.GetComponent<ReloadView>()).AsSingle();
+            
+            Container.BindInterfacesTo<PauseViewBinder>().AsSingle();
+            Container.BindInterfacesTo<BinderLoseView>().AsSingle();
+            Container.BindInterfacesTo<BinderUserStats>().AsSingle();
         }
     }
 }

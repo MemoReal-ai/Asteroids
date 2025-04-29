@@ -32,6 +32,7 @@ namespace _Game.Gameplay.Logic.Service
         {
             _gameTimeHandler.OnPaused += PauseGame;
             _gameTimeHandler.OnResume += ResumeGame;
+            _gameTimeHandler.OnLoseGame += PauseGame;
             CastPoolToEnemyAbstract();
         }
 
@@ -39,6 +40,7 @@ namespace _Game.Gameplay.Logic.Service
         {
             _gameTimeHandler.OnPaused -= PauseGame;
             _gameTimeHandler.OnResume -= ResumeGame;
+            _gameTimeHandler.OnLoseGame -= PauseGame;
         }
 
         private void PauseGame()
