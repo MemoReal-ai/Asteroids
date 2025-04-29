@@ -15,5 +15,10 @@ namespace _Game.Gameplay.Logic.Service
         
         void HandleInput();
         
+        void StopInput();
+        void ResumeInput();
+
+        void PressedResume();
+
     }
 }

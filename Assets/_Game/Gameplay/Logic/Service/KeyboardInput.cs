@@ -4,7 +4,7 @@ using Zenject;
 
 namespace _Game.Gameplay.Logic.Service
 {
-    public class KeyboardInput : ITickable, IInput
+    public class KeyboardInput : IInitializable, IDisposable, ITickable, IInput
     {
         public event Action OnPressedPause;
         public event Action OnPressedResume;
@@ -13,9 +13,29 @@ namespace _Game.Gameplay.Logic.Service
 
         private bool _isPaused = false;
 
+        private bool _isInputPaused = false;
+
+
+        public void Initialize()
+        {
+            OnPressedPause += TogglePause;
+            OnPressedResume += TogglePause;
+        }
+
         public void Tick()
         {
+            if (_isInputPaused)
+            {
+                return;
+            }
+
             HandleInput();
+        }
+
+        public void Dispose()
+        {
+            OnPressedPause -= TogglePause;
+            OnPressedResume -= TogglePause;
         }
 
         public float GetAxisHorizontal()
@@ -44,15 +64,33 @@ namespace _Game.Gameplay.Logic.Service
             {
                 if (_isPaused == true)
                 {
-                    _isPaused = false;
                     OnPressedResume?.Invoke();
                 }
                 else
                 {
-                    _isPaused = true;
                     OnPressedPause?.Invoke();
                 }
             }
+        }
+
+        public void StopInput()
+        {
+            _isInputPaused = true;
+        }
+
+        public void ResumeInput()
+        {
+            _isInputPaused = false;
+        }
+
+        public void PressedResume()
+        {
+            OnPressedResume?.Invoke();
+        }
+
+        private void TogglePause()
+        {
+            _isPaused = !_isPaused;
         }
     }
 }

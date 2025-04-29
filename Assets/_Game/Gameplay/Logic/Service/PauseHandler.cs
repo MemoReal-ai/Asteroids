@@ -15,17 +15,18 @@ namespace _Game.Gameplay.Logic.Service
         private readonly ShipAbstract _ship;
         private readonly Shoot _shoot;
         private readonly List<ObjectPool<EnemyAbstract>> _enemyEnemyPools;
-
+        private readonly IInput _input;
         private readonly List<EnemyAbstract> _enemies = new();
 
         public PauseHandler(GameTimeHandler gameTimeHandler, Spawner spawner, ShipAbstract ship, Shoot shoot,
-            List<ObjectPool<EnemyAbstract>> enemyPools)
+            List<ObjectPool<EnemyAbstract>> enemyPools, IInput input)
         {
             _gameTimeHandler = gameTimeHandler;
             _spawner = spawner;
             _ship = ship;
             _shoot = shoot;
             _enemyEnemyPools = enemyPools;
+            _input = input;
         }
 
         public void Initialize()
@@ -53,6 +54,7 @@ namespace _Game.Gameplay.Logic.Service
             {
                 enemy.PauseObject();
             }
+            _input.StopInput();
         }
 
         private void ResumeGame()
@@ -65,6 +67,7 @@ namespace _Game.Gameplay.Logic.Service
             {
                 enemy.ResumeObject();
             }
+            _input.ResumeInput();
         }
 
         private void CastPoolToEnemyAbstract()

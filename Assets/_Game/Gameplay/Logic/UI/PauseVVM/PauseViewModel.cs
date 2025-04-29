@@ -8,14 +8,14 @@ namespace _Game.Gameplay.Logic.UI
     public class PauseViewModel : IInitializable, IDisposable
     {
         private readonly SceneHandler _sceneHandler;
-        private readonly GameTimeHandler _gameTimeHandler;
+        private readonly IInput _input;
         public ReactiveCommand ExitCommand { get; private set; } = new ReactiveCommand();
         public ReactiveCommand ResumeCommand { get; private set; } = new ReactiveCommand();
 
-        public PauseViewModel(SceneHandler sceneHandler, GameTimeHandler gameTimeHandler)
+        public PauseViewModel(SceneHandler sceneHandler, IInput input)
         {
             _sceneHandler = sceneHandler;
-            _gameTimeHandler = gameTimeHandler;
+            _input = input;
         }
 
         public void Initialize()
@@ -32,7 +32,7 @@ namespace _Game.Gameplay.Logic.UI
 
         private void ResumeGame()
         {
-            _gameTimeHandler.Unpause();
+            _input.PressedResume();
         }
 
         private void GoToMainMenu()
