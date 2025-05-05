@@ -527,6 +527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewMainMenu: {fileID: 5663423604739046875, guid: 0abd23ebab00d134dadb82f5662b7073, type: 3}
+  _viewScore: {fileID: 3891835712264957146, guid: 5e406963e93e68a48a72ef662f78a71d, type: 3}
 --- !u!1 &1559002028
 GameObject:
   m_ObjectHideFlags: 0

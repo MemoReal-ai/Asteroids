@@ -8,8 +8,6 @@ namespace _Game.Gameplay.Logic.Service
     public class InputPlayer : ITickable, IInitializable, IDisposable
     {
         private readonly ShipAbstract _shipMover;
-        private float _rotateInput;
-        private float _moveInput;
         private readonly Shoot _shoot;
         private readonly GameTimeHandler _gameTimeHandler;
         private readonly IInput _input;
@@ -33,7 +31,6 @@ namespace _Game.Gameplay.Logic.Service
 
         public void Tick()
         {
-            GetAxisInput();
             HandleInput();
         }
 
@@ -49,14 +46,9 @@ namespace _Game.Gameplay.Logic.Service
         public void HandleInput()
         {
             
-            _shipMover.SetDirection(_moveInput);
-            _shipMover.SetRotationAngle(_rotateInput);
+            _shipMover.SetDirection(_input.GetAxisVertical());
+            _shipMover.SetRotationAngle(_input.GetAxisHorizontal());
         }
 
-        public void GetAxisInput()
-        {
-            _moveInput = _input.GetAxisVertical();
-            _rotateInput = _input.GetAxisHorizontal();
-        }
     }
 }

@@ -4,7 +4,6 @@ using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
 using Zenject;
 using R3;
-using UnityEngine.UI;
 
 namespace _Game.Gameplay.Logic.UI
 {
@@ -32,16 +31,16 @@ namespace _Game.Gameplay.Logic.UI
             _shoot = shoot;
         }
 
+        public void Initialize()
+        {
+            BulletCounter();
+        }
         public void Tick()
         {
             SetUIStats();
             BulletCounter();
         }
 
-        public void Initialize()
-        {
-            BulletCounter();
-        }
 
 
         private void SetUIStats()

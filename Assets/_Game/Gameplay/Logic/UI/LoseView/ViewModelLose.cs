@@ -41,6 +41,7 @@ namespace _Game.Gameplay.Logic.UI.LoseVVM
             _ship.OnShipDestroyed -= _gameTimeHandler.LoseGame;
             RestartCommand?.Dispose();
             QuitCommand?.Dispose();
+            Points?.Dispose();
         }
         private void ShowPoints()
         {

@@ -53,7 +53,7 @@ namespace _Game.Gameplay.Logic.Ship
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out IEnemy enemy))
+            if (other.TryGetComponent(out IEnemy _))
             {
                 OnShipDestroyed?.Invoke();
             }

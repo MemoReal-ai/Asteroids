@@ -8,6 +8,7 @@ using _Game.Gameplay.Logic.UI;
 using _Game.Gameplay.Logic.UI.LoseVVM;
 using _Game.Gameplay.Logic.UI.UserStatsVVM;
 using _Game.Gameplay.Logic.Weapon;
+using _Game.MainMenu.Logic.Infrastructure;
 using UnityEngine;
 using Zenject;
 
@@ -38,7 +39,6 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
         public override void InstallBindings()
         {
-            SignalBusInstaller.Install(Container);
             InstallStartGame();
             InstallShip();
             CreateAndBindObjectPools();
@@ -48,7 +48,6 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
         private void InstallStartGame()
         {
-            Container.Bind<SceneHandler>().AsCached();
             Container.BindInterfacesTo<EntryPoint>().AsCached();
             Container.BindInterfacesTo<PauseHandler>().AsCached();
             Container.BindInterfacesAndSelfTo<GameTimeHandler>().AsSingle().NonLazy();
@@ -57,8 +56,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
             Container.BindInterfacesTo<InputPlayer>().AsCached();
             Container.BindInterfacesAndSelfTo<Warp>().AsCached();
             Container.Bind<Camera>().FromInstance(_mainCamera).AsCached();
-            Container.DeclareSignal<EnemyDiedSignal>();
-            Container.BindInterfacesAndSelfTo<ScoreCounter>().AsCached();
+            Container.BindInterfacesAndSelfTo<TransitorData>().AsSingle().NonLazy();
         }
 
         private void InstallShip()
