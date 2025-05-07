@@ -39,6 +39,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
         public override void InstallBindings()
         {
+            InstallSDKCounter();
             InstallStartGame();
             InstallShip();
             CreateAndBindObjectPools();
@@ -117,14 +118,19 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
             Container.Bind<LoseView>().FromComponentInNewPrefab(_loseView).AsCached();
             Container.Bind<PauseView>().FromComponentInNewPrefab(_pauseView).AsCached();
-            
+
             var userView = Container.InstantiatePrefabForComponent<UserView>(_userView);
             Container.Bind<UserView>().FromInstance(userView).AsSingle();
             Container.Bind<ReloadView>().FromInstance(userView.GetComponent<ReloadView>()).AsSingle();
-            
+
             Container.BindInterfacesTo<PauseViewBinder>().AsSingle();
             Container.BindInterfacesTo<BinderLoseView>().AsSingle();
             Container.BindInterfacesTo<BinderUserStats>().AsSingle();
+        }
+
+        private void InstallSDKCounter()
+        {
+            Container.BindInterfacesAndSelfTo<CounterAllStatsToSDK>().AsSingle();
         }
     }
 }

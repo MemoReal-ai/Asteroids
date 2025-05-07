@@ -10,11 +10,10 @@ namespace _Game.Gameplay.Logic.Weapon
     {
         public event Action<float> OnLaserReload;
 
-        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationTokenSource _cancellationTokenSource = new();
 
-        protected override void OnDisable()
+        private void OnDestroy()
         {
-            base.OnDisable();
             _cancellationTokenSource?.Cancel();
             _cancellationTokenSource?.Dispose();
             _cancellationTokenSource = null;
@@ -40,7 +39,8 @@ namespace _Game.Gameplay.Logic.Weapon
                 {
                     elepsedTime += Time.deltaTime;
                     OnLaserReload?.Invoke(elepsedTime / BulletStatsConfig.ReloadTime);
-                    await UniTask.Yield();
+
+                    await UniTask.Yield(_cancellationTokenSource.Token);
                 }
             }
             catch (OperationCanceledException)

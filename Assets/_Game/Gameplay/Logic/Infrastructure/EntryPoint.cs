@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Game.Firebase;
 using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Service.ObjectPool;
@@ -21,6 +22,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
         private readonly List<IWarping> _warpingCreature = new();
         private readonly Warp _warp;
         private readonly Camera _camera;
+        private readonly IServiceSDK _serviceSDK;
 
         public EntryPoint([Inject(Id = EnumBullet.Default)] ObjectPool<Bullet> objectPoolBulletsDefault,
             [Inject(Id = EnumBullet.Laser)]
@@ -29,7 +31,8 @@ namespace _Game.Gameplay.Logic.Infrastructure
             Shoot shoot,
             ShipAbstract ship,
             SignalBus signalBus, Camera camera,
-            Warp warp)
+            Warp warp
+            ,IServiceSDK serviceSDK)
         {
             _pools = pools;
             _objectPoolBulletLaser = objectPoolBulletLaser;
@@ -37,6 +40,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
             _objectPoolBulletDefault = objectPoolBulletsDefault;
             _ship = ship;
             _shoot = shoot;
+            _serviceSDK = serviceSDK;
         }
 
 

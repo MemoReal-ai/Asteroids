@@ -1,3 +1,4 @@
+using _Game.Firebase;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service;
@@ -10,7 +11,10 @@ namespace _Game.MainMenu.Logic.Infrastructure
         public override void InstallBindings()
         {
             SignalBusInstaller.Install(Container);
+            
+            BindSDK();
 
+            Container.BindInterfacesTo<EntryPointProject>().AsSingle();
             Container.Bind<SceneHandler>().AsCached();
             Container.BindInterfacesTo<DataSaver>().AsCached();
             Container.BindInterfacesAndSelfTo<DataHandler>().AsCached().NonLazy();
@@ -18,6 +22,11 @@ namespace _Game.MainMenu.Logic.Infrastructure
             Container.BindInterfacesAndSelfTo<ScoreCounter>().AsSingle();
             Container.DeclareSignal<EnemyDiedSignal>();
 
+        }
+
+        private void BindSDK()
+        {
+            Container.BindInterfacesAndSelfTo<InitServiceSDK>().AsCached();
         }
     }
 }

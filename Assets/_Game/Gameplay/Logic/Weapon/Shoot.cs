@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Game.Firebase;
 using _Game.Gameplay.Logic.Ship;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ namespace _Game.Gameplay.Logic.Weapon
 {
     public class Shoot
     {
+        public event Action OnLaserShoot;
+        public event Action OnShoot;
+
         private List<IWeapon> _weapons;
         private IWeapon _currentWeapon;
         private ShipAbstract _ship;
@@ -31,10 +35,20 @@ namespace _Game.Gameplay.Logic.Weapon
             }
 
             var bullet = _currentWeapon.GetBullets();
-            if (bullet)
+
+            if (!bullet)
             {
-                SetDirection(bullet);
+                return;
             }
+
+            SetDirection(bullet);
+
+            if (bullet is LaserBullet bulletLaser)
+            {
+                OnLaserShoot?.Invoke();
+            }
+
+            OnShoot?.Invoke();
         }
 
         private void SetDirection(Bullet bullet)

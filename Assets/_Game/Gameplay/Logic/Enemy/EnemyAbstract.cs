@@ -1,3 +1,4 @@
+using System;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service.ObjectPool;
@@ -12,6 +13,8 @@ namespace _Game.Gameplay.Logic.Enemy
     [RequireComponent(typeof(CircleCollider2D))]
     public abstract class EnemyAbstract : MonoBehaviour, IPoolCreature, IEnemy, IWarping
     {
+        public event Action<EnemyAbstract> OnDeath;
+
         [SerializeField] protected float _maxSpeed;
         [SerializeField] protected int _reward;
 
@@ -57,6 +60,7 @@ namespace _Game.Gameplay.Logic.Enemy
         protected void InvokeOnDied()
         {
             SignalBus.Fire(new EnemyDiedSignal(_reward));
+            OnDeath?.Invoke(this);
         }
 
         public Transform GetTransform()
@@ -68,7 +72,7 @@ namespace _Game.Gameplay.Logic.Enemy
         {
             transform.position = warpingPosition;
         }
-
+        
         public void PauseObject()
         {
             _isPaused = true;
