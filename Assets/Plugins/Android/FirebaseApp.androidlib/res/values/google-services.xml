@@ -5,5 +5,5 @@
   <string name="project_id" translatable="false">asteroids-b8aa7</string>
   <string name="google_api_key" translatable="false">AIzaSyBeJaI_xcQJkdvr6kMRu3W3t-3VDSfU2qU</string>
   <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBeJaI_xcQJkdvr6kMRu3W3t-3VDSfU2qU</string>
-  <string name="google_app_id" translatable="false">1:729159790185:android:166f60c2fecbe9c1c67cf8</string>
+  <string name="google_app_id" translatable="false">1:729159790185:android:3d3c8595c01466dac67cf8</string>
 </resources>
