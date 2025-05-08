@@ -9,25 +9,16 @@ using UnityEngine;
 
 namespace _Game.Firebase
 {
-    public class InitServiceSDK : IInitializable, IServiceSDK, IDisposable
+    public class InitServiceSDK : IInitializable, IServiceSDK
     {
         private const string STARTGAME = "StartGame";
-        private const string STOPGAME = "StopGame";
+        private const string LASERSHOOT = "LaserShoot";
         private const string STATS = "Stats";
         private const string DATASTATSSDK = "DataStatsSDK";
-
-        private CancellationTokenSource _tokenSource = new();
 
         public void Initialize()
         {
             FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(InitializeService);
-        }
-
-        public void Dispose()
-        {
-            _tokenSource?.Cancel();
-            _tokenSource?.Dispose();
-            _tokenSource = null;
         }
 
         private void InitializeService(Task<DependencyStatus> task)
@@ -41,11 +32,17 @@ namespace _Game.Firebase
 
                 if (task.Result != DependencyStatus.Available)
                 {
-                    throw new Exception("Failed to initialize Firebase");
+                    throw new Exception("Failed to Available Firebase");
+                }
+
+                if (task.Result == DependencyStatus.Available)
+                {
+                    Debug.Log("Firebase initialized");
                 }
             }
-            catch (OperationCanceledException)
+            catch (Exception e)
             {
+                Debug.Log(e);
             }
         }
 
@@ -61,10 +58,10 @@ namespace _Game.Firebase
             Debug.Log("Stats");
         }
 
-        public void InvokeEndGame()
+        public void InvokeLaserShoot()
         {
-            FirebaseAnalytics.LogEvent(STOPGAME);
-            Debug.Log("EndGame");
+            FirebaseAnalytics.LogEvent(LASERSHOOT);
+            Debug.Log("Laser Shoot");
         }
     }
 }

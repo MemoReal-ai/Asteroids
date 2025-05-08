@@ -4,7 +4,7 @@ using Zenject;
 
 namespace _Game.MainMenu.Logic.Infrastructure
 {
-    public class EntryPointProject : IInitializable, IDisposable
+    public class EntryPointProject : IInitializable
     {
         private readonly IServiceSDK _service;
 
@@ -17,10 +17,6 @@ namespace _Game.MainMenu.Logic.Infrastructure
         {
             _service.InvokeStartGame();
         }
-
-        public void Dispose()
-        {
-            _service.InvokeEndGame();
-        }
+        
     }
 }

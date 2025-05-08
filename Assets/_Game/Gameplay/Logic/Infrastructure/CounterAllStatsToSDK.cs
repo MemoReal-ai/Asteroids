@@ -29,6 +29,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
         {
             _shoot.OnShoot += _dataStatsSDK.AddCounterShoot;
             _shoot.OnLaserShoot += _dataStatsSDK.AddShootLaserCount;
+            _shoot.OnLaserShoot += _serviceSDK.InvokeLaserShoot;
             foreach (var pool in _pools)
             {
                 foreach (var enemy in pool.Objects)
@@ -42,6 +43,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
         {
             _shoot.OnShoot -= _dataStatsSDK.AddCounterShoot;
             _shoot.OnLaserShoot -= _dataStatsSDK.AddShootLaserCount;
+            _shoot.OnLaserShoot -= _serviceSDK.InvokeLaserShoot;
 
             foreach (var pool in _pools)
             {
@@ -54,7 +56,6 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
             _dataJson = JsonUtility.ToJson(_dataStatsSDK);
             _serviceSDK.InvokeStats(_dataJson);
-            Debug.Log(_dataStatsSDK);
             Debug.Log(_dataJson);
         }
 

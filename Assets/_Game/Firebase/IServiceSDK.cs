@@ -5,6 +5,6 @@ namespace _Game.Firebase
     {
         void InvokeStartGame();
         void InvokeStats(string dataStatsSDK);
-        void InvokeEndGame();
+        void InvokeLaserShoot();
     }
 }
