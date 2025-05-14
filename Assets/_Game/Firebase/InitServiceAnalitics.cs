@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Zenject;
 using Firebase;
@@ -9,7 +8,7 @@ using UnityEngine;
 
 namespace _Game.Firebase
 {
-    public class InitServiceSDK : IInitializable, IServiceSDK
+    public class InitServiceAnalitics : IInitializable, IServiceAnalitics
     {
         private const string STARTGAME = "StartGame";
         private const string LASERSHOOT = "LaserShoot";

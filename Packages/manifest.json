@@ -7,6 +7,7 @@
     "com.google.firebase.analytics": "file:Firebase/com.google.firebase.analytics-12.8.0.tgz",
     "com.google.firebase.app": "file:Firebase/com.google.firebase.app-12.8.0.tgz",
     "com.google.firebase.remote-config": "file:Firebase/com.google.firebase.remote-config-12.8.0.tgz",
+    "com.unity.addressables": "2.2.2",
     "com.unity.collab-proxy": "2.7.1",
     "com.unity.device-simulator.devices": "1.0.0",
     "com.unity.feature.2d": "2.0.1",

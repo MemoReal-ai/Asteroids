@@ -74,6 +74,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82654cf1f6e54b478ae6770c339ea2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shipDefault: {fileID: 7909993538623480770, guid: 0978eda44da4b7148953570d4a43e94d, type: 3}
-  _shipConfig: {fileID: 11400000, guid: aea105078a1efa24b9b68c7bf9ef2f93, type: 2}
-  _startSpawnPointShip: {fileID: 3795515993938313592, guid: b649b30ce26064c44b3852b130c99397, type: 3}

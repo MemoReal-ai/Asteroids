@@ -36,7 +36,6 @@ namespace _Game.Gameplay.Logic.Features
         private void CalculateScore(EnemyDiedSignal signal)
         {
             CurrentSessionScore += signal.Reward;
-            Debug.Log(CurrentSessionScore);
             
         }
 

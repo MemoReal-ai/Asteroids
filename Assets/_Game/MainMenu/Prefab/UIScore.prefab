@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7792029664534357314}
   - component: {fileID: 1908815125034817093}
   - component: {fileID: 3891835712264957146}
+  - component: {fileID: 3240014285950252033}
   m_Layer: 5
   m_Name: UIScore
   m_TagString: Untagged
@@ -118,6 +119,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastSessionScore: {fileID: 2931264322221531150}
   HighScore: {fileID: 8528215954781120576}
+--- !u!114 &3240014285950252033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130129817954122105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49e9c678e8ad14d4094fc444a5148949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4882759615871309949
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +196,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HightScore
+  m_text: ' High score 145'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
   m_sharedMaterial: {fileID: -9077585183869708825, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
@@ -319,7 +332,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LastScore
+  m_text: ' Last session score 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
   m_sharedMaterial: {fileID: -9077585183869708825, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}

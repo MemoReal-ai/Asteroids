@@ -2,6 +2,7 @@ using System;
 using _Game.Gameplay.Logic.Service;
 using Zenject;
 using R3;
+using UnityEngine;
 
 namespace _Game.MainMenu.Logic.UI
 {
@@ -32,6 +33,7 @@ namespace _Game.MainMenu.Logic.UI
         private void OnGoToGameplayScene()
         {
             _sceneHandler.SceneTransition("Gameplay");
+            Debug.Log("Gameplay Scene");
         }
 
         private void OnExitGameplayScene()

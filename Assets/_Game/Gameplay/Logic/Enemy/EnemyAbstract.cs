@@ -23,7 +23,6 @@ namespace _Game.Gameplay.Logic.Enemy
         protected SignalBus SignalBus;
 
         private bool _isPaused;
-        private Vector2 _linearVelocityBeforePause;
 
         protected virtual void Start()
         {
@@ -35,7 +34,6 @@ namespace _Game.Gameplay.Logic.Enemy
         {
             if (_isPaused == true)
             {
-                _linearVelocityBeforePause = Rigidbody.linearVelocity;
                 Rigidbody.linearVelocity = Vector2.zero;
                 return;
             }

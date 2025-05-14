@@ -672,6 +672,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 644dfdfdd4ea8bc40b1aa9c841c19a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _prefabs:
+  - m_AssetGUID: ab3fb3b436a2c0641981b54aa0722dfa
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
+  - m_AssetGUID: df5d575419c7dcd42bec2759e4d37727
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
+  - m_AssetGUID: eda2c86595327404e835f623e2bc7897
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
+  - m_AssetGUID: 0edc11c98d68b2e4ebaf61ab2e199eda
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
   _shipDefault: {fileID: 7909993538623480770, guid: 0978eda44da4b7148953570d4a43e94d, type: 3}
   _startSpawnPointShip: {fileID: 6588871098236707728}
   _shipConfig: {fileID: 11400000, guid: aea105078a1efa24b9b68c7bf9ef2f93, type: 2}

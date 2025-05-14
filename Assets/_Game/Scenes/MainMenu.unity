@@ -566,6 +566,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _viewMainMenu: {fileID: 5663423604739046875, guid: 0abd23ebab00d134dadb82f5662b7073, type: 3}
   _viewScore: {fileID: 3891835712264957146, guid: 5e406963e93e68a48a72ef662f78a71d, type: 3}
+  _prefabs:
+  - m_AssetGUID: 5e406963e93e68a48a72ef662f78a71d
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
+  - m_AssetGUID: 0abd23ebab00d134dadb82f5662b7073
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
 --- !u!1 &1559002028
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,8 +735,8 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1315794081}
   - {fileID: 1131271299}
   - {fileID: 908465313}
-  - {fileID: 1315794081}
   - {fileID: 1559002031}
   - {fileID: 850323059}

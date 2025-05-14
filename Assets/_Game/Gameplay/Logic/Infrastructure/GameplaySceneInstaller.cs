@@ -9,13 +9,16 @@ using _Game.Gameplay.Logic.UI.LoseVVM;
 using _Game.Gameplay.Logic.UI.UserStatsVVM;
 using _Game.Gameplay.Logic.Weapon;
 using _Game.MainMenu.Logic.Infrastructure;
+using _Game.MainMenu.Logic.UI;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace _Game.Gameplay.Logic.Infrastructure
 {
     public class GameplaySceneInstaller : MonoInstaller
     {
+        [SerializeField] private List<AssetReference> _prefabs;
         [SerializeField] private ShipDefault _shipDefault;
         [SerializeField] private StartSpawnPointShip _startSpawnPointShip;
         [SerializeField] private ShipConfig _shipConfig;
@@ -35,20 +38,27 @@ namespace _Game.Gameplay.Logic.Infrastructure
         private ObjectPool<Bullet> _bulletPoolLaser;
         private ObjectPool<EnemyAbstract> _objectPoolUFO;
         private ObjectPool<EnemyAbstract> _objectPoolComet;
-        private List<ObjectPool<EnemyAbstract>> _poolsEnemies = new();
+        private readonly List<ObjectPool<EnemyAbstract>> _poolsEnemies = new();
 
         public override void InstallBindings()
         {
             InstallSDKCounter();
             InstallStartGame();
+            InstallFactories();
             InstallShip();
             CreateAndBindObjectPools();
             InstallSpawn();
             InstallUI();
         }
 
+        private void InstallFactories()
+        {
+            Container.Bind<FactoryUI>().AsCached().NonLazy();
+        }
+
         private void InstallStartGame()
         {
+            Container.Bind<List<AssetReference>>().FromInstance(_prefabs).AsSingle().NonLazy();
             Container.BindInterfacesTo<EntryPoint>().AsCached();
             Container.BindInterfacesTo<PauseHandler>().AsCached();
             Container.BindInterfacesAndSelfTo<GameTimeHandler>().AsSingle().NonLazy();
@@ -116,12 +126,11 @@ namespace _Game.Gameplay.Logic.Infrastructure
             Container.BindInterfacesAndSelfTo<PauseViewModel>().AsCached();
             Container.BindInterfacesAndSelfTo<PresenterReloadView>().AsCached();
 
-            Container.Bind<LoseView>().FromComponentInNewPrefab(_loseView).AsCached();
-            Container.Bind<PauseView>().FromComponentInNewPrefab(_pauseView).AsCached();
+            Container.Bind<LoseView>().FromInstance(_loseView).AsCached();
+            Container.Bind<PauseView>().FromInstance(_pauseView).AsCached();
 
-            var userView = Container.InstantiatePrefabForComponent<UserView>(_userView);
-            Container.Bind<UserView>().FromInstance(userView).AsSingle();
-            Container.Bind<ReloadView>().FromInstance(userView.GetComponent<ReloadView>()).AsSingle();
+            Container.Bind<UserView>().FromInstance(_userView).AsCached();
+            Container.Bind<ReloadView>().FromInstance(_userView.GetComponent<ReloadView>()).AsSingle();
 
             Container.BindInterfacesTo<PauseViewBinder>().AsSingle();
             Container.BindInterfacesTo<BinderLoseView>().AsSingle();

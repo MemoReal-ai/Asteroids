@@ -6,9 +6,9 @@ namespace _Game.MainMenu.Logic.Infrastructure
 {
     public class EntryPointProject : IInitializable
     {
-        private readonly IServiceSDK _service;
+        private readonly IServiceAnalitics _service;
 
-        public EntryPointProject(IServiceSDK service)
+        public EntryPointProject(IServiceAnalitics service)
         {
             _service = service;
         }
