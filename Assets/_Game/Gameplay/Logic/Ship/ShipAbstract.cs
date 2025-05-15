@@ -1,7 +1,6 @@
 using System;
 using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Features;
-using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Ship.Effects;
 using UnityEngine;
 using Zenject;
