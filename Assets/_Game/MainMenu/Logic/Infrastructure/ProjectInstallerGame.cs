@@ -14,7 +14,7 @@ namespace _Game.MainMenu.Logic.Infrastructure
         {
             SignalBusInstaller.Install(Container);
             
-            BindSDK();
+            BindAnalytics();
             BindAddressableService();
 
             Container.BindInterfacesTo<EntryPointProject>().AsSingle();
@@ -31,7 +31,7 @@ namespace _Game.MainMenu.Logic.Infrastructure
             Container.BindInterfacesAndSelfTo<AddressableLoader>().AsCached().NonLazy();
         }
 
-        private void BindSDK()
+        private void BindAnalytics()
         {
             Container.BindInterfacesAndSelfTo<InitServiceAnalitics>().AsCached();
         }

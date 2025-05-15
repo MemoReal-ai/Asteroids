@@ -217,7 +217,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'You points :20 '
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
   m_sharedMaterial: {fileID: -9077585183869708825, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
@@ -559,6 +559,8 @@ GameObject:
   - component: {fileID: 1487666573083080962}
   - component: {fileID: 2544135379825862910}
   - component: {fileID: -1598513046458364539}
+  - component: {fileID: 8386070530422108707}
+  - component: {fileID: -2432233675391285447}
   m_Layer: 5
   m_Name: LosePanel
   m_TagString: Untagged
@@ -678,6 +680,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e9c678e8ad14d4094fc444a5148949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8386070530422108707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4652649317558471738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: -2432233675391285447}
+  _installerPrefabs: []
+  _autoRun: 1
+  _kernel: {fileID: 0}
+--- !u!114 &-2432233675391285447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4652649317558471738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c97b924e0ddf8041808a30bf7fbc253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _loseView: {fileID: 2544135379825862910}
 --- !u!1 &4822071562460597977
 GameObject:
   m_ObjectHideFlags: 0

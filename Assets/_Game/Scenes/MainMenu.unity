@@ -328,7 +328,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1000
   m_TargetDisplay: 0
 --- !u!224 &908465313
 RectTransform:
@@ -564,8 +564,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e42055c306554684e8838c4787dd5e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewMainMenu: {fileID: 5663423604739046875, guid: 0abd23ebab00d134dadb82f5662b7073, type: 3}
-  _viewScore: {fileID: 3891835712264957146, guid: 5e406963e93e68a48a72ef662f78a71d, type: 3}
   _prefabs:
   - m_AssetGUID: 0abd23ebab00d134dadb82f5662b7073
     m_SubObjectName: 

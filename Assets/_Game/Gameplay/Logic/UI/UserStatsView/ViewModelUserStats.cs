@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
-using Zenject;
 using R3;
+using Zenject;
 
-namespace _Game.Gameplay.Logic.UI
+namespace _Game.Gameplay.Logic.UI.UserStatsView
 {
     public class ViewModelUserStats : ITickable, IInitializable
     {
@@ -23,7 +22,6 @@ namespace _Game.Gameplay.Logic.UI
         private readonly ShipAbstract _ship;
         private readonly Shoot _shoot;
 
-        private List<LaserBullet> _laserBullets = new();
 
         public ViewModelUserStats(ShipAbstract ship, Shoot shoot)
         {

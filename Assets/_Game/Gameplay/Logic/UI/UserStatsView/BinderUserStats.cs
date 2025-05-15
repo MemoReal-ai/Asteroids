@@ -1,3 +1,4 @@
+using _Game.Gameplay.Logic.UI.UserStatsView;
 using R3;
 using Zenject;
 

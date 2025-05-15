@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace _Game
+namespace _Game.MainMenu.Logic.UI
 {
     public class FactoryUI
     {
@@ -14,7 +14,7 @@ namespace _Game
 
         public GameObject Create(GameObject userInterface)
         {
-            GameObject window = _instantiator.InstantiatePrefab(userInterface, Vector3.zero, Quaternion.identity, null);
+            GameObject window = _instantiator.InstantiatePrefab(userInterface);
             return window;
         }
     }

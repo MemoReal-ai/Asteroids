@@ -9,7 +9,7 @@ using Zenject;
 
 namespace _Game.Gameplay.Logic.Infrastructure
 {
-    public class CounterAllStatsToSDK : IInitializable, IDisposable
+    public class CounterAllStatsToAnalitycs : IInitializable, IDisposable
     {
         private readonly DataStatsSDK _dataStatsSDK = new();
         private readonly Shoot _shoot;
@@ -18,7 +18,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
         private string _dataJson;
 
-        public CounterAllStatsToSDK(Shoot shoot, IServiceAnalitics serviceAnalitics, List<ObjectPool<EnemyAbstract>> pools)
+        public CounterAllStatsToAnalitycs(Shoot shoot, IServiceAnalitics serviceAnalitics, List<ObjectPool<EnemyAbstract>> pools)
         {
             _serviceAnalitics = serviceAnalitics;
             _shoot = shoot;

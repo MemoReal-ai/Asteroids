@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
-using UnityEngine;
 using Zenject;
 
 namespace _Game.Gameplay.Logic.UI

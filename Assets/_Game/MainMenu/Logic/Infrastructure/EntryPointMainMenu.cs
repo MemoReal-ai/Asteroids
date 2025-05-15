@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Game.Addressable;
+using _Game.MainMenu.Logic.UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;

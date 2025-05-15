@@ -1,19 +1,20 @@
 using System;
 using System.Collections.Generic;
 using _Game.Addressable;
-using _Game.Firebase;
 using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
+using _Game.MainMenu.Logic.UI;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace _Game.Gameplay.Logic.Infrastructure
 {
-    public class EntryPoint : IInitializable
+    public class EntryPoint : IInitializable, IDisposable
 
     {
         private readonly ObjectPool<Bullet> _objectPoolBulletDefault;
@@ -28,7 +29,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
         private readonly List<IWarping> _warpingCreature = new();
         private readonly Warp _warp;
         private readonly Camera _camera;
-        private List<GameObject> _addressableResources=new();
+        private List<GameObject> _addressableResources = new();
 
         public EntryPoint([Inject(Id = EnumBullet.Default)] ObjectPool<Bullet> objectPoolBulletsDefault,
             [Inject(Id = EnumBullet.Laser)] ObjectPool<Bullet> objectPoolBulletLaser,
@@ -52,11 +53,19 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
         public void Initialize()
         {
-            InitUI();
             CreateWeapon();
             CastAllEnemiesToIWarping();
             _warp.Init(_warpingCreature);
             _shoot.Init(_weapons, _ship);
+            InitUI();
+        }
+
+        public void Dispose()
+        {
+            foreach (var gameObject in _addressableResources)
+            {
+                _addressableService.UnloadPrefab(gameObject);
+            }
         }
 
         private async void InitUI()

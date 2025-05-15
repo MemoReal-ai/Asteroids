@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: -3,08
+  m_text: 0,28
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
   m_sharedMaterial: {fileID: -9077585183869708825, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
@@ -399,6 +399,8 @@ GameObject:
   - component: {fileID: 4900979629134982135}
   - component: {fileID: 645512521026728465}
   - component: {fileID: -117819067710475484}
+  - component: {fileID: -4788112826892970005}
+  - component: {fileID: 1319105147139189798}
   m_Layer: 5
   m_Name: UIUser
   m_TagString: Untagged
@@ -531,6 +533,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e9c678e8ad14d4094fc444a5148949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4788112826892970005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905094081112857149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 1319105147139189798}
+  _installerPrefabs: []
+  _autoRun: 1
+  _kernel: {fileID: 0}
+--- !u!114 &1319105147139189798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905094081112857149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3eb58d77f10d844fa6417002b9fdeea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _userView: {fileID: 4900979629134982135}
+  _reloadView: {fileID: 645512521026728465}
 --- !u!1 &2593817964265155000
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,7 +630,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 64
+  m_text: 90
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
   m_sharedMaterial: {fileID: -9077585183869708825, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
@@ -947,7 +981,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: -8,64
+  m_text: 0,95
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
   m_sharedMaterial: {fileID: -9077585183869708825, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}

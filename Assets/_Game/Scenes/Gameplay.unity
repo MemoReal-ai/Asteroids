@@ -673,11 +673,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefabs:
-  - m_AssetGUID: ab3fb3b436a2c0641981b54aa0722dfa
-    m_SubObjectName: 
-    m_SubObjectGUID: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 1
   - m_AssetGUID: df5d575419c7dcd42bec2759e4d37727
     m_SubObjectName: 
     m_SubObjectGUID: 
@@ -693,6 +688,11 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_SubObjectType: 
     m_EditorAssetChanged: 1
+  - m_AssetGUID: ab3fb3b436a2c0641981b54aa0722dfa
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
   _shipDefault: {fileID: 7909993538623480770, guid: 0978eda44da4b7148953570d4a43e94d, type: 3}
   _startSpawnPointShip: {fileID: 6588871098236707728}
   _shipConfig: {fileID: 11400000, guid: aea105078a1efa24b9b68c7bf9ef2f93, type: 2}
@@ -701,9 +701,6 @@ MonoBehaviour:
   _objectPoolConfigBulletLaser: {fileID: 11400000, guid: 181b2324928031f469e4fd412d5d156c, type: 2}
   _objectPoolConfigUFO: {fileID: 11400000, guid: a33b703f6b1427748a3d8fdde9542b79, type: 2}
   _objectPoolConfigComet: {fileID: 11400000, guid: 30f549a871ba5eb418f855389a8e33ec, type: 2}
-  _loseView: {fileID: 2544135379825862910, guid: eda2c86595327404e835f623e2bc7897, type: 3}
-  _userView: {fileID: 4900979629134982135, guid: ab3fb3b436a2c0641981b54aa0722dfa, type: 3}
-  _pauseView: {fileID: 7143721209959128512, guid: df5d575419c7dcd42bec2759e4d37727, type: 3}
   _containers: {fileID: 6883339921791486085}
 --- !u!1 &1092704557
 GameObject:

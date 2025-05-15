@@ -6,6 +6,7 @@ using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.UI;
 using _Game.Gameplay.Logic.UI.LoseVVM;
+using _Game.Gameplay.Logic.UI.UserStatsView;
 using _Game.Gameplay.Logic.UI.UserStatsVVM;
 using _Game.Gameplay.Logic.Weapon;
 using _Game.MainMenu.Logic.Infrastructure;
@@ -27,9 +28,6 @@ namespace _Game.Gameplay.Logic.Infrastructure
         [SerializeField] private ObjectPoolConfigBullet _objectPoolConfigBulletLaser;
         [SerializeField] private ObjectPoolConfigEnemy _objectPoolConfigUFO;
         [SerializeField] private ObjectPoolConfigEnemy _objectPoolConfigComet;
-        [SerializeField] private LoseView _loseView;
-        [SerializeField] private UserView _userView;
-        [SerializeField] private PauseView _pauseView;
         [SerializeField] private Containers _containers;
 
         private IInstantiator _instantiator;
@@ -124,22 +122,11 @@ namespace _Game.Gameplay.Logic.Infrastructure
             Container.BindInterfacesAndSelfTo<ViewModelLose>().AsCached();
             Container.BindInterfacesAndSelfTo<ViewModelUserStats>().AsSingle();
             Container.BindInterfacesAndSelfTo<PauseViewModel>().AsCached();
-            Container.BindInterfacesAndSelfTo<PresenterReloadView>().AsCached();
-
-            Container.Bind<LoseView>().FromInstance(_loseView).AsCached();
-            Container.Bind<PauseView>().FromInstance(_pauseView).AsCached();
-
-            Container.Bind<UserView>().FromInstance(_userView).AsCached();
-            Container.Bind<ReloadView>().FromInstance(_userView.GetComponent<ReloadView>()).AsSingle();
-
-            Container.BindInterfacesTo<PauseViewBinder>().AsSingle();
-            Container.BindInterfacesTo<BinderLoseView>().AsSingle();
-            Container.BindInterfacesTo<BinderUserStats>().AsSingle();
         }
 
         private void InstallSDKCounter()
         {
-            Container.BindInterfacesAndSelfTo<CounterAllStatsToSDK>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CounterAllStatsToAnalitycs>().AsSingle();
         }
     }
 }

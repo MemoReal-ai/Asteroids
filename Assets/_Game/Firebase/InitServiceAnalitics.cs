@@ -47,7 +47,7 @@ namespace _Game.Firebase
 
         public void InvokeStartGame()
         {
-            FirebaseAnalytics.LogEvent(STARTGAME);
+            FirebaseAnalytics.LogEvent(STARTGAME,new Parameter("StartGame","StartGame"));
             Debug.Log("StartGame");
         }
 
@@ -59,7 +59,7 @@ namespace _Game.Firebase
 
         public void InvokeLaserShoot()
         {
-            FirebaseAnalytics.LogEvent(LASERSHOOT);
+            FirebaseAnalytics.LogEvent(LASERSHOOT, new Parameter("Shoot","1"));
             Debug.Log("Laser Shoot");
         }
     }
