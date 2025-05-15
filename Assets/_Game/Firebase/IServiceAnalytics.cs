@@ -1,7 +1,7 @@
 
 namespace _Game.Firebase
 {
-    public interface IServiceAnalitics
+    public interface IServiceAnalytics
     {
         void InvokeStartGame();
         void InvokeStats(string dataStatsSDK);

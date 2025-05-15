@@ -33,7 +33,7 @@ namespace _Game.MainMenu.Logic.Infrastructure
 
         private void BindAnalytics()
         {
-            Container.BindInterfacesAndSelfTo<InitServiceAnalitics>().AsCached();
+            Container.BindInterfacesAndSelfTo<InitServiceAnalytics>().AsCached();
         }
     }
 }

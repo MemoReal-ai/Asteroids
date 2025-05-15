@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace _Game.Firebase
 {
-    public class InitServiceAnalitics : IInitializable, IServiceAnalitics
+    public class InitServiceAnalytics : IInitializable, IServiceAnalytics
     {
         private const string STARTGAME = "StartGame";
         private const string LASERSHOOT = "LaserShoot";

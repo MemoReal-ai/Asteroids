@@ -14,13 +14,13 @@ namespace _Game.Gameplay.Logic.Infrastructure
         private readonly DataStatsSDK _dataStatsSDK = new();
         private readonly Shoot _shoot;
         private readonly List<ObjectPool<EnemyAbstract>> _pools;
-        private readonly IServiceAnalitics _serviceAnalitics;
+        private readonly IServiceAnalytics _serviceAnalytics;
 
         private string _dataJson;
 
-        public CounterAllStatsToAnalitycs(Shoot shoot, IServiceAnalitics serviceAnalitics, List<ObjectPool<EnemyAbstract>> pools)
+        public CounterAllStatsToAnalitycs(Shoot shoot, IServiceAnalytics serviceAnalytics, List<ObjectPool<EnemyAbstract>> pools)
         {
-            _serviceAnalitics = serviceAnalitics;
+            _serviceAnalytics = serviceAnalytics;
             _shoot = shoot;
             _pools = pools;
         }
@@ -29,7 +29,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
         {
             _shoot.OnShoot += _dataStatsSDK.AddCounterShoot;
             _shoot.OnLaserShoot += _dataStatsSDK.AddShootLaserCount;
-            _shoot.OnLaserShoot += _serviceAnalitics.InvokeLaserShoot;
+            _shoot.OnLaserShoot += _serviceAnalytics.InvokeLaserShoot;
             foreach (var pool in _pools)
             {
                 foreach (var enemy in pool.Objects)
@@ -43,7 +43,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
         {
             _shoot.OnShoot -= _dataStatsSDK.AddCounterShoot;
             _shoot.OnLaserShoot -= _dataStatsSDK.AddShootLaserCount;
-            _shoot.OnLaserShoot -= _serviceAnalitics.InvokeLaserShoot;
+            _shoot.OnLaserShoot -= _serviceAnalytics.InvokeLaserShoot;
 
             foreach (var pool in _pools)
             {
@@ -55,7 +55,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
 
             _dataJson = JsonUtility.ToJson(_dataStatsSDK);
-            _serviceAnalitics.InvokeStats(_dataJson);
+            _serviceAnalytics.InvokeStats(_dataJson);
             Debug.Log(_dataJson);
         }
 
