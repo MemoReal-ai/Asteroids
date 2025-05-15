@@ -496,6 +496,8 @@ GameObject:
   - component: {fileID: 2418529125470784002}
   - component: {fileID: 5663423604739046875}
   - component: {fileID: 6017134094610893540}
+  - component: {fileID: 5573575904890749328}
+  - component: {fileID: 4313664157252575850}
   m_Layer: 5
   m_Name: UIMainMenu
   m_TagString: Untagged
@@ -615,6 +617,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e9c678e8ad14d4094fc444a5148949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5573575904890749328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5010104059133570079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 4313664157252575850}
+  _installerPrefabs: []
+  _autoRun: 1
+  _kernel: {fileID: 0}
+--- !u!114 &4313664157252575850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5010104059133570079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a631a08b85fdb5d40b01863b38dcf171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewMainMenu: {fileID: 5663423604739046875}
 --- !u!1 &7463387537012523302
 GameObject:
   m_ObjectHideFlags: 0

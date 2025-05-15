@@ -40,20 +40,19 @@ namespace _Game.MainMenu.Logic.Infrastructure
             }
         }
 
-        public async void Dispose()
+        public void Dispose()
         {
-            // try
-            // {
-            //     foreach (var resource in _addressableResources)
-            //     {
-            //         if (resource != null)
-            //             await _addressableService.UnloadPrefab(resource.gameObject);
-            //     }
-            // }
-            // catch (Exception e)
-            // {
-            //     Debug.LogError(e);
-            // }
+            try
+            {
+                foreach (var resource in _addressableResources)
+                {
+                    _addressableService.UnloadPrefab(resource.gameObject);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
         }
     }
 }

@@ -33,10 +33,12 @@ namespace _Game.Addressable
             }
         }
 
-        public async UniTask UnloadPrefab(GameObject prefab)
+        public void UnloadPrefab(GameObject prefab)
         {
-            Addressables.Release(prefab);
-            await UniTask.Yield(_tokenSource.Token);
+            if (prefab)
+            {
+                Addressables.ReleaseInstance(prefab);
+            }
         }
 
         public void Dispose()

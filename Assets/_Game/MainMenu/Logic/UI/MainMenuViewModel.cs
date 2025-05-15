@@ -33,7 +33,6 @@ namespace _Game.MainMenu.Logic.UI
         private void OnGoToGameplayScene()
         {
             _sceneHandler.SceneTransition("Gameplay");
-            Debug.Log("Gameplay Scene");
         }
 
         private void OnExitGameplayScene()

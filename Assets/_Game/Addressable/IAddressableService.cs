@@ -8,6 +8,6 @@ namespace _Game.Addressable
     {
         UniTask<GameObject> LoadPrefab(AssetReference prefab);
 
-        UniTask UnloadPrefab(GameObject prefab);
+        void UnloadPrefab(GameObject prefab);
     }
 }

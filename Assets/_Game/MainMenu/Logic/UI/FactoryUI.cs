@@ -6,7 +6,7 @@ namespace _Game
     public class FactoryUI
     {
         private readonly IInstantiator _instantiator;
-
+        
         public FactoryUI(IInstantiator instantiator)
         {
             _instantiator = instantiator;

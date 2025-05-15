@@ -8,8 +8,6 @@ namespace _Game.MainMenu.Logic.Infrastructure
 {
     public class MenuSceneInstaller : MonoInstaller
     {
-        [SerializeField] private ViewMainMenu _viewMainMenu;
-        [SerializeField] private ViewScore _viewScore;
         [SerializeField] private List<AssetReference> _prefabs;
 
         public override void InstallBindings()
@@ -37,12 +35,8 @@ namespace _Game.MainMenu.Logic.Infrastructure
 
         private void InstallUI()
         {
-            Container.BindInterfacesTo<MainMenuBinder>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<MainMenuViewModel>().AsCached().NonLazy();
-            Container.Bind<ViewMainMenu>().FromInstance(_viewMainMenu).AsSingle().NonLazy();
-            Container.Bind<ViewScore>().FromInstance(_viewScore).AsCached().NonLazy();
-            Container.BindInterfacesAndSelfTo<ViewScoreModelView>().AsCached().NonLazy();
-            Container.BindInterfacesAndSelfTo<BinderViewScore>().AsCached().NonLazy();
+            Container.BindInterfacesAndSelfTo<ViewScoreModelView>().AsCached();
+            Container.BindInterfacesAndSelfTo<MainMenuViewModel>().AsCached();
         }
     }
 }

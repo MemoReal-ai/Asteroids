@@ -21,7 +21,7 @@ namespace _Game.MainMenu.Logic.UI
                 .OnClickAsObservable()
                 .Subscribe(_mainMenuViewModel.ExitCommand.Execute)
                 .AddTo(_viewMainMenu);
-     
+
             _viewMainMenu.StartGameButton
                 .OnClickAsObservable()
                 .Subscribe((_mainMenuViewModel.GameplayTransitionCommand.Execute))

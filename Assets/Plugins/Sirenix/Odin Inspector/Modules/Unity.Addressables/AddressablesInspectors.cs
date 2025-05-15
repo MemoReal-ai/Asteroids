@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 
 using System;
+using Sirenix.Odin_Inspector.Modules.Unity.Addressables.Internal;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -71,7 +72,6 @@ namespace Sirenix.OdinInspector.Modules.Addressables.Editor
     using Sirenix.Serialization;
     using Sirenix.Utilities;
     using Sirenix.Utilities.Editor;
-    using Sirenix.OdinInspector.Modules.Addressables.Editor.Internal;
     using Sirenix.Reflection.Editor;
     using System.Collections.Generic;
     using System.Linq;
