@@ -693,6 +693,11 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_SubObjectType: 
     m_EditorAssetChanged: 1
+  - m_AssetGUID: 4271578ff74bf0a4b8c54ddc488bafe1
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
   _shipDefault: {fileID: 7909993538623480770, guid: 0978eda44da4b7148953570d4a43e94d, type: 3}
   _startSpawnPointShip: {fileID: 6588871098236707728}
   _shipConfig: {fileID: 11400000, guid: aea105078a1efa24b9b68c7bf9ef2f93, type: 2}

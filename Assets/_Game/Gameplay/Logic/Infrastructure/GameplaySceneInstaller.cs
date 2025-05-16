@@ -5,6 +5,7 @@ using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.UI;
+using _Game.Gameplay.Logic.UI.AdsView;
 using _Game.Gameplay.Logic.UI.LoseVVM;
 using _Game.Gameplay.Logic.UI.UserStatsView;
 using _Game.Gameplay.Logic.UI.UserStatsVVM;
@@ -122,6 +123,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
             Container.BindInterfacesAndSelfTo<ViewModelLose>().AsCached();
             Container.BindInterfacesAndSelfTo<ViewModelUserStats>().AsSingle();
             Container.BindInterfacesAndSelfTo<PauseViewModel>().AsCached();
+            Container.BindInterfacesAndSelfTo<AdsViewModel>().AsCached();
         }
 
         private void InstallSDKCounter()

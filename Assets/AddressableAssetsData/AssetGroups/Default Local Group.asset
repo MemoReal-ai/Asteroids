@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4271578ff74bf0a4b8c54ddc488bafe1
+    m_Address: Assets/_Game/Gameplay/Prefab/UI/AdsPopupGameplayScene.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5e406963e93e68a48a72ef662f78a71d
     m_Address: Assets/_Game/MainMenu/Prefab/UIScore.prefab
     m_ReadOnly: 0

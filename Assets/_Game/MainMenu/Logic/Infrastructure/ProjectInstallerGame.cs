@@ -1,9 +1,9 @@
 using _Game.Addressable;
+using _Game.AdsServiceUnity;
 using _Game.Firebase;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service;
-using UnityEngine;
 using Zenject;
 
 namespace _Game.MainMenu.Logic.Infrastructure
@@ -13,9 +13,10 @@ namespace _Game.MainMenu.Logic.Infrastructure
         public override void InstallBindings()
         {
             SignalBusInstaller.Install(Container);
-            
+
             BindAnalytics();
             BindAddressableService();
+            BindAdsService();
 
             Container.BindInterfacesTo<EntryPointProject>().AsSingle();
             Container.Bind<SceneHandler>().AsCached();
@@ -24,6 +25,11 @@ namespace _Game.MainMenu.Logic.Infrastructure
 
             Container.BindInterfacesAndSelfTo<ScoreCounter>().AsSingle();
             Container.DeclareSignal<EnemyDiedSignal>();
+        }
+
+        private void BindAdsService()
+        {
+            Container.BindInterfacesAndSelfTo<AdsService>().AsSingle().NonLazy();
         }
 
         private void BindAddressableService()
