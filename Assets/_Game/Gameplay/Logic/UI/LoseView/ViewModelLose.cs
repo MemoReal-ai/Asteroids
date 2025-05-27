@@ -30,15 +30,15 @@ namespace _Game.Gameplay.Logic.UI.LoseVVM
         {
             RestartCommand.Subscribe(_ => Restart());
             QuitCommand.Subscribe(_ => Quit());
-            _ship.OnShipDestroyed += ShowPoints;
-            _ship.OnShipDestroyed += _gameTimeHandler.LoseGame;
+            _ship.OnLoseLastLife += ShowPoints;
+            _ship.OnLoseLastLife += _gameTimeHandler.LoseGame;
         }
 
 
         public void Dispose()
         {
-            _ship.OnShipDestroyed -= ShowPoints;
-            _ship.OnShipDestroyed -= _gameTimeHandler.LoseGame;
+            _ship.OnLoseLastLife -= ShowPoints;
+            _ship.OnLoseLastLife -= _gameTimeHandler.LoseGame;
             RestartCommand?.Dispose();
             QuitCommand?.Dispose();
             Points?.Dispose();

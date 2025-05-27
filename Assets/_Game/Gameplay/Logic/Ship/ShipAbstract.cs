@@ -10,16 +10,18 @@ namespace _Game.Gameplay.Logic.Ship
     [RequireComponent(typeof(Rigidbody2D))]
     public abstract class ShipAbstract : MonoBehaviour, IWarping
     {
-        public event Action OnShipDestroyed;
-
+        public event Action OnLoseLastLife;
+        public event Action OnShipDestroyedToRewardAds;
+        
         private ShipConfig _shipConfig;
         private Vector2 _direction;
         private float _inputDirection;
         private float _currentRotationAngle;
         private EffectsMove _effectsMove;
         private float _targetAngle;
-        private bool _isPaused=false;
+        private bool _isPaused = false;
         private Vector2 _linearVelocityBeforePause;
+        private int _counterDeath = 0;
 
         public Rigidbody2D Rigidbody2D { get; private set; }
 
@@ -54,7 +56,16 @@ namespace _Game.Gameplay.Logic.Ship
         {
             if (other.TryGetComponent(out IEnemy _))
             {
-                OnShipDestroyed?.Invoke();
+                if (_counterDeath == 0)
+                {
+                    OnShipDestroyedToRewardAds?.Invoke();
+                    _counterDeath++;
+                }
+                else
+                {
+                    OnLoseLastLife?.Invoke();
+                    _counterDeath=0;
+                }
             }
         }
 
@@ -96,6 +107,11 @@ namespace _Game.Gameplay.Logic.Ship
         public void SetPosition(Vector3 warpingPosition)
         {
             transform.position = warpingPosition;
+        }
+
+        public void InvokeLoseLastLife()
+        {
+            OnLoseLastLife?.Invoke();
         }
 
         public void PauseObject()

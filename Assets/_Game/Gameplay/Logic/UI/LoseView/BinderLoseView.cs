@@ -21,7 +21,7 @@ namespace _Game.Gameplay.Logic.UI.LoseVVM
 
         public void Initialize()
         {
-            _ship.OnShipDestroyed += _loseView.Show;
+            _ship.OnLoseLastLife += _loseView.Show;
 
             _loseView.RestartButton.OnClickAsObservable().Subscribe(_viewModelLose.RestartCommand.Execute);
             _loseView.QuitButton.OnClickAsObservable().Subscribe(_viewModelLose.QuitCommand.Execute);
@@ -30,7 +30,7 @@ namespace _Game.Gameplay.Logic.UI.LoseVVM
 
         public void Dispose()
         {
-            _ship.OnShipDestroyed -= _loseView.Show;
+            _ship.OnLoseLastLife -= _loseView.Show;
         }
     }
 }

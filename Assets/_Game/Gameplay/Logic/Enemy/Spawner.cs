@@ -78,6 +78,18 @@ namespace _Game.Gameplay.Logic.Enemy
             _stopSpawnOnPause = false; 
         }
 
+        public void DisableAllEnemies()
+        {
+            foreach (var pool in _pools)
+            {
+                foreach (var enemy in pool.Objects)
+                {
+                    enemy.gameObject.SetActive(false);
+                }
+                
+            }
+        }
+
         private async UniTask Spawn()
         {
             _isSpawning = true;

@@ -6,7 +6,10 @@ namespace _Game.Gameplay.Logic.Service
 {
     public class SceneHandler
     {
+        private const string MAINMENUSCENE = "MainMenu";
+        private const string GAMEPLAYSCENE = "Gameplay";
         public event Action OnSceneRestart;
+
         public void Restart()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -18,15 +21,19 @@ namespace _Game.Gameplay.Logic.Service
             SceneManager.LoadScene(sceneName);
         }
 
-        public void SceneTransition(int sceneIndex)
+        public void TransitionToGameplayScene()
         {
-            SceneManager.LoadScene(sceneIndex);
+            SceneManager.LoadScene(GAMEPLAYSCENE);
         }
 
+        public void TransitionToMainMenuScene()
+        {
+            SceneManager.LoadScene(MAINMENUSCENE);
+        }
+        
         public void Quit()
         {
             Application.Quit();
         }
-   
     }
 }

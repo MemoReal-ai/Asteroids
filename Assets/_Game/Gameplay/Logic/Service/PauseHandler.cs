@@ -34,6 +34,7 @@ namespace _Game.Gameplay.Logic.Service
             _gameTimeHandler.OnPaused += PauseGame;
             _gameTimeHandler.OnResume += ResumeGame;
             _gameTimeHandler.OnLoseGame += PauseGame;
+            _gameTimeHandler.OnPauseToAds += PauseGame;
             CastPoolToEnemyAbstract();
         }
 
@@ -42,6 +43,7 @@ namespace _Game.Gameplay.Logic.Service
             _gameTimeHandler.OnPaused -= PauseGame;
             _gameTimeHandler.OnResume -= ResumeGame;
             _gameTimeHandler.OnLoseGame -= PauseGame;
+            _gameTimeHandler.OnPauseToAds -= PauseGame;
         }
 
         private void PauseGame()
@@ -49,11 +51,12 @@ namespace _Game.Gameplay.Logic.Service
             _spawner.StopSpawning();
             _ship.PauseObject();
             _shoot.PauseObject();
-            
+
             foreach (var enemy in _enemies)
             {
                 enemy.PauseObject();
             }
+
             _input.StopInput();
         }
 
@@ -62,11 +65,12 @@ namespace _Game.Gameplay.Logic.Service
             _spawner.ResumeSpawning();
             _ship.ResumeObject();
             _shoot.ResumeObject();
-            
+
             foreach (var enemy in _enemies)
             {
                 enemy.ResumeObject();
             }
+
             _input.ResumeInput();
         }
 

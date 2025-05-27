@@ -18,15 +18,15 @@ namespace _Game.MainMenu.Logic.Infrastructure
 
         public void Initialize()
         {
-            _ship.OnShipDestroyed += EndGameSaver;
+            _ship.OnLoseLastLife += EndLastLifeSaver;
         }
 
         public void Dispose()
         {
-            _ship.OnShipDestroyed -= EndGameSaver;
+            _ship.OnLoseLastLife -= EndLastLifeSaver;
         }
 
-        private void EndGameSaver()
+        private void EndLastLifeSaver()
         {
             _dataHandler.SaveData();
         }
