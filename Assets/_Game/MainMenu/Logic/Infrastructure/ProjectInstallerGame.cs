@@ -30,6 +30,8 @@ namespace _Game.MainMenu.Logic.Infrastructure
         private void BindAdsService()
         {
             Container.BindInterfacesAndSelfTo<AdsService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<RewardAdsHandler>().AsCached();
+            Container.BindInterfacesAndSelfTo<InterstitialAdsHandler>().AsCached();
         }
 
         private void BindAddressableService()

@@ -2,38 +2,53 @@ using System;
 using _Game.SDKService;
 using UnityEngine;
 using Zenject;
+using UnityEngine.Advertisements;
 
 namespace _Game.AdsServiceUnity
 {
-    public class AdsService : IInitializable, IDisposable, IAdsService
+    public class AdsService : IInitializable, IAdsService, IUnityAdsInitializationListener
     {
         private const string ANDROIDID = "5856151";
+
         private const string IOSID = "5856150";
-        
-        
+
+        private bool _isTestMod = true;
+
         public void Initialize()
         {
             InitService();
         }
 
-        public void Dispose()
-        {
-        }
-
-
         public void InitService()
         {
-            Debug.Log("AdsService.InitService()");
+            if (Advertisement.isSupported)
+            {
+                Advertisement.Initialize(Application.platform == RuntimePlatform.IPhonePlayer ? IOSID : ANDROIDID,
+                    _isTestMod,
+                    this);
+            }
         }
 
-        public void ShowAdsForReward()
+        public void ShowAdsForReward(string idAds, IUnityAdsShowListener listener)
         {
+            Advertisement.Show(idAds, listener);
             Debug.Log("AdsService.ShowAdsForReward()");
         }
 
-        public void ShowPassiveAds()
+        public void ShowPassiveAds(string idAds, IUnityAdsShowListener listener)
         {
+            Advertisement.Show(idAds, listener);
             Debug.Log("AdsService.ShowPassiveAds()");
+        }
+
+        public void OnInitializationComplete()
+        {
+            Debug.Log("Init Ads Complete");
+        }
+
+        public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+        {
+            Debug.Log("OnInitializationFailed()");
         }
     }
 }
