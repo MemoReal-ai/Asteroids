@@ -17,6 +17,5 @@ namespace _Game.MainMenu.Logic.Infrastructure
         {
             _service.InvokeStartGame();
         }
-        
     }
 }

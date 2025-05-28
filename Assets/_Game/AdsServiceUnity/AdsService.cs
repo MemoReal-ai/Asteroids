@@ -9,7 +9,6 @@ namespace _Game.AdsServiceUnity
     public class AdsService : IInitializable, IAdsService, IUnityAdsInitializationListener
     {
         private const string ANDROIDID = "5856151";
-
         private const string IOSID = "5856150";
 
         private bool _isTestMod = true;

@@ -34,10 +34,6 @@ namespace _Game.Firebase
                     throw new Exception("Failed to Available Firebase");
                 }
 
-                if (task.Result == DependencyStatus.Available)
-                {
-                    Debug.Log("Firebase initialized");
-                }
             }
             catch (Exception e)
             {

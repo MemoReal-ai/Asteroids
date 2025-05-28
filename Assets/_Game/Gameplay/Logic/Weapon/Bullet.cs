@@ -1,5 +1,8 @@
+using _Game.Firebase;
+using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using UnityEngine;
+using Zenject;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -9,14 +12,23 @@ namespace _Game.Gameplay.Logic.Weapon
     [RequireComponent(typeof(Rigidbody2D))]
     public abstract class Bullet : MonoBehaviour, IPoolCreature
     { 
-        [SerializeField] protected BulletStatsConfig BulletStatsConfig;
-        
+        protected BulletStatsConfig BulletStatsConfig;
+
         private Rigidbody2D _rigidbody;
         private Vector3 _startPosition;
+        private IRemoteConfigProvider _configProvider;
         public bool IsAvailable { get; protected set; } = true;
+
+        [Inject]
+        public void Construct(IRemoteConfigProvider configProvider)
+        {
+            _configProvider = configProvider;
+        }
 
         protected void Start()
         {
+            BulletStatsConfig = (BulletStatsConfig)_configProvider.GetRemoteConfig<BulletStatsConfig>(KeyToRemoteConfig.BulletStatsConfig);
+            Debug.Log(BulletStatsConfig.Speed);
             _rigidbody = GetComponent<Rigidbody2D>();
             _rigidbody.gravityScale = 0;
         }

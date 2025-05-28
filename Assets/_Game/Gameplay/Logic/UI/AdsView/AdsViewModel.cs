@@ -3,7 +3,6 @@ using _Game.AdsServiceUnity;
 using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Ship;
-using _Game.SDKService;
 using R3;
 using Zenject;
 
