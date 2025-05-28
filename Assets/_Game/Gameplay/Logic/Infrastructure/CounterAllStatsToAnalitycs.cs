@@ -56,7 +56,6 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
             _dataJson = JsonUtility.ToJson(_dataStatsSDK);
             _serviceAnalytics.InvokeStats(_dataJson);
-            Debug.Log(_dataJson);
         }
 
         private void CounterEnemy(EnemyAbstract enemy)

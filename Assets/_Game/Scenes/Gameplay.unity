@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 201365398}
   - component: {fileID: 201365397}
-  - component: {fileID: 201365399}
   m_Layer: 0
   m_Name: SoundHandler
   m_TagString: Untagged
@@ -249,19 +248,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &201365399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 201365396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5ec388d2e2b152478781de71437008a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _config: {fileID: 0}
 --- !u!1 &267194515
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +700,6 @@ MonoBehaviour:
     m_EditorAssetChanged: 1
   _shipDefault: {fileID: 7909993538623480770, guid: 0978eda44da4b7148953570d4a43e94d, type: 3}
   _startSpawnPointShip: {fileID: 6588871098236707728}
-  _shipConfig: {fileID: 11400000, guid: aea105078a1efa24b9b68c7bf9ef2f93, type: 2}
   _mainCamera: {fileID: 519420031}
   _objectPoolConfigBullet: {fileID: 11400000, guid: 38434de6385c023459647ff80e4051e8, type: 2}
   _objectPoolConfigBulletLaser: {fileID: 11400000, guid: 181b2324928031f469e4fd412d5d156c, type: 2}

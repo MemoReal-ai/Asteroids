@@ -1,4 +1,5 @@
-using System;
+using _Game.Firebase;
+using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Infrastructure;
 using UnityEngine;
@@ -9,15 +10,21 @@ namespace _Game.Gameplay.Logic.Weapon
     [RequireComponent(typeof(Rigidbody2D))]
     public class SmallComet : MonoBehaviour, IEnemy
     {
-        [SerializeField] private SmallCometConfig _smallCometConfig;
-
+        private SmallCometConfig _smallCometConfig;
         private Vector2 _direction;
         private Rigidbody2D _rigidbody2D;
         private Vector3 _startPosition;
         private SignalBus _signalBus;
+        private IRemoteConfigProvider _provider;
 
+        [Inject]
+        public void Construct(IRemoteConfigProvider provider)
+        {
+            _provider = provider;
+        }
         private void Start()
         {
+            _smallCometConfig = _provider.GetRemoteConfig<SmallCometConfig>(KeyToRemoteConfig.SmallCometConfig);
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _rigidbody2D.gravityScale = 0f;
             _startPosition = transform.position;

@@ -190,8 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8d39a96fc78c0f4887bde1ed1c26663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeed: 30
-  _reward: 5
+  _config: {fileID: 11400000, guid: 59b549485458b334db956753d87c0b34, type: 2}
   _cometConfig: {fileID: 11400000, guid: 322f81018938f1647a4fd867b056498e, type: 2}
 --- !u!50 &302313397018881324
 Rigidbody2D:

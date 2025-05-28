@@ -1,4 +1,6 @@
 using System;
+using _Game.Firebase;
+using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Ship.Effects;
@@ -22,6 +24,7 @@ namespace _Game.Gameplay.Logic.Ship
         private bool _isPaused = false;
         private Vector2 _linearVelocityBeforePause;
         private int _counterDeath = 0;
+        private IRemoteConfigProvider _provider;
 
         public Rigidbody2D Rigidbody2D { get; private set; }
 
@@ -29,13 +32,14 @@ namespace _Game.Gameplay.Logic.Ship
         public Transform ShipShootPoint { get; private set; }
 
         [Inject]
-        public void Construct(ShipConfig shipConfig)
+        public void Construct(IRemoteConfigProvider provider)
         {
-            _shipConfig = shipConfig;
+            _provider = provider;
         }
 
         protected virtual void Start()
         {
+            _shipConfig = _provider.GetRemoteConfig<ShipConfig>(KeyToRemoteConfig.ShipConfig);
             Rigidbody2D = GetComponent<Rigidbody2D>();
             Rigidbody2D.gravityScale = 0;
             _currentRotationAngle = transform.eulerAngles.z;

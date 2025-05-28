@@ -5,6 +5,6 @@ namespace _Game.FirebaseService
 {
     public interface IRemoteConfigProvider
     {
-        ScriptableObject GetRemoteConfig<T>(KeyToRemoteConfig key);
+        T GetRemoteConfig<T>(KeyToRemoteConfig key);
     }
 }

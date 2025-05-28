@@ -1,4 +1,6 @@
 using System;
+using _Game.Firebase;
+using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service.ObjectPool;
@@ -15,18 +17,29 @@ namespace _Game.Gameplay.Logic.Enemy
     {
         public event Action<EnemyAbstract> OnDeath;
 
-        [SerializeField] protected float _maxSpeed;
-        [SerializeField] protected int _reward;
-
+        protected DefaultEnemyConfig Config;
+        protected float MinSpeed;
         protected Rigidbody2D Rigidbody;
         protected ShipAbstract TargetShip;
         protected SignalBus SignalBus;
+        protected IInstantiator Instantiator;
+        protected IRemoteConfigProvider Provider;
+
 
         private bool _isPaused;
 
+        [Inject]
+        public void Construct(IRemoteConfigProvider provider,IInstantiator instantiator)
+        {
+            Provider = provider;
+            Instantiator = instantiator;
+        }
+
         protected virtual void Start()
         {
+            Config = Provider.GetRemoteConfig<DefaultEnemyConfig>(KeyToRemoteConfig.DefaultEnemyConfig);
             Rigidbody = GetComponent<Rigidbody2D>();
+            MinSpeed = Config.Speed;
             Rigidbody.gravityScale = 0;
         }
 
@@ -57,7 +70,7 @@ namespace _Game.Gameplay.Logic.Enemy
 
         protected void InvokeOnDied()
         {
-            SignalBus.Fire(new EnemyDiedSignal(_reward));
+            SignalBus.Fire(new EnemyDiedSignal(Config.Reward));
             OnDeath?.Invoke(this);
         }
 
@@ -70,7 +83,7 @@ namespace _Game.Gameplay.Logic.Enemy
         {
             transform.position = warpingPosition;
         }
-        
+
         public void PauseObject()
         {
             _isPaused = true;

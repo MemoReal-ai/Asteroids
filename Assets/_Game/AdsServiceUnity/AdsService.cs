@@ -40,10 +40,7 @@ namespace _Game.AdsServiceUnity
             Debug.Log("AdsService.ShowPassiveAds()");
         }
 
-        public void OnInitializationComplete()
-        {
-            Debug.Log("Init Ads Complete");
-        }
+        public void OnInitializationComplete() { }
 
         public void OnInitializationFailed(UnityAdsInitializationError error, string message)
         {

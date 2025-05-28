@@ -9,7 +9,7 @@ namespace _Game.Gameplay.Logic.Enemy
         protected override void Move()
         {
             Vector2 direction = (TargetShip.transform.position - transform.position).normalized;
-            Rigidbody.MovePosition(Rigidbody.position + direction * (_maxSpeed * Time.deltaTime));
+            Rigidbody.MovePosition(Rigidbody.position + direction * (Config.Speed * Time.deltaTime));
             Rotate(direction);
         }
 

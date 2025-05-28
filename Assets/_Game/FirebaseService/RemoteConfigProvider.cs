@@ -15,11 +15,10 @@ namespace _Game.FirebaseService
             FetchDataAsync();
         }
 
-        public ScriptableObject GetRemoteConfig<T>(KeyToRemoteConfig key)
+        public T GetRemoteConfig<T>(KeyToRemoteConfig key)
         {
             var jsonConfig=FirebaseRemoteConfig.DefaultInstance.GetValue(key.ToString()).StringValue;
-            ScriptableObject newConfig = ScriptableObject.CreateInstance(typeof(T));
-            JsonUtility.FromJsonOverwrite(jsonConfig, newConfig);
+            T newConfig=JsonUtility.FromJson<T>(jsonConfig);
             return newConfig;
         }
 

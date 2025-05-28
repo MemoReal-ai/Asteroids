@@ -44,19 +44,16 @@ namespace _Game.Firebase
         public void InvokeStartGame()
         {
             FirebaseAnalytics.LogEvent(STARTGAME,new Parameter("StartGame","StartGame"));
-            Debug.Log("StartGame");
         }
 
         public void InvokeStats(string dataStatsSDK)
         {
             FirebaseAnalytics.LogEvent(STATS, new Parameter(DATASTATSSDK, dataStatsSDK));
-            Debug.Log("Stats");
         }
 
         public void InvokeLaserShoot()
         {
             FirebaseAnalytics.LogEvent(LASERSHOOT, new Parameter("Shoot","1"));
-            Debug.Log("Laser Shoot");
         }
     }
 }

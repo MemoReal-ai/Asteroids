@@ -1,17 +1,13 @@
-using UnityEngine;
+using System;
 
 namespace _Game.Gameplay.Logic.Ship
 {
-    [CreateAssetMenu(fileName = "ShipConfig", menuName = "Config/Ship Config/Create")]
-    public class ShipConfig : ScriptableObject
+    [Serializable]
+    public class ShipConfig
     {
-        [field: SerializeField]
-        public string Name { get; private set; }
-        [field: SerializeField, Min(1)]
-        public float Speed { get; private set; }
-        [field: SerializeField]
-        public float RotationSpeed { get; private set; }
-        [field: SerializeField]
-        public float StopAcceleration { get; private set; }
+        public string Name = "Basic";
+        public float Speed = 9;
+        public float RotationSpeed = 200;
+        public float StopAcceleration = 0.5f;
     }
 }

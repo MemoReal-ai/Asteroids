@@ -8,7 +8,6 @@ using _Game.Gameplay.Logic.UI;
 using _Game.Gameplay.Logic.UI.AdsView;
 using _Game.Gameplay.Logic.UI.LoseVVM;
 using _Game.Gameplay.Logic.UI.UserStatsView;
-using _Game.Gameplay.Logic.UI.UserStatsVVM;
 using _Game.Gameplay.Logic.Weapon;
 using _Game.MainMenu.Logic.Infrastructure;
 using _Game.MainMenu.Logic.UI;
@@ -23,7 +22,6 @@ namespace _Game.Gameplay.Logic.Infrastructure
         [SerializeField] private List<AssetReference> _prefabs;
         [SerializeField] private ShipDefault _shipDefault;
         [SerializeField] private StartSpawnPointShip _startSpawnPointShip;
-        [SerializeField] private ShipConfig _shipConfig;
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private ObjectPoolConfigBullet _objectPoolConfigBullet;
         [SerializeField] private ObjectPoolConfigBullet _objectPoolConfigBulletLaser;
@@ -73,7 +71,6 @@ namespace _Game.Gameplay.Logic.Infrastructure
         {
             Container.BindInterfacesAndSelfTo<ShipAbstract>().FromComponentInNewPrefab(_shipDefault)
                 .UnderTransform(_startSpawnPointShip.SpawnPoint.transform).AsCached().NonLazy();
-            Container.Bind<ShipConfig>().FromInstance(_shipConfig).AsSingle();
         }
 
         private void InstallSpawn()

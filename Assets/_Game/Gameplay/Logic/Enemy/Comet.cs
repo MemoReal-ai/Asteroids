@@ -1,3 +1,5 @@
+using System;
+using _Game.Firebase;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
 using UnityEngine;
@@ -8,16 +10,21 @@ namespace _Game.Gameplay.Logic.Enemy
 {
     public class Comet : EnemyAbstract
     {
-        [SerializeField] private CometConfig _cometConfig;
-
+        private CometConfig _cometConfig;
         private Vector3 _startPosition;
         private Vector3 _direction;
         private bool _initialized = false;
+        private float _currentSpeed;
 
+        private void Awake()
+        {
+            _cometConfig = Provider.GetRemoteConfig<CometConfig>(KeyToRemoteConfig.CometConfig);
+        }
 
         private void OnEnable()
         {
-            _maxSpeed = Random.Range(_cometConfig.MinSpeed, _maxSpeed);
+            _currentSpeed = Random.Range(_cometConfig.MinSpeed, _cometConfig.MaxSpeed);
+            Debug.Log(MinSpeed);
             _initialized = true;
         }
 
@@ -30,7 +37,7 @@ namespace _Game.Gameplay.Logic.Enemy
                 _initialized = false;
             }
 
-            Rigidbody.AddForce(_direction * (_maxSpeed * Time.fixedDeltaTime), ForceMode2D.Force);
+            Rigidbody.AddForce(_direction * (_currentSpeed * Time.fixedDeltaTime), ForceMode2D.Force);
             Fade();
         }
 
@@ -64,7 +71,10 @@ namespace _Game.Gameplay.Logic.Enemy
             {
                 var angle = i * (360 / _cometConfig.CountSmallComet);
                 Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
-                var smallComet = Instantiate(_cometConfig.SmallComet, transform.position, Quaternion.identity);
+                var smallComet = Instantiator.InstantiatePrefabForComponent<SmallComet>(_cometConfig.SmallComet,
+                    transform.position,
+                    Quaternion.identity,
+                    null);
                 smallComet.Setup(direction, SignalBus);
             }
         }
@@ -76,15 +86,6 @@ namespace _Game.Gameplay.Logic.Enemy
             if (magnitudeDistance > _cometConfig.DistanceToFade)
             {
                 gameObject.SetActive(false);
-            }
-        }
-
-
-        private void OnValidate()
-        {
-            if (_cometConfig.MinSpeed > _maxSpeed)
-            {
-                _maxSpeed = _cometConfig.MinSpeed + 1;
             }
         }
     }

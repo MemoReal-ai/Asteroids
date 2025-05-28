@@ -17,6 +17,7 @@ namespace _Game.Gameplay.Logic.Weapon
         private Rigidbody2D _rigidbody;
         private Vector3 _startPosition;
         private IRemoteConfigProvider _configProvider;
+        
         public bool IsAvailable { get; protected set; } = true;
 
         [Inject]
@@ -27,8 +28,7 @@ namespace _Game.Gameplay.Logic.Weapon
 
         protected void Start()
         {
-            BulletStatsConfig = (BulletStatsConfig)_configProvider.GetRemoteConfig<BulletStatsConfig>(KeyToRemoteConfig.BulletStatsConfig);
-            Debug.Log(BulletStatsConfig.Speed);
+            BulletStatsConfig =_configProvider.GetRemoteConfig<BulletStatsConfig>(KeyToRemoteConfig.BulletStatsConfig);
             _rigidbody = GetComponent<Rigidbody2D>();
             _rigidbody.gravityScale = 0;
         }
