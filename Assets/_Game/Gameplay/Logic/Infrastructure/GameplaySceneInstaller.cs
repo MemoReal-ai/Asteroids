@@ -19,6 +19,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
 {
     public class GameplaySceneInstaller : MonoInstaller
     {
+        [SerializeField] private SmallComet _smallComet;
         [SerializeField] private List<AssetReference> _prefabs;
         [SerializeField] private ShipDefault _shipDefault;
         [SerializeField] private StartSpawnPointShip _startSpawnPointShip;
@@ -80,6 +81,8 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
         private void CreateAndBindObjectPools()
         {
+            Container.Bind<SmallComet>().FromInstance(_smallComet).AsCached();
+            
             _instantiator = Container.Resolve<IInstantiator>();
 
             _bulletPoolDefault = new ObjectPool<Bullet>(_objectPoolConfigBullet.Object,

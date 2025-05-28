@@ -15,7 +15,13 @@ namespace _Game.Gameplay.Logic.Enemy
         private Vector3 _direction;
         private bool _initialized = false;
         private float _currentSpeed;
+        private SmallComet _smallCometPrefab;
 
+        [Inject]
+        public void Construct(SmallComet comet)
+        {
+            _smallCometPrefab = comet;
+        }
         private void Awake()
         {
             _cometConfig = Provider.GetRemoteConfig<CometConfig>(KeyToRemoteConfig.CometConfig);
@@ -24,7 +30,6 @@ namespace _Game.Gameplay.Logic.Enemy
         private void OnEnable()
         {
             _currentSpeed = Random.Range(_cometConfig.MinSpeed, _cometConfig.MaxSpeed);
-            Debug.Log(MinSpeed);
             _initialized = true;
         }
 
@@ -71,7 +76,7 @@ namespace _Game.Gameplay.Logic.Enemy
             {
                 var angle = i * (360 / _cometConfig.CountSmallComet);
                 Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
-                var smallComet = Instantiator.InstantiatePrefabForComponent<SmallComet>(_cometConfig.SmallComet,
+                var smallComet = Instantiator.InstantiatePrefabForComponent<SmallComet>(_smallCometPrefab,
                     transform.position,
                     Quaternion.identity,
                     null);

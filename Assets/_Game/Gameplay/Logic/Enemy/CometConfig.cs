@@ -7,7 +7,6 @@ namespace _Game.Gameplay.Logic.Enemy
     public class CometConfig
     {
         public float DistanceToFade;
-        public SmallComet SmallComet;
         public float MinSpeed;
         public int CountSmallComet;
         public int MaxSpeed;
