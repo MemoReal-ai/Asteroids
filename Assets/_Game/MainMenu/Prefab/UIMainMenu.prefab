@@ -549,7 +549,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -500
   m_TargetDisplay: 0
 --- !u!114 &6047467821206948553
 MonoBehaviour:
@@ -590,7 +590,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 4294967295
 --- !u!114 &5663423604739046875
 MonoBehaviour:
   m_ObjectHideFlags: 0

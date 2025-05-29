@@ -567,14 +567,24 @@ MonoBehaviour:
   _prefabs:
   - m_AssetGUID: 0abd23ebab00d134dadb82f5662b7073
     m_SubObjectName: 
-    m_SubObjectGUID: 
     m_SubObjectType: 
+    m_SubObjectGUID: 
     m_EditorAssetChanged: 1
   - m_AssetGUID: 5e406963e93e68a48a72ef662f78a71d
     m_SubObjectName: 
-    m_SubObjectGUID: 
     m_SubObjectType: 
+    m_SubObjectGUID: 
     m_EditorAssetChanged: 1
+  - m_AssetGUID: 44aa447c6d552df4fb01b77fe54bccf2
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 7e82ed607702b9f45bb7e68093342791
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
 --- !u!1 &1559002028
 GameObject:
   m_ObjectHideFlags: 0
