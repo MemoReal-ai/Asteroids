@@ -2,6 +2,8 @@ namespace _Game.Purchasing_Service
 {
     public interface IPurchasingService
     {
-        void Buy();
+        void Buy(EnumPurchasing purchasing);
+        bool HasPurchasingAdsSkip();
+        void SetFlagPurchasingAdsSkip(bool skip);
     }
 }

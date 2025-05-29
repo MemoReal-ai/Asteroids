@@ -18,7 +18,7 @@ namespace _Game.MainMenu.Logic.UI.Store
 
         public void Initialize()
         {
-            BuyCommand.Subscribe(x => _purchasingService.Buy());
+            BuyCommand.Subscribe(x => _purchasingService.Buy(EnumPurchasing.PurchaseSkipAds));
         }
 
         public void Dispose()

@@ -33,7 +33,7 @@ namespace _Game.MainMenu.Logic.Infrastructure
 
         private void BindPurchasingService()
         {
-            Container.BindInterfacesAndSelfTo<PurchasingHandler>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PurchasingHandler>().AsCached();
         }
 
         private void BindRemoteConfigProvider()

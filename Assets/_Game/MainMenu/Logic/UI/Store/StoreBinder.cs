@@ -1,4 +1,4 @@
-using Cysharp.Threading.Tasks;
+using _Game.Purchasing_Service;
 using Zenject;
 using R3;
 
@@ -17,10 +17,21 @@ namespace _Game.MainMenu.Logic.UI.Store
 
         public void Initialize()
         {
-            _storePopupView.PaymentButton.OnClickAsObservable().Subscribe(_storeViewModel.BuyCommand.Execute)
-                .AddTo(_storePopupView);
-            _storePopupView.CloseButton.OnClickAsObservable().Subscribe(x => HideStorePopup()).AddTo(_storePopupView);
-            _storePopupView.ShowPopUpButton.OnClickAsObservable().Subscribe(x => ShowStorePopup()).AddTo(_storePopupView);
+            _storePopupView.PaymentButton.
+                OnClickAsObservable().
+                Subscribe(_storeViewModel.BuyCommand.Execute).
+                AddTo(_storePopupView);
+            
+            _storePopupView.CloseButton.
+                OnClickAsObservable().
+                Subscribe(x => HideStorePopup()).
+                AddTo(_storePopupView);
+            
+            _storePopupView.ShowPopUpButton.
+                OnClickAsObservable().
+                Subscribe(x => ShowStorePopup()).
+                AddTo(_storePopupView);
+            
         }
 
         private void ShowStorePopup()

@@ -6,7 +6,6 @@ namespace _Game.Gameplay.Logic.UI
     public class PauseView : MonoBehaviour
     { 
         public Button ResumeButton;
-       
         public Button ExitButton;
 
         private void Start()

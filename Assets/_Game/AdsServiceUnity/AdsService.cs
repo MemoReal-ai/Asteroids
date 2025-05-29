@@ -1,4 +1,5 @@
 using System;
+using _Game.Purchasing_Service;
 using _Game.SDKService;
 using UnityEngine;
 using Zenject;
@@ -11,7 +12,14 @@ namespace _Game.AdsServiceUnity
         private const string ANDROIDID = "5856151";
         private const string IOSID = "5856150";
 
+        private readonly IPurchasingService _purchasingService;
+
         private bool _isTestMod = true;
+
+        public AdsService(IPurchasingService purchasingService)
+        {
+            _purchasingService = purchasingService;
+        }
 
         public void Initialize()
         {
@@ -30,14 +38,20 @@ namespace _Game.AdsServiceUnity
 
         public void ShowAdsForReward(string idAds, IUnityAdsShowListener listener)
         {
-            Advertisement.Show(idAds, listener);
-            Debug.Log("AdsService.ShowAdsForReward()");
+            if (!_purchasingService.HasPurchasingAdsSkip())
+            {
+                Advertisement.Show(idAds, listener);
+                Debug.Log("AdsService.ShowAdsForReward()");
+            }
         }
 
         public void ShowPassiveAds(string idAds, IUnityAdsShowListener listener)
         {
-            Advertisement.Show(idAds, listener);
-            Debug.Log("AdsService.ShowPassiveAds()");
+            if (!_purchasingService.HasPurchasingAdsSkip())
+            {
+                Advertisement.Show(idAds, listener);
+                Debug.Log("AdsService.ShowPassiveAds()");
+            }
         }
 
         public void OnInitializationComplete() { }
