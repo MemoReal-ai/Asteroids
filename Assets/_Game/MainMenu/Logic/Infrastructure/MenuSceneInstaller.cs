@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _Game.MainMenu.Logic.UI;
+using _Game.MainMenu.Logic.UI.Store;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
@@ -37,6 +38,7 @@ namespace _Game.MainMenu.Logic.Infrastructure
         {
             Container.BindInterfacesAndSelfTo<ViewScoreModelView>().AsCached();
             Container.BindInterfacesAndSelfTo<MainMenuViewModel>().AsCached();
+            Container.BindInterfacesAndSelfTo<StoreViewModel>().AsCached();
         }
     }
 }

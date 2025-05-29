@@ -30,11 +30,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 44aa447c6d552df4fb01b77fe54bccf2
-    m_Address: Assets/_Game/MainMenu/Prefab/StoreButtonCanvas.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5e406963e93e68a48a72ef662f78a71d
     m_Address: Assets/_Game/MainMenu/Prefab/UIScore.prefab
     m_ReadOnly: 0

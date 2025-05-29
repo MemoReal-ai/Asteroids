@@ -5,6 +5,7 @@ using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service;
+using _Game.Purchasing_Service;
 using Zenject;
 
 namespace _Game.MainMenu.Logic.Infrastructure
@@ -19,6 +20,7 @@ namespace _Game.MainMenu.Logic.Infrastructure
             BindAddressableService();
             BindAdsService();
             BindRemoteConfigProvider();
+            BindPurchasingService();
 
             Container.BindInterfacesTo<EntryPointProject>().AsSingle();
             Container.Bind<SceneHandler>().AsCached();
@@ -27,6 +29,11 @@ namespace _Game.MainMenu.Logic.Infrastructure
 
             Container.BindInterfacesAndSelfTo<ScoreCounter>().AsSingle();
             Container.DeclareSignal<EnemyDiedSignal>();
+        }
+
+        private void BindPurchasingService()
+        {
+            Container.BindInterfacesAndSelfTo<PurchasingHandler>().AsSingle().NonLazy();
         }
 
         private void BindRemoteConfigProvider()
