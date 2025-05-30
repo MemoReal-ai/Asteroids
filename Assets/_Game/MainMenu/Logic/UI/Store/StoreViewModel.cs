@@ -7,6 +7,7 @@ namespace _Game.MainMenu.Logic.UI.Store
 {
     public class StoreViewModel : IInitializable, IDisposable
     {
+        public ReadOnlyReactiveProperty<bool> IsAdsRemoved = new ReactiveProperty<bool>();
         public ReactiveCommand BuyCommand { get; private set; } = new ReactiveCommand();
 
         private readonly IPurchasingService _purchasingService;
@@ -18,12 +19,18 @@ namespace _Game.MainMenu.Logic.UI.Store
 
         public void Initialize()
         {
-            BuyCommand.Subscribe(x => _purchasingService.Buy(EnumPurchasing.PurchaseSkipAds));
+            BuyCommand.Subscribe(x => _purchasingService.BuyRemoveAds());
+            
+            IsAdsRemoved = Observable.
+                EveryValueChanged(this, _ => !_purchasingService.HasPurchasingAdsSkip()).
+                ToReadOnlyReactiveProperty();
+            
         }
 
         public void Dispose()
         {
-            BuyCommand.Dispose();
+            IsAdsRemoved?.Dispose();
+            BuyCommand?.Dispose();
         }
     }
 }

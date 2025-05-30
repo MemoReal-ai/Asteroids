@@ -6,8 +6,9 @@ namespace _Game.Purchasing_Service
 {
     public class PurchasingHandler : IInitializable, IPurchasingService, IStoreListener
     {
+        private const string REMOVEADSKEY = "RemoveAds";
+        
         private bool _isPurchasingSkipAds;
-        private EnumPurchasing _purchasing;
         private IStoreController _storeController;
         private IExtensionProvider _extensionProvider;
         private bool IsInitialized => _storeController != null && _extensionProvider != null;
@@ -23,14 +24,19 @@ namespace _Game.Purchasing_Service
                 return;
 
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-            builder.AddProduct(EnumPurchasing.PurchaseSkipAds.ToString(), ProductType.NonConsumable);
+            builder.AddProduct(REMOVEADSKEY, ProductType.NonConsumable);
 
             UnityPurchasing.Initialize(this, builder);
         }
 
-        public void Buy(EnumPurchasing purchasing)
+        public void BuyRemoveAds()
         {
-            _purchasing = purchasing;
+            if (!_isPurchasingSkipAds)
+            {
+                _isPurchasingSkipAds = true;
+                _storeController.InitiatePurchase(REMOVEADSKEY);
+                Debug.Log("Purchasing service buy");
+            }
         }
 
         public bool HasPurchasingAdsSkip()
@@ -45,6 +51,7 @@ namespace _Game.Purchasing_Service
 
         public void OnInitializeFailed(InitializationFailureReason error)
         {
+            Debug.LogError($"Initialization failed: {error}");
         }
 
         public void OnInitializeFailed(InitializationFailureReason error, string message)
@@ -54,20 +61,6 @@ namespace _Game.Purchasing_Service
 
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
         {
-            if (purchaseEvent.purchasedProduct.definition.id == _purchasing.ToString())
-            {
-                if (!_isPurchasingSkipAds)
-                {
-                    _isPurchasingSkipAds = true;
-                    Debug.Log("Purchasing service buy");
-                }
-                else
-                {
-                    _storeController.InitiatePurchase(_purchasing.ToString());
-                    return PurchaseProcessingResult.Pending;
-                }
-            }
-
             return PurchaseProcessingResult.Complete;
         }
 
@@ -78,6 +71,7 @@ namespace _Game.Purchasing_Service
 
         public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
         {
+            Debug.Log("Purchasing service initialized");
             _storeController = controller;
             _extensionProvider = extensions;
         }

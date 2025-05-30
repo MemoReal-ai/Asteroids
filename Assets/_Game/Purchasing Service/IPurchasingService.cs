@@ -2,7 +2,7 @@ namespace _Game.Purchasing_Service
 {
     public interface IPurchasingService
     {
-        void Buy(EnumPurchasing purchasing);
+        void BuyRemoveAds();
         bool HasPurchasingAdsSkip();
         void SetFlagPurchasingAdsSkip(bool skip);
     }

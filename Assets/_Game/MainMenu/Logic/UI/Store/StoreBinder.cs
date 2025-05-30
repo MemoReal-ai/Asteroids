@@ -1,6 +1,6 @@
-using _Game.Purchasing_Service;
 using Zenject;
 using R3;
+using UnityEngine;
 
 namespace _Game.MainMenu.Logic.UI.Store
 {
@@ -17,22 +17,27 @@ namespace _Game.MainMenu.Logic.UI.Store
 
         public void Initialize()
         {
+            
             _storePopupView.PaymentButton.
                 OnClickAsObservable().
                 Subscribe(_storeViewModel.BuyCommand.Execute).
                 AddTo(_storePopupView);
-            
+
             _storePopupView.CloseButton.
                 OnClickAsObservable().
                 Subscribe(x => HideStorePopup()).
                 AddTo(_storePopupView);
-            
+
             _storePopupView.ShowPopUpButton.
                 OnClickAsObservable().
                 Subscribe(x => ShowStorePopup()).
                 AddTo(_storePopupView);
             
+            _storeViewModel.IsAdsRemoved.
+                Subscribe(canBuy=>_storePopupView.PaymentButton.interactable = canBuy).
+                AddTo(_storePopupView);
         }
+        
 
         private void ShowStorePopup()
         {
