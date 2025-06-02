@@ -11,13 +11,13 @@ namespace _Game.Gameplay.Logic.Service
         event Action OnChangeAmmo;
         
         float GetAxisHorizontal();
+        
         float GetAxisVertical();
         
-        void HandleInput();
-        
         void StopInput();
+        
         void ResumeInput();
-
+        
         void PressedResume();
 
     }

@@ -21,12 +21,12 @@ namespace _Game.MainMenu.Logic.Infrastructure
             BindAdsService();
             BindRemoteConfigProvider();
             BindPurchasingService();
+            
 
             Container.BindInterfacesTo<EntryPointProject>().AsSingle();
             Container.Bind<SceneHandler>().AsCached();
             Container.BindInterfacesTo<DataSaver>().AsCached();
             Container.BindInterfacesAndSelfTo<DataHandler>().AsCached().NonLazy();
-
             Container.BindInterfacesAndSelfTo<ScoreCounter>().AsSingle();
             Container.DeclareSignal<EnemyDiedSignal>();
         }

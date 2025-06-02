@@ -6,7 +6,7 @@ using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.UI;
 using _Game.Gameplay.Logic.UI.AdsView;
-using _Game.Gameplay.Logic.UI.LoseVVM;
+using _Game.Gameplay.Logic.UI.LoseUI;
 using _Game.Gameplay.Logic.UI.UserStatsView;
 using _Game.Gameplay.Logic.Weapon;
 using _Game.MainMenu.Logic.Infrastructure;

@@ -18,7 +18,6 @@ namespace _Game.Gameplay.Logic.Enemy
         public event Action<EnemyAbstract> OnDeath;
 
         protected DefaultEnemyConfig Config;
-        protected float MinSpeed;
         protected Rigidbody2D Rigidbody;
         protected ShipAbstract TargetShip;
         protected SignalBus SignalBus;
@@ -39,7 +38,6 @@ namespace _Game.Gameplay.Logic.Enemy
         {
             Config = Provider.GetRemoteConfig<DefaultEnemyConfig>(KeyToRemoteConfig.DefaultEnemyConfig);
             Rigidbody = GetComponent<Rigidbody2D>();
-            MinSpeed = Config.Speed;
             Rigidbody.gravityScale = 0;
         }
 

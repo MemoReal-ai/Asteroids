@@ -5,6 +5,8 @@ using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
+using _Game.Gameplay.Logic.UI;
+using _Game.Gameplay.Logic.UI.AdsView;
 using _Game.Gameplay.Logic.Weapon;
 using _Game.MainMenu.Logic.UI;
 using Cysharp.Threading.Tasks;
@@ -20,7 +22,6 @@ namespace _Game.Gameplay.Logic.Infrastructure
         private readonly ObjectPool<Bullet> _objectPoolBulletDefault;
         private readonly ObjectPool<Bullet> _objectPoolBulletLaser;
         private readonly IAddressableService _addressableService;
-        private readonly List<AssetReference> _prefabs;
         private readonly FactoryUI _factoryUI;
         private readonly List<IWeapon> _weapons = new();
         private readonly Shoot _shoot;
@@ -32,15 +33,15 @@ namespace _Game.Gameplay.Logic.Infrastructure
         private List<GameObject> _addressableResources = new();
 
         public EntryPoint([Inject(Id = EnumBullet.Default)] ObjectPool<Bullet> objectPoolBulletsDefault,
-            [Inject(Id = EnumBullet.Laser)] ObjectPool<Bullet> objectPoolBulletLaser,
+            [Inject(Id = EnumBullet.Laser)]
+            ObjectPool<Bullet> objectPoolBulletLaser,
             List<ObjectPool<EnemyAbstract>> pools,
             Shoot shoot,
             ShipAbstract ship,
             SignalBus signalBus, Camera camera,
-            Warp warp, IAddressableService addressableService, List<AssetReference> prefabs, FactoryUI factoryUI)
+            Warp warp, IAddressableService addressableService, FactoryUI factoryUI)
         {
             _factoryUI = factoryUI;
-            _prefabs = prefabs;
             _addressableService = addressableService;
             _pools = pools;
             _objectPoolBulletLaser = objectPoolBulletLaser;
@@ -72,12 +73,10 @@ namespace _Game.Gameplay.Logic.Infrastructure
         {
             try
             {
-                foreach (var prefab in _prefabs)
-                {
-                    var resources = await _addressableService.LoadPrefab(prefab);
-                    var objectInstantiate = _factoryUI.Create(resources);
-                    _addressableResources.Add(objectInstantiate);
-                }
+                await CreateAddressablePrefab<UserView>(NameAddressablePrefab.UIUser);
+                await CreateAddressablePrefab<LoseView>(NameAddressablePrefab.LosePanel);
+                await CreateAddressablePrefab<AdsPopupView>(NameAddressablePrefab.AdsPopupGameplayScene);
+                await CreateAddressablePrefab<PauseView>(NameAddressablePrefab.PauseMenu);
             }
             catch (Exception e)
             {
@@ -104,6 +103,21 @@ namespace _Game.Gameplay.Logic.Infrastructure
             }
 
             _warpingCreature.Add(_ship);
+        }
+
+        private async UniTask CreateAddressablePrefab<T>(NameAddressablePrefab namePrefab)
+        {
+            try
+            {
+                var prefab = await _addressableService.LoadPrefab(namePrefab);
+                _factoryUI.Create<T>(prefab);
+                _addressableResources.Add(prefab);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

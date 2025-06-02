@@ -3,7 +3,7 @@ using _Game.Gameplay.Logic.Ship;
 using Zenject;
 using R3;
 
-namespace _Game.Gameplay.Logic.UI.LoseVVM
+namespace _Game.Gameplay.Logic.UI.LoseUI
 {
     public class BinderLoseView : IInitializable, IDisposable
     {
@@ -23,9 +23,19 @@ namespace _Game.Gameplay.Logic.UI.LoseVVM
         {
             _ship.OnLoseLastLife += _loseView.Show;
 
-            _loseView.RestartButton.OnClickAsObservable().Subscribe(_viewModelLose.RestartCommand.Execute);
-            _loseView.QuitButton.OnClickAsObservable().Subscribe(_viewModelLose.QuitCommand.Execute);
-            _viewModelLose.Points.Subscribe(points=>_loseView.ShowPoints(points)).AddTo(_loseView);
+            _loseView.RestartButton.
+                OnClickAsObservable().
+                Subscribe(_viewModelLose.RestartCommand.Execute).
+                AddTo(_loseView);
+            
+            _loseView.QuitButton.
+                OnClickAsObservable().
+                Subscribe(_viewModelLose.QuitCommand.Execute).
+                AddTo(_loseView);
+            
+            _viewModelLose.Points.
+                Subscribe(points=>_loseView.ShowPoints(points)).
+                AddTo(_loseView);
         }
 
         public void Dispose()

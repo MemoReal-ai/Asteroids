@@ -1,39 +1,35 @@
 using System;
 using System.Collections.Generic;
 using _Game.Addressable;
+using _Game.MainMenu.Logic.Infrastructure.GameObjectContext;
 using _Game.MainMenu.Logic.UI;
+using _Game.MainMenu.Logic.UI.Store;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace _Game.MainMenu.Logic.Infrastructure
 {
     public class EntryPointMainMenu : IInitializable, IDisposable
     {
-        private readonly List<AssetReference> _prefabs;
-
         private readonly IAddressableService _addressableService;
         private readonly FactoryUI _factoryUI;
         private readonly List<GameObject> _addressableResources = new();
 
         public EntryPointMainMenu(IAddressableService addressableService,
-            FactoryUI factoryUI, List<AssetReference> prefabs)
+            FactoryUI factoryUI)
         {
             _addressableService = addressableService;
             _factoryUI = factoryUI;
-            _prefabs = prefabs;
         }
 
         public async void Initialize()
         {
             try
             {
-                foreach (var prefab in _prefabs)
-                {
-                    var resources = await _addressableService.LoadPrefab(prefab);
-                    var objectInstantiate = _factoryUI.Create(resources);
-                    _addressableResources.Add(objectInstantiate);
-                }
+                await CreateAddressablePrefab<ViewMainMenu>(NameAddressablePrefab.UIMainMenu);
+                await CreateAddressablePrefab<ViewScore>(NameAddressablePrefab.UIScore);
+                await CreateAddressablePrefab<StoreInstaller>(NameAddressablePrefab.StoreCanvas);
             }
             catch (Exception e)
             {
@@ -53,6 +49,21 @@ namespace _Game.MainMenu.Logic.Infrastructure
             catch (Exception e)
             {
                 Debug.LogError(e);
+            }
+        }
+
+        private async UniTask CreateAddressablePrefab<T>(NameAddressablePrefab namePrefab)
+        {
+            try
+            {
+                var prefab = await _addressableService.LoadPrefab(namePrefab);
+                _factoryUI.Create<T>(prefab);
+                _addressableResources.Add(prefab);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
     }

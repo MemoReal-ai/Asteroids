@@ -74,7 +74,7 @@ namespace _Game.Gameplay.Logic.Enemy
         {
             for (int i = 0; i < _cometConfig.CountSmallComet; i++)
             {
-                var angle = i * (360 / _cometConfig.CountSmallComet);
+                var angle = i * (360 / Random.value);
                 Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
                 var smallComet = Instantiator.InstantiatePrefabForComponent<SmallComet>(_smallCometPrefab,
                     transform.position,

@@ -10,8 +10,8 @@ namespace _Game.MainMenu.Logic.Infrastructure.GameObjectContext
 
         public override void InstallBindings()
         {
-            Container.Bind<ViewScore>().FromInstance(_viewScore).AsSingle();
-            Container.BindInterfacesTo<BinderViewScore>().AsSingle().NonLazy();
+            Container.Bind<ViewScore>().FromInstance(_viewScore).AsCached();
+            Container.BindInterfacesTo<BinderViewScore>().AsCached();
         }
     }
 }

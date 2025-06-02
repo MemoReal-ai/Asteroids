@@ -8,7 +8,6 @@ namespace _Game.MainMenu.Logic.UI
         private readonly ViewMainMenu _viewMainMenu;
         private readonly MainMenuViewModel _mainMenuViewModel;
 
-
         public MainMenuBinder(ViewMainMenu viewMainMenu, MainMenuViewModel mainMenuViewModel)
         {
             _viewMainMenu = viewMainMenu;

@@ -43,7 +43,7 @@ namespace _Game.Gameplay.Logic.Service
         }
 
 
-        public void HandleInput()
+        private void HandleInput()
         {
             
             _shipMover.SetDirection(_input.GetAxisVertical());

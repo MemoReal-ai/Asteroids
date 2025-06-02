@@ -16,42 +16,42 @@ MonoBehaviour:
   m_GUID: 0c8675f0f9e50714ca2881cb21b872ef
   m_SerializeEntries:
   - m_GUID: 0abd23ebab00d134dadb82f5662b7073
-    m_Address: Assets/_Game/MainMenu/Prefab/UIMainMenu.prefab
+    m_Address: UIMainMenu
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0edc11c98d68b2e4ebaf61ab2e199eda
-    m_Address: Assets/_Game/Gameplay/Prefab/UI/LaserIcon.prefab
+    m_Address: LaserIcon
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4271578ff74bf0a4b8c54ddc488bafe1
-    m_Address: Assets/_Game/Gameplay/Prefab/UI/AdsPopupGameplayScene.prefab
+    m_Address: AdsPopupGameplayScene
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5e406963e93e68a48a72ef662f78a71d
-    m_Address: Assets/_Game/MainMenu/Prefab/UIScore.prefab
+    m_Address: UIScore
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e82ed607702b9f45bb7e68093342791
-    m_Address: Assets/_Game/MainMenu/Prefab/StoreCanvas.prefab
+    m_Address: StoreCanvas
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ab3fb3b436a2c0641981b54aa0722dfa
-    m_Address: Assets/_Game/Gameplay/Prefab/UI/UIUser.prefab
+    m_Address: UIUser
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: df5d575419c7dcd42bec2759e4d37727
-    m_Address: Assets/_Game/Gameplay/Prefab/UI/PauseMenu.prefab
+    m_Address: PauseMenu
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eda2c86595327404e835f623e2bc7897
-    m_Address: Assets/_Game/Gameplay/Prefab/UI/LosePanel.prefab
+    m_Address: LosePanel
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -11,11 +11,11 @@ namespace _Game.Addressable
     {
         private CancellationTokenSource _tokenSource;
 
-        public async UniTask<GameObject> LoadPrefab(AssetReference prefab)
+        public async UniTask<GameObject> LoadPrefab(NameAddressablePrefab prefabName)
         {
             try
             {
-                AsyncOperationHandle<GameObject> prefabTask = Addressables.LoadAssetAsync<GameObject>(prefab);
+                AsyncOperationHandle<GameObject> prefabTask = Addressables.LoadAssetAsync<GameObject>(prefabName.ToString());
 
                 await prefabTask;
 
@@ -40,7 +40,7 @@ namespace _Game.Addressable
                 Addressables.ReleaseInstance(prefab);
             }
         }
-
+        
         public void Dispose()
         {
             _tokenSource?.Cancel();

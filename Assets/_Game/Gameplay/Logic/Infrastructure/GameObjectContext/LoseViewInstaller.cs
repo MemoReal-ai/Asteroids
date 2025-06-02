@@ -1,5 +1,5 @@
 using _Game.Gameplay.Logic.UI;
-using _Game.Gameplay.Logic.UI.LoseVVM;
+using _Game.Gameplay.Logic.UI.LoseUI;
 using _Game.MainMenu.Logic.UI;
 using UnityEngine;
 using Zenject;

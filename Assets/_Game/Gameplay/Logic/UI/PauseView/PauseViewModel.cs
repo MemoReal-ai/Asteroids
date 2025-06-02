@@ -37,7 +37,7 @@ namespace _Game.Gameplay.Logic.UI
 
         private void GoToMainMenu()
         {
-            _sceneHandler.SceneTransition("MainMenu");
+            _sceneHandler.TransitionToMainMenuScene();
         }
     }
 }

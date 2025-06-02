@@ -15,9 +15,9 @@ MonoBehaviour:
   m_DefaultGroup: 0c8675f0f9e50714ca2881cb21b872ef
   m_currentHash:
     serializedVersion: 2
-    Hash: eb2f8cfa1b4991c49bccbe4843dd3669
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
   m_InternalIdNamingMode: 0
@@ -50,10 +50,10 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: cc5e0b8a4286ee6458f9fe5d56c1d54f
   m_RemoteCatalogLoadPath:
-    m_Id: 
-  m_ContentStateBuildPathProfileVariableName: 
+    m_Id: ff648626158506342a4056420b481d09
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
@@ -79,6 +79,20 @@ MonoBehaviour:
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: ff648626158506342a4056420b481d09
         m_Value: <undefined>
+    - m_InheritedParent: 
+      m_Id: aa9b0c0109917b04a891958364a80fda
+      m_ProfileName: Remote
+      m_Values:
+      - m_Id: 4ce5ea220a7494b42a103ae5227c0c91
+        m_Value: 'ServerData/[BuildTarget]'
+      - m_Id: 5836ea5742cc16e408740642ea45e10f
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: cc5e0b8a4286ee6458f9fe5d56c1d54f
+        m_Value: 'ServerData/[BuildTarget]'
+      - m_Id: ebb1cf6eef6b70d49b2f93b5631528f1
+        m_Value: <undefined>
+      - m_Id: ff648626158506342a4056420b481d09
+        m_Value: 'https://storage.yandexcloud.net/unityasteroids/StandaloneWindows64/[BuildTarget]'
     m_ProfileEntryNames:
     - m_Id: 4ce5ea220a7494b42a103ae5227c0c91
       m_Name: Local.BuildPath
@@ -111,4 +125,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9409779a8ca1cba41b1fb66a43e334a7, type: 2}
   - {fileID: 11400000, guid: 3e44f987355f6454d97dc72eeb5905a6, type: 2}
   - {fileID: 11400000, guid: fd30f86dff84c224c9b4a0047cff2f1c, type: 2}
-  m_ActiveProfileId: 1ccffd958c6b12744857ad67f6f00a50
+  m_ActiveProfileId: aa9b0c0109917b04a891958364a80fda
