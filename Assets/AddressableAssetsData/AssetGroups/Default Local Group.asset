@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0de9aa3ea6b9fb04bacdd2062b46af5b
+    m_Address: LoaderCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0edc11c98d68b2e4ebaf61ab2e199eda
     m_Address: LaserIcon
     m_ReadOnly: 0
