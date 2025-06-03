@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace _Game.Gameplay.Logic.Service
 {
-    public class DataSaver : ISaver
+    public class LocalSaver : ILocalSaver
     {
         private const string Key = "Data";
         private Data _data;

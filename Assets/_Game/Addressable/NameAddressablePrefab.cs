@@ -9,5 +9,7 @@ namespace _Game.Addressable
         PauseMenu = 4,
         AdsPopupGameplayScene = 5,
         LosePanel = 6,
+        SignInCanvas=7,
+        LoaderCanvas=8,
     }
 }

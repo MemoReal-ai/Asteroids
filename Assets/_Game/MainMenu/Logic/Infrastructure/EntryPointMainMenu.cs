@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Game.Addressable;
 using _Game.MainMenu.Logic.Infrastructure.GameObjectContext;
 using _Game.MainMenu.Logic.UI;
+using _Game.MainMenu.Logic.UI.Authenticator;
 using _Game.MainMenu.Logic.UI.Store;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -30,6 +31,8 @@ namespace _Game.MainMenu.Logic.Infrastructure
                 await CreateAddressablePrefab<ViewMainMenu>(NameAddressablePrefab.UIMainMenu);
                 await CreateAddressablePrefab<ViewScore>(NameAddressablePrefab.UIScore);
                 await CreateAddressablePrefab<StoreInstaller>(NameAddressablePrefab.StoreCanvas);
+                await CreateAddressablePrefab<AuthenticatorView>(NameAddressablePrefab.SignInCanvas);
+                await CreateAddressablePrefab<LoaderView>(NameAddressablePrefab.LoaderCanvas);
             }
             catch (Exception e)
             {

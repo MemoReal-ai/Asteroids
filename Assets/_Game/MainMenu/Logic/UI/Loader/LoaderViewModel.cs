@@ -1,16 +1,23 @@
 using System;
-using UnityEngine;
+using _Game.Gameplay.Logic.Service;
 using Zenject;
 
 namespace _Game.MainMenu.Logic.UI.Loader
 {
-    public class LoaderViewModel: IInitializable, IDisposable
+    public class LoaderViewModel : IInitializable, IDisposable
     {
-        public void Dispose()
+        private readonly DataHandler _dataHandler;
+
+        public LoaderViewModel(DataHandler dataHandler)
         {
+            _dataHandler = dataHandler;
         }
 
         public void Initialize()
+        {
+        }
+
+        public void Dispose()
         {
         }
     }

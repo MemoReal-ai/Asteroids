@@ -8,6 +8,7 @@ namespace _Game.Gameplay.Logic.Service
         public int CurrentScore;
         public int HightScore;
         public bool PurchasingSkipAds;
+        public DateTime SaveTime;
 
 
         public void ChangeScore()

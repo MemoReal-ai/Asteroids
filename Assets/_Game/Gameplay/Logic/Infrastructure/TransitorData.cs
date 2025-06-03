@@ -28,7 +28,8 @@ namespace _Game.MainMenu.Logic.Infrastructure
 
         private void EndLastLifeSaver()
         {
-            _dataHandler.SaveData();
+            _dataHandler.LocalSaveData();
+            _dataHandler.CloudSaveData();
         }
     }
 }

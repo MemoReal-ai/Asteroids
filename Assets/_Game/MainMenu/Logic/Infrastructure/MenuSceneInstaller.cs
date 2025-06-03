@@ -1,4 +1,6 @@
 using _Game.MainMenu.Logic.UI;
+using _Game.MainMenu.Logic.UI.Authenticator;
+using _Game.MainMenu.Logic.UI.Loader;
 using _Game.MainMenu.Logic.UI.Store;
 using Zenject;
 
@@ -28,6 +30,8 @@ namespace _Game.MainMenu.Logic.Infrastructure
             Container.BindInterfacesAndSelfTo<ViewScoreModelView>().AsCached().NonLazy();
             Container.BindInterfacesAndSelfTo<MainMenuViewModel>().AsCached().NonLazy();
             Container.BindInterfacesAndSelfTo<StoreViewModel>().AsCached().NonLazy();
+            Container.BindInterfacesAndSelfTo<AuthenticatorViewModel>().AsCached().NonLazy();
+            Container.BindInterfacesAndSelfTo<LoaderViewModel>().AsCached().NonLazy();
         }
     }
 }
