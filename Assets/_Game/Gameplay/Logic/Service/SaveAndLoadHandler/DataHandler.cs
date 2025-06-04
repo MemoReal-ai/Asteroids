@@ -67,7 +67,14 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
             _localData = _localSaver.LoadData();
             _cloudData = await _cloudSaver.LoadDataCloud();
             _initializationData.TrySetResult();
-            if (_cloudData == null || _cloudData.SaveTime == _localData.SaveTime)
+
+            if (_cloudData == null)
+            {
+                OnNotValidData?.Invoke();
+                return true;
+            }
+
+            if (_cloudData.SaveTime == _localData.SaveTime)
             {
                 return true;
             }
@@ -92,10 +99,7 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
 
         public void SetData(Data data)
         {
-            if (data == null)
-            {
-                data = _localSaver.LoadData();
-            }
+            data ??= _localSaver.LoadData();
 
             Data = data;
             _purchasingService.SetFlagPurchasingAdsSkip(Data.PurchasingSkipAds);

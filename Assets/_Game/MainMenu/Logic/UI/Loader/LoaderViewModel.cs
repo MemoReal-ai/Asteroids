@@ -36,7 +36,7 @@ namespace _Game.MainMenu.Logic.UI.Loader
                 SetSubscribe(ChoiceLocalSaveCommand, LocalScoreText, LocalDataTime, localData);
                 
                 var cloudData = _dataHandler.GetCloudSaveData();
-                SetSubscribe(ChoiceCloudSaveCommand, CloudScoreText, CloudDataTime, cloudData ?? localData);
+                SetSubscribe(ChoiceCloudSaveCommand, CloudScoreText, CloudDataTime, cloudData ?? new Data());
             }
             catch (Exception e)
             {
@@ -54,7 +54,7 @@ namespace _Game.MainMenu.Logic.UI.Loader
             ReactiveProperty<DateTime> saveTime, Data data)
         {
             buttonChoice.Subscribe(x => _dataHandler.SetData(data));
-            hightScore.Value = data.HightScore.ToString();
+            hightScore.Value = $" High Score {data.HightScore.ToString()}";
             saveTime.Value = data.SaveTime;
         }
 
