@@ -1,4 +1,6 @@
 using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace _Game.Gameplay.Logic.Service
 {
@@ -8,6 +10,8 @@ namespace _Game.Gameplay.Logic.Service
         public int CurrentScore;
         public int HightScore;
         public bool PurchasingSkipAds;
+        
+        [JsonConverter(typeof(IsoDateTimeConverter))]
         public DateTime SaveTime;
 
 
@@ -16,7 +20,6 @@ namespace _Game.Gameplay.Logic.Service
             if (CurrentScore > HightScore)
             {
                 HightScore = CurrentScore;
-                
             }
         }
     }

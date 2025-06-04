@@ -58,7 +58,6 @@ namespace _Game.AdsServiceUnity
 
         public void OnUnityAdsAdLoaded(string placementId)
         {
-            Debug.Log($"Unity Ads ad loaded: {placementId}");
         }
 
         public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)

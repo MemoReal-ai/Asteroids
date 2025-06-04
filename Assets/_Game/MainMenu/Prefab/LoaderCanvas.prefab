@@ -396,6 +396,8 @@ GameObject:
   - component: {fileID: 8111789084417497104}
   - component: {fileID: 1313513705734420551}
   - component: {fileID: 7779132309136759528}
+  - component: {fileID: 2409714644422156369}
+  - component: {fileID: 1068316884677991679}
   m_Layer: 5
   m_Name: LoaderCanvas
   m_TagString: Untagged
@@ -508,6 +510,37 @@ MonoBehaviour:
     TimeDataText: {fileID: 7993745331874184747}
     ScoreDataText: {fileID: 9008704238419579607}
     LoadButton: {fileID: 7462629361358982032}
+--- !u!114 &2409714644422156369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3451195275302390841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 1068316884677991679}
+  _installerPrefabs: []
+  _autoRun: 1
+  _kernel: {fileID: 0}
+--- !u!114 &1068316884677991679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3451195275302390841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2658fb92bb1e24e4c95b18b835f787aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _loaderView: {fileID: 7779132309136759528}
 --- !u!1 &3677030114138696517
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System;
 using _Game.Gameplay.Logic.Service;
+using _Game.Gameplay.Logic.Service.SaveAndLoadHandler;
 using Zenject;
 using R3;
 
@@ -17,10 +18,18 @@ namespace _Game.MainMenu.Logic.UI
             _dataHandler = dataHandler;
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
-            ScoreLastSession.Value = _dataHandler.Data.CurrentScore.ToString();
-            HighScore.Value = _dataHandler.Data.HightScore.ToString();
+            try
+            {
+                await _dataHandler.CheckLoadedData();
+                ScoreLastSession.Value = _dataHandler.Data.CurrentScore.ToString();
+                HighScore.Value = _dataHandler.Data.HightScore.ToString();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         public void Dispose()

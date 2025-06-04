@@ -1,9 +1,9 @@
-using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
 {
-    public interface ICloudSaver
+    public interface ICloudSaver:ISaver
     {
-        void Save();
+       UniTask<Data> LoadDataCloud();
     }
 }

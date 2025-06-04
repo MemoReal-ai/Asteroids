@@ -8,6 +8,7 @@ using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Service.SaveAndLoadHandler;
 using _Game.Purchasing_Service;
+using Newtonsoft.Json;
 using Zenject;
 
 namespace _Game.MainMenu.Logic.Infrastructure
@@ -25,6 +26,7 @@ namespace _Game.MainMenu.Logic.Infrastructure
             BindPurchasingService();
             BindSaverService();
             BindAuthenticationService();
+            BindJsonConverter();
 
             Container.BindInterfacesTo<EntryPointProject>().AsSingle();
             Container.Bind<SceneHandler>().AsCached();
@@ -32,11 +34,16 @@ namespace _Game.MainMenu.Logic.Infrastructure
             Container.DeclareSignal<EnemyDiedSignal>();
         }
 
+        private void BindJsonConverter()
+        {
+            Container.BindInterfacesAndSelfTo<JsonConverterHandler>().AsCached();
+        }
+
         private void BindAuthenticationService()
         {
             Container.BindInterfacesAndSelfTo<AuthenticatorHandler>().AsCached().NonLazy();
         }
-
+                                                                     
         private void BindSaverService()
         {
             Container.BindInterfacesAndSelfTo<DataHandler>().AsCached();

@@ -21,9 +21,11 @@ namespace _Game.MainMenu.Logic.UI
                 .Subscribe(score => _viewScore.SetHighScore(score))
                 .AddTo(_viewScore);
             
+
             _viewScoreModel.ScoreLastSession
                 .Subscribe(score => _viewScore.SetScoreLastSession(score))
                 .AddTo(_viewScore);
+            Debug.Log(_viewScoreModel.ScoreLastSession);
         }
     }
 }

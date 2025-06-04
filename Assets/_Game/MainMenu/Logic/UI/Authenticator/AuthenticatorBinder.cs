@@ -1,6 +1,5 @@
 using _Game.AuthenticatorService;
 using R3;
-using UnityEngine;
 using Zenject;
 
 namespace _Game.MainMenu.Logic.UI.Authenticator
@@ -36,8 +35,7 @@ namespace _Game.MainMenu.Logic.UI.Authenticator
                 Hide();
             }).AddTo(_authenticatorView);
         }
-
-
+        
         private void Hide()
         {
             _authenticatorView.Hide();

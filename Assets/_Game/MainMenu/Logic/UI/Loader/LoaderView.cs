@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 namespace _Game.MainMenu.Logic.UI
@@ -12,6 +13,11 @@ namespace _Game.MainMenu.Logic.UI
         private void Start()
         {
             Hide();
+        }
+
+        public void SetText(string text, TextMeshProUGUI textMesh)
+        {
+            textMesh.text = text;
         }
 
         public void Hide()

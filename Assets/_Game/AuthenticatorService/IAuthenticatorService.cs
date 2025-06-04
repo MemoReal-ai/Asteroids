@@ -7,5 +7,6 @@ namespace _Game.AuthenticatorService
     {
         UniTask SignIn();
         bool IsSignedIn();
+        UniTask WaitSignIn();
     }
 }

@@ -1,9 +1,9 @@
+using _Game.Gameplay.Logic.Service.SaveAndLoadHandler;
+
 namespace _Game.Gameplay.Logic.Service
 {
-    public interface ILocalSaver
+    public interface ILocalSaver:ISaver
     {
-        public void SaveData(Data data);
-        public Data LoadData();
-        
+        Data LoadData();
     }
 }
