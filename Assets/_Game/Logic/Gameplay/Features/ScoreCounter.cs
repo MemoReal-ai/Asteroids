@@ -39,7 +39,7 @@ namespace _Game.Gameplay.Logic.Features
             
         }
 
-        public void ResetScore()
+        private void ResetScore()
         {
             CurrentSessionScore = 0;
         }

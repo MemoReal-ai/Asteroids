@@ -10,18 +10,18 @@ namespace _Game.Gameplay.Logic.Service
         private const string GAMEPLAYSCENE = "Gameplay";
         public event Action OnSceneRestart;
 
-        public void RestartGameplayScene()
+        public void RestartGameplay()
         {
-            TransitionToGameplayScene();
+            LoadGameplayScene();
             OnSceneRestart?.Invoke();
         }
 
-        public void TransitionToGameplayScene()
+        public void LoadGameplayScene()
         {
             SceneManager.LoadScene(GAMEPLAYSCENE);
         }
 
-        public void TransitionToMainMenuScene()
+        public void LoadMainMenu()
         {
             SceneManager.LoadScene(MAINMENUSCENE);
         }

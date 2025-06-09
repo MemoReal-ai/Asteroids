@@ -28,11 +28,11 @@ namespace _Game.MainMenu.Logic.Infrastructure
         {
             try
             {
-                await CreateAddressablePrefab<ViewMainMenu>(NameAddressablePrefab.UIMainMenu);
-                await CreateAddressablePrefab<ViewScore>(NameAddressablePrefab.UIScore);
-                await CreateAddressablePrefab<StoreInstaller>(NameAddressablePrefab.StoreCanvas);
-                await CreateAddressablePrefab<AuthenticatorView>(NameAddressablePrefab.SignInCanvas);
-                await CreateAddressablePrefab<LoaderView>(NameAddressablePrefab.LoaderCanvas);
+                await CreateAddressablePrefab<ViewMainMenu>();
+                await CreateAddressablePrefab<ViewScore>();
+                await CreateAddressablePrefab<StoreInstaller>();
+                await CreateAddressablePrefab<AuthenticatorView>();
+                await CreateAddressablePrefab<LoaderView>();
             }
             catch (Exception e)
             {
@@ -55,12 +55,12 @@ namespace _Game.MainMenu.Logic.Infrastructure
             }
         }
 
-        private async UniTask CreateAddressablePrefab<T>(NameAddressablePrefab namePrefab)
+        private async UniTask CreateAddressablePrefab<T>()
         {
             try
             {
-                var prefab = await _addressableService.LoadPrefab(namePrefab);
-                _factoryUI.Create<T>(prefab);
+                var prefab = await _addressableService.LoadPrefab<T>();
+                _factoryUI.Create(prefab);
                 _addressableResources.Add(prefab);
             }
             catch (Exception e)

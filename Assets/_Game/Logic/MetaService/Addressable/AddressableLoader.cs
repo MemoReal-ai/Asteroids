@@ -1,21 +1,22 @@
 using System;
 using System.Threading;
+using _Game.Addressable;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace _Game.Addressable
+namespace _Game.Logic.MetaService.Addressable
 {
     public class AddressableLoader : IAddressableService, IDisposable
     {
-        private CancellationTokenSource _tokenSource;
+        private CancellationTokenSource _tokenSource=new();
 
-        public async UniTask<GameObject> LoadPrefab(NameAddressablePrefab prefabName)
+        public async UniTask<GameObject> LoadPrefab<T>()
         {
             try
             {
-                AsyncOperationHandle<GameObject> prefabTask = Addressables.LoadAssetAsync<GameObject>(prefabName.ToString());
+                AsyncOperationHandle<GameObject> prefabTask = Addressables.LoadAssetAsync<GameObject>(typeof(T).Name);
 
                 await prefabTask;
 

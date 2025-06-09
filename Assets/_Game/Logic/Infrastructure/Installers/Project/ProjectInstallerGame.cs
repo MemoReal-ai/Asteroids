@@ -7,6 +7,7 @@ using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Service.SaveAndLoadHandler;
+using _Game.Logic.MetaService.Addressable;
 using _Game.Purchasing_Service;
 using Newtonsoft.Json;
 using Zenject;

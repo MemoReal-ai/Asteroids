@@ -1,7 +1,9 @@
 using System;
 using _Game.Firebase;
+using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
+using _Game.Logic.Gameplay.Enemy;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -15,22 +17,12 @@ namespace _Game.Gameplay.Logic.Enemy
         private Vector3 _direction;
         private bool _initialized = false;
         private float _currentSpeed;
-        private SmallComet _smallCometPrefab;
+        private ObjectPool<SmallComet> _cometPool;
 
         [Inject]
-        public void Construct(SmallComet comet)
+        public void Construct(ObjectPool<SmallComet> cometPool)
         {
-            _smallCometPrefab = comet;
-        }
-        private void Awake()
-        {
-            _cometConfig = Provider.GetRemoteConfig<CometConfig>(KeyToRemoteConfig.CometConfig);
-        }
-
-        private void OnEnable()
-        {
-            _currentSpeed = Random.Range(_cometConfig.MinSpeed, _cometConfig.MaxSpeed);
-            _initialized = true;
+            _cometPool = cometPool;
         }
 
         protected override void Move()
@@ -43,6 +35,7 @@ namespace _Game.Gameplay.Logic.Enemy
             }
 
             Rigidbody.AddForce(_direction * (_currentSpeed * Time.fixedDeltaTime), ForceMode2D.Force);
+            Rigidbody.linearVelocity = Vector3.ClampMagnitude(_direction, _currentSpeed);
             Fade();
         }
 
@@ -52,6 +45,14 @@ namespace _Game.Gameplay.Logic.Enemy
             transform.position = position;
             SignalBus = signalBus;
             gameObject.SetActive(true);
+        }
+
+        protected override void Initialize()
+        {
+            _cometConfig = Provider.GetRemoteConfig<CometConfig>();
+            _currentSpeed = Random.Range(_cometConfig.MinSpeed, _cometConfig.MaxSpeed);
+            _initialized = true;
+            base.Initialize();
         }
 
         protected override void OnTriggerEnter2D(Collider2D other)
@@ -76,11 +77,8 @@ namespace _Game.Gameplay.Logic.Enemy
             {
                 var angle = i * (360 / Random.value);
                 Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
-                var smallComet = Instantiator.InstantiatePrefabForComponent<SmallComet>(_smallCometPrefab,
-                    transform.position,
-                    Quaternion.identity,
-                    null);
-                smallComet.Setup(direction, SignalBus);
+                var smallComet = _cometPool.GetObject();
+                smallComet.Setup(direction, SignalBus, transform);
             }
         }
 

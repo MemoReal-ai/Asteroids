@@ -13,16 +13,10 @@ namespace _Game.MainMenu.Logic.UI
             _instantiator = instantiator;
         }
 
-        public GameObject Create<T>(GameObject userInterface)
+        public GameObject Create(GameObject userInterface)
         {
             GameObject window = _instantiator.InstantiatePrefab(userInterface);
-
-            if (window.TryGetComponent(out T _))
-            {
-                return window;
-            }
-
-            throw new Exception($"Not  found component {typeof(T)}");
+            return window;
         }
     }
 }

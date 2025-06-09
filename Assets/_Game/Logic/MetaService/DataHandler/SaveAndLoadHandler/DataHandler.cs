@@ -22,6 +22,7 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
 
         private Data _cloudData;
         private Data _localData;
+        private int _thresholdTickDifference=10;
         public Data Data { get; private set; }
 
         public DataHandler(ILocalSaver localSaver, ScoreCounter scoreCounter, IPurchasingService purchasingService,
@@ -74,7 +75,7 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
                 return true;
             }
 
-            if (_cloudData.SaveTime == _localData.SaveTime)
+            if (Mathf.Abs(_cloudData.SaveTime.Date.Ticks - _localData.SaveTime.Date.Ticks) < _thresholdTickDifference)
             {
                 return true;
             }

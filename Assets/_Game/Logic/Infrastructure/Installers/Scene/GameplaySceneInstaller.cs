@@ -9,6 +9,8 @@ using _Game.Gameplay.Logic.UI.AdsView;
 using _Game.Gameplay.Logic.UI.LoseUI;
 using _Game.Gameplay.Logic.UI.UserStatsView;
 using _Game.Gameplay.Logic.Weapon;
+using _Game.Logic.Gameplay.Enemy;
+using _Game.Logic.Gameplay.Service.ObjectPool;
 using _Game.MainMenu.Logic.Infrastructure;
 using _Game.MainMenu.Logic.UI;
 using UnityEngine;
@@ -19,7 +21,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
 {
     public class GameplaySceneInstaller : MonoInstaller
     {
-        [SerializeField] private SmallComet _smallComet;
+        [SerializeField] private ObjectPoolConfig<SmallComet> _smallCometPoolConfig;
         [SerializeField] private List<AssetReference> _prefabs;
         [SerializeField] private ShipDefault _shipDefault;
         [SerializeField] private StartSpawnPointShip _startSpawnPointShip;
@@ -28,6 +30,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
         [SerializeField] private ObjectPoolConfigBullet _objectPoolConfigBulletLaser;
         [SerializeField] private ObjectPoolConfigEnemy _objectPoolConfigUFO;
         [SerializeField] private ObjectPoolConfigEnemy _objectPoolConfigComet;
+
         [SerializeField] private Containers _containers;
 
         private IInstantiator _instantiator;
@@ -36,6 +39,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
         private ObjectPool<Bullet> _bulletPoolLaser;
         private ObjectPool<EnemyAbstract> _objectPoolUFO;
         private ObjectPool<EnemyAbstract> _objectPoolComet;
+        private ObjectPool<SmallComet> _smallCometPool;
         private readonly List<ObjectPool<EnemyAbstract>> _poolsEnemies = new();
 
         public override void InstallBindings()
@@ -81,9 +85,14 @@ namespace _Game.Gameplay.Logic.Infrastructure
 
         private void CreateAndBindObjectPools()
         {
-            Container.Bind<SmallComet>().FromInstance(_smallComet).AsCached();
-            
             _instantiator = Container.Resolve<IInstantiator>();
+
+            _smallCometPool = new ObjectPool<SmallComet>(_smallCometPoolConfig.Object,
+                _smallCometPoolConfig.ObjectSize,
+                _containers.SmallComet,
+                _smallCometPoolConfig.AutoExpand,
+                _instantiator);
+            Container.Bind<ObjectPool<SmallComet>>().FromInstance(_smallCometPool).AsCached();
 
             _bulletPoolDefault = new ObjectPool<Bullet>(_objectPoolConfigBullet.Object,
                 _objectPoolConfigBullet.ObjectSize,

@@ -1,11 +1,11 @@
 using System;
-using _Game.Firebase;
 using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
+using _Game.Logic.Gameplay.Enemy;
 using UnityEngine;
 using Zenject;
 
@@ -21,24 +21,19 @@ namespace _Game.Gameplay.Logic.Enemy
         protected Rigidbody2D Rigidbody;
         protected ShipAbstract TargetShip;
         protected SignalBus SignalBus;
-        protected IInstantiator Instantiator;
         protected IRemoteConfigProvider Provider;
-
 
         private bool _isPaused;
 
         [Inject]
-        public void Construct(IRemoteConfigProvider provider,IInstantiator instantiator)
+        public void Construct(IRemoteConfigProvider provider)
         {
             Provider = provider;
-            Instantiator = instantiator;
         }
 
-        protected virtual void Start()
+        protected virtual void OnEnable()
         {
-            Config = Provider.GetRemoteConfig<DefaultEnemyConfig>(KeyToRemoteConfig.DefaultEnemyConfig);
-            Rigidbody = GetComponent<Rigidbody2D>();
-            Rigidbody.gravityScale = 0;
+            Initialize();
         }
 
         private void FixedUpdate()
@@ -54,17 +49,23 @@ namespace _Game.Gameplay.Logic.Enemy
 
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out Bullet bullet) || other.TryGetComponent(out SmallComet smallComet))
+            if (other.TryGetComponent(out Bullet _) || other.TryGetComponent(out SmallComet _))
             {
                 InvokeOnDied();
                 gameObject.SetActive(false);
             }
         }
 
-
         public abstract void Spawn(Vector3 position, ShipAbstract targetShip, SignalBus signalBus);
 
         protected abstract void Move();
+
+        protected virtual void Initialize()
+        {
+            Config = Provider.GetRemoteConfig<DefaultEnemyConfig>();
+            Rigidbody = GetComponent<Rigidbody2D>();
+            Rigidbody.gravityScale = 0;
+        }
 
         protected void InvokeOnDied()
         {

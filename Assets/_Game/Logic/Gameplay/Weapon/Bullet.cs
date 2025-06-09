@@ -1,4 +1,3 @@
-using _Game.Firebase;
 using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using UnityEngine;
@@ -11,13 +10,13 @@ namespace _Game.Gameplay.Logic.Weapon
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public abstract class Bullet : MonoBehaviour, IPoolCreature
-    { 
+    {
         protected BulletStatsConfig BulletStatsConfig;
 
         private Rigidbody2D _rigidbody;
         private Vector3 _startPosition;
         private IRemoteConfigProvider _configProvider;
-        
+
         public bool IsAvailable { get; protected set; } = true;
 
         [Inject]
@@ -28,9 +27,7 @@ namespace _Game.Gameplay.Logic.Weapon
 
         protected void Start()
         {
-            BulletStatsConfig =_configProvider.GetRemoteConfig<BulletStatsConfig>(KeyToRemoteConfig.BulletStatsConfig);
-            _rigidbody = GetComponent<Rigidbody2D>();
-            _rigidbody.gravityScale = 0;
+            Initialize();
         }
 
         protected void FixedUpdate()
@@ -40,6 +37,13 @@ namespace _Game.Gameplay.Logic.Weapon
             {
                 Fade();
             }
+        }
+
+        private void Initialize()
+        {
+            BulletStatsConfig = _configProvider.GetRemoteConfig<BulletStatsConfig>();
+            _rigidbody = GetComponent<Rigidbody2D>();
+            _rigidbody.gravityScale = 0;
         }
 
         private void Move()

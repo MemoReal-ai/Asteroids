@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Game.Gameplay.Logic.Service.ObjectPool
+namespace _Game.Logic.Gameplay.Service.ObjectPool
 {
     public class Containers : MonoBehaviour
     {
@@ -15,5 +15,8 @@ namespace _Game.Gameplay.Logic.Service.ObjectPool
         
         [field: SerializeField]
         public Transform Comet { get; private set; }
+        
+        [field: SerializeField]
+        public Transform SmallComet { get; private set; }
     }
 }

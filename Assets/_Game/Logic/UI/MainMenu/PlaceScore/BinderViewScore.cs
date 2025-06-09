@@ -1,3 +1,4 @@
+using System;
 using R3;
 using UnityEngine;
 using Zenject;
@@ -20,12 +21,11 @@ namespace _Game.MainMenu.Logic.UI
             _viewScoreModel.HighScore
                 .Subscribe(score => _viewScore.SetHighScore(score))
                 .AddTo(_viewScore);
-            
+
 
             _viewScoreModel.ScoreLastSession
                 .Subscribe(score => _viewScore.SetScoreLastSession(score))
                 .AddTo(_viewScore);
-            Debug.Log(_viewScoreModel.ScoreLastSession);
         }
     }
 }

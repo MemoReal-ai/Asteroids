@@ -39,7 +39,7 @@ namespace _Game.Gameplay.Logic.Ship
 
         protected virtual void Start()
         {
-            _shipConfig = _provider.GetRemoteConfig<ShipConfig>(KeyToRemoteConfig.ShipConfig);
+            _shipConfig = _provider.GetRemoteConfig<ShipConfig>();
             Rigidbody2D = GetComponent<Rigidbody2D>();
             Rigidbody2D.gravityScale = 0;
             _currentRotationAngle = transform.eulerAngles.z;

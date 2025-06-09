@@ -1,5 +1,6 @@
 using System;
 using _Game.Gameplay.Logic.Service;
+using _Game.Logic.Gameplay.Service.Input;
 using R3;
 using Zenject;
 
@@ -37,7 +38,7 @@ namespace _Game.Gameplay.Logic.UI
 
         private void GoToMainMenu()
         {
-            _sceneHandler.TransitionToMainMenuScene();
+            _sceneHandler.LoadMainMenu();
         }
     }
 }

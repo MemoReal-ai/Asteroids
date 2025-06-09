@@ -54,12 +54,12 @@ namespace _Game.Gameplay.Logic.UI.LoseUI
 
         private void Restart()
         {
-            _sceneHandler.RestartGameplayScene();
+            _sceneHandler.RestartGameplay();
         }
 
         private void Quit()
         {
-            _sceneHandler.TransitionToMainMenuScene();
+            _sceneHandler.LoadMainMenu();
         }
     }
 }

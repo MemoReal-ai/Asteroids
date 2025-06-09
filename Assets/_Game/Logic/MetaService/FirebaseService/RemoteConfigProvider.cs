@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using _Game.Firebase;
+using _Game.Gameplay.Logic.Service;
 using Firebase.Extensions;
 using Firebase.RemoteConfig;
 using UnityEngine;
@@ -10,15 +11,22 @@ namespace _Game.FirebaseService
 {
     public class RemoteConfigProvider : IInitializable, IRemoteConfigProvider
     {
+        private readonly IJsonConverter _jsonConverter;
+
+        public RemoteConfigProvider(IJsonConverter jsonConverter)
+        {
+            _jsonConverter = jsonConverter;
+        }
+
         public void Initialize()
         {
             FetchDataAsync();
         }
 
-        public T GetRemoteConfig<T>(KeyToRemoteConfig key)
+        public T GetRemoteConfig<T>()
         {
-            var jsonConfig=FirebaseRemoteConfig.DefaultInstance.GetValue(key.ToString()).StringValue;
-            T newConfig=JsonUtility.FromJson<T>(jsonConfig);
+            var jsonConfig = FirebaseRemoteConfig.DefaultInstance.GetValue(typeof(T).Name).StringValue;
+            T newConfig = _jsonConverter.Deserialize<T>(jsonConfig);
             return newConfig;
         }
 

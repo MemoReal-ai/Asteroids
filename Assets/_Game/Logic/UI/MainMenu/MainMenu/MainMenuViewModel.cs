@@ -31,7 +31,7 @@ namespace _Game.MainMenu.Logic.UI
 
         private void OnGoToGameplayScene()
         {
-            _sceneHandler.TransitionToGameplayScene();
+            _sceneHandler.LoadGameplayScene();
         }
 
         private void OnExitGameplayScene()

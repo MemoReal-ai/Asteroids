@@ -28,8 +28,7 @@ namespace _Game.Gameplay.Logic.Weapon
             }
         }
 
-
-        async UniTask Reload()
+        private async UniTask Reload()
         {
             IsAvailable = false;
             try

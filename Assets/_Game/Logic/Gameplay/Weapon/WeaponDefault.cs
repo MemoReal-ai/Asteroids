@@ -7,8 +7,7 @@ namespace _Game.Gameplay.Logic.Weapon
     public class WeaponDefault : IWeapon
     {
         private readonly ObjectPool<Bullet> _bullets;
-
-
+        
         public WeaponDefault([Inject(Id = EnumBullet.Default)]ObjectPool<Bullet> bullets)
         {
             _bullets = bullets;

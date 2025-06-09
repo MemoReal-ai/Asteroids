@@ -1,4 +1,5 @@
 using System;
+using _Game.Logic.Gameplay.Service.Input;
 using UnityEngine;
 using Zenject;
 
@@ -12,9 +13,8 @@ namespace _Game.Gameplay.Logic.Service
         public event Action OnChangeAmmo;
 
         private bool _isPaused = false;
-
         private bool _isInputPaused = false;
-        
+
         public void Tick()
         {
             if (_isInputPaused)
@@ -35,7 +35,7 @@ namespace _Game.Gameplay.Logic.Service
             return Input.GetAxis("Vertical");
         }
 
-        public void HandleInput()
+        private void HandleInput()
         {
             if (Input.GetMouseButtonDown(0))
             {

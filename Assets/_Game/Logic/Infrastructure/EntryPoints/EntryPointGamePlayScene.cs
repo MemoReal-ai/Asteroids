@@ -11,7 +11,6 @@ using _Game.Gameplay.Logic.Weapon;
 using _Game.MainMenu.Logic.UI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace _Game.Gameplay.Logic.Infrastructure
@@ -73,10 +72,10 @@ namespace _Game.Gameplay.Logic.Infrastructure
         {
             try
             {
-                await CreateAddressablePrefab<UserView>(NameAddressablePrefab.UIUser);
-                await CreateAddressablePrefab<LoseView>(NameAddressablePrefab.LosePanel);
-                await CreateAddressablePrefab<AdsPopupView>(NameAddressablePrefab.AdsPopupGameplayScene);
-                await CreateAddressablePrefab<PauseView>(NameAddressablePrefab.PauseMenu);
+                await CreateAddressablePrefab<UserView>();
+                await CreateAddressablePrefab<LoseView>();
+                await CreateAddressablePrefab<AdsPopupView>();
+                await CreateAddressablePrefab<PauseView>();
             }
             catch (Exception e)
             {
@@ -105,12 +104,12 @@ namespace _Game.Gameplay.Logic.Infrastructure
             _warpingCreature.Add(_ship);
         }
 
-        private async UniTask CreateAddressablePrefab<T>(NameAddressablePrefab namePrefab)
+        private async UniTask CreateAddressablePrefab<T>()
         {
             try
             {
-                var prefab = await _addressableService.LoadPrefab(namePrefab);
-                _factoryUI.Create<T>(prefab);
+                var prefab = await _addressableService.LoadPrefab<T>();
+                _factoryUI.Create(prefab);
                 _addressableResources.Add(prefab);
             }
             catch (Exception e)

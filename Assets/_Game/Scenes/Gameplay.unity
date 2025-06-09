@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 644dfdfdd4ea8bc40b1aa9c841c19a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _smallComet: {fileID: 4595711605002116894, guid: 2fd43627e539e354a82b17711791758a, type: 3}
+  _smallCometPoolConfig: {fileID: 11400000, guid: 24d3c0fff899a1e4f954274a5d79a615, type: 2}
   _prefabs:
   - m_AssetGUID: df5d575419c7dcd42bec2759e4d37727
     m_SubObjectName: 
@@ -1245,6 +1245,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119522826}
   m_CullTransparentMesh: 1
+--- !u!1 &2138832059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2138832060}
+  m_Layer: 0
+  m_Name: SmallComet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2138832060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138832059}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6883339921791486084}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2031510207460675353
 Transform:
   m_ObjectHideFlags: 0
@@ -1369,6 +1400,7 @@ Transform:
   - {fileID: 2575749536737788259}
   - {fileID: 2031510207460675353}
   - {fileID: 6665029517068947641}
+  - {fileID: 2138832060}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6883339921791486085
@@ -1387,6 +1419,7 @@ MonoBehaviour:
   <Laser>k__BackingField: {fileID: 2575749536737788259}
   <UFO>k__BackingField: {fileID: 2031510207460675353}
   <Comet>k__BackingField: {fileID: 6665029517068947641}
+  <SmallComet>k__BackingField: {fileID: 2138832060}
 --- !u!4 &8968752721717378998
 Transform:
   m_ObjectHideFlags: 0
