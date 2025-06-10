@@ -4,6 +4,7 @@ using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Weapon;
+using _Game.Logic.Gameplay.Features;
 using UnityEngine;
 using Zenject;
 
@@ -16,13 +17,14 @@ namespace _Game.Logic.Gameplay.Enemy
         private Vector2 _direction;
         private Rigidbody2D _rigidbody2D;
         private Vector3 _startPosition;
-        private SignalBus _signalBus;
         private IRemoteConfigProvider _provider;
+        private IScoreCounter _scoreCounter;
 
         [Inject]
-        public void Construct(IRemoteConfigProvider provider)
+        public void Construct(IRemoteConfigProvider provider, IScoreCounter scoreCounter)
         {
             _provider = provider;
+            _scoreCounter = scoreCounter;
         }
 
         private void Start()
@@ -31,13 +33,12 @@ namespace _Game.Logic.Gameplay.Enemy
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _rigidbody2D.gravityScale = 0f;
         }
-        
+
         private void FixedUpdate()
         {
             Move();
             if (TryDestroy())
             {
-                _signalBus.Fire(new EnemyDiedSignal(_smallCometConfig.Reward));
                 gameObject.SetActive(false);
             }
         }
@@ -46,6 +47,7 @@ namespace _Game.Logic.Gameplay.Enemy
         {
             if (other.TryGetComponent(out Bullet _) || other.TryGetComponent(out EnemyAbstract _))
             {
+                _scoreCounter.IncreaseScore(_smallCometConfig.Reward);
                 gameObject.SetActive(false);
             }
         }
@@ -55,10 +57,9 @@ namespace _Game.Logic.Gameplay.Enemy
             _rigidbody2D.AddForce(_direction * _smallCometConfig.Speed, ForceMode2D.Impulse);
         }
 
-        public void Setup(Vector2 direction, SignalBus signalBus, Transform spawnPoint)
+        public void Setup(Vector2 direction, Transform spawnPoint)
         {
             _direction = direction;
-            _signalBus = signalBus;
             transform.position = spawnPoint.position;
             _startPosition = transform.position;
         }

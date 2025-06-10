@@ -1,4 +1,3 @@
-using _Game.Addressable;
 using _Game.AdsServiceUnity;
 using _Game.AuthenticatorService;
 using _Game.Firebase;
@@ -18,8 +17,6 @@ namespace _Game.MainMenu.Logic.Infrastructure
     {
         public override void InstallBindings()
         {
-            SignalBusInstaller.Install(Container);
-
             BindAnalytics();
             BindAddressableService();
             BindAdsService();
@@ -32,7 +29,6 @@ namespace _Game.MainMenu.Logic.Infrastructure
             Container.BindInterfacesTo<EntryPointProject>().AsSingle();
             Container.Bind<SceneHandler>().AsCached();
             Container.BindInterfacesAndSelfTo<ScoreCounter>().AsSingle();
-            Container.DeclareSignal<EnemyDiedSignal>();
         }
 
         private void BindJsonConverter()

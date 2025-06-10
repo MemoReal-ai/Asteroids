@@ -18,11 +18,10 @@ namespace _Game.Gameplay.Logic.Enemy
             transform.right = direction;
         }
 
-        public override void Spawn(Vector3 position, ShipAbstract targetShip,SignalBus signalBus)
+        public override void Spawn(Vector3 position, ShipAbstract targetShip)
         {
             TargetShip = targetShip;
             transform.position = position;
-            SignalBus=signalBus;
             gameObject.SetActive(true);
         }
     }

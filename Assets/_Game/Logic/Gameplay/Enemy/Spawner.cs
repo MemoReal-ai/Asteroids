@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using Cysharp.Threading.Tasks;
@@ -8,12 +9,12 @@ using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace _Game.Gameplay.Logic.Enemy
+namespace _Game.Logic.Gameplay.Enemy
 {
     public class Spawner : ITickable, IInitializable, IDisposable
     {
-        private const int CountSide = 4;
-        private const float SpawnCameraOffset = 5f;
+        private const int COUNT_SIDE = 4;
+        private const float SPAWN_CAMERA_OFFSET = 5f;
 
         private bool _isSpawning = false;
         private float _cameraBoundsTop;
@@ -21,24 +22,17 @@ namespace _Game.Gameplay.Logic.Enemy
         private float _cameraBoundsLeft;
         private float _cameraBoundsRight;
         private CancellationTokenSource _cancellationToken = new();
-        
         private bool _stopSpawnOnPause = false;
 
         private readonly List<ObjectPool<EnemyAbstract>> _pools;
         private readonly ShipAbstract _ship;
         private readonly float _timerToSpawn = 1.5f;
-        private readonly SignalBus _signalBus;
         private readonly Camera _camera;
 
-
-
-
-        public Spawner(List<ObjectPool<EnemyAbstract>> poolEnemy, ShipAbstract ship,
-            SignalBus signalBus, Camera camera)
+        public Spawner(List<ObjectPool<EnemyAbstract>> poolEnemy, ShipAbstract ship, Camera camera)
         {
             _ship = ship;
             _pools = poolEnemy;
-            _signalBus = signalBus;
             _camera = camera;
         }
 
@@ -75,7 +69,7 @@ namespace _Game.Gameplay.Logic.Enemy
 
         public void ResumeSpawning()
         {
-            _stopSpawnOnPause = false; 
+            _stopSpawnOnPause = false;
         }
 
         public void DisableAllEnemies()
@@ -86,7 +80,6 @@ namespace _Game.Gameplay.Logic.Enemy
                 {
                     enemy.gameObject.SetActive(false);
                 }
-                
             }
         }
 
@@ -96,11 +89,11 @@ namespace _Game.Gameplay.Logic.Enemy
             try
             {
                 var randomEnemyIndex = Random.Range(0, _pools.Count);
-                var randomSideIndex = Random.Range(0, CountSide);
+                var randomSideIndex = Random.Range(0, COUNT_SIDE);
 
                 var enemy = _pools[randomEnemyIndex].GetObject();
 
-                enemy.Spawn(GetPositionToSpawn(randomSideIndex), _ship, _signalBus);
+                enemy.Spawn(GetPositionToSpawn(randomSideIndex), _ship);
 
                 await UniTask.Delay(TimeSpan.FromSeconds(_timerToSpawn), cancellationToken: _cancellationToken.Token);
             }
@@ -129,20 +122,20 @@ namespace _Game.Gameplay.Logic.Enemy
             switch (numberToChoiceSide)
             {
                 case 0: //left
-                    x = _cameraBoundsLeft - SpawnCameraOffset;
+                    x = _cameraBoundsLeft - SPAWN_CAMERA_OFFSET;
                     y = Random.Range(_cameraBoundsBottom, _cameraBoundsTop);
                     return new Vector3(x, y, 0);
                 case 1: //right
-                    x = _cameraBoundsRight + SpawnCameraOffset;
+                    x = _cameraBoundsRight + SPAWN_CAMERA_OFFSET;
                     y = Random.Range(_cameraBoundsBottom, _cameraBoundsTop);
                     return new Vector3(x, y, 0);
                 case 2: //up
                     x = Random.Range(_cameraBoundsLeft, _cameraBoundsRight);
-                    y = _cameraBoundsTop + SpawnCameraOffset;
+                    y = _cameraBoundsTop + SPAWN_CAMERA_OFFSET;
                     return new Vector3(x, y, 0);
                 case 3: //bottom
                     x = Random.Range(_cameraBoundsLeft, _cameraBoundsRight);
-                    y = _cameraBoundsBottom - SpawnCameraOffset;
+                    y = _cameraBoundsBottom - SPAWN_CAMERA_OFFSET;
                     return new Vector3(x, y, 0);
                 default:
                     return Vector3.zero;

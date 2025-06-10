@@ -1,11 +1,11 @@
 using System;
 using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Features;
-using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
 using _Game.Logic.Gameplay.Enemy;
+using _Game.Logic.Gameplay.Features;
 using UnityEngine;
 using Zenject;
 
@@ -20,15 +20,16 @@ namespace _Game.Gameplay.Logic.Enemy
         protected DefaultEnemyConfig Config;
         protected Rigidbody2D Rigidbody;
         protected ShipAbstract TargetShip;
-        protected SignalBus SignalBus;
         protected IRemoteConfigProvider Provider;
+        protected IScoreCounter ScoreCounter;
 
         private bool _isPaused;
 
         [Inject]
-        public void Construct(IRemoteConfigProvider provider)
+        public void Construct(IRemoteConfigProvider provider, IScoreCounter scoreCounter)
         {
             Provider = provider;
+            ScoreCounter = scoreCounter;
         }
 
         protected virtual void OnEnable()
@@ -56,7 +57,7 @@ namespace _Game.Gameplay.Logic.Enemy
             }
         }
 
-        public abstract void Spawn(Vector3 position, ShipAbstract targetShip, SignalBus signalBus);
+        public abstract void Spawn(Vector3 position, ShipAbstract targetShip);
 
         protected abstract void Move();
 
@@ -69,7 +70,7 @@ namespace _Game.Gameplay.Logic.Enemy
 
         protected void InvokeOnDied()
         {
-            SignalBus.Fire(new EnemyDiedSignal(Config.Reward));
+            ScoreCounter.IncreaseScore(Config.Reward);
             OnDeath?.Invoke(this);
         }
 

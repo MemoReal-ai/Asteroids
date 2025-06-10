@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace _Game.Addressable
+namespace _Game.Logic.MetaService.Addressable
 {
     public interface IAddressableService
     {

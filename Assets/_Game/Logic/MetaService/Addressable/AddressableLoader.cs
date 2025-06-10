@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using _Game.Addressable;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -10,7 +9,7 @@ namespace _Game.Logic.MetaService.Addressable
 {
     public class AddressableLoader : IAddressableService, IDisposable
     {
-        private CancellationTokenSource _tokenSource=new();
+        private CancellationTokenSource _tokenSource = new();
 
         public async UniTask<GameObject> LoadPrefab<T>()
         {
@@ -41,7 +40,7 @@ namespace _Game.Logic.MetaService.Addressable
                 Addressables.ReleaseInstance(prefab);
             }
         }
-        
+
         public void Dispose()
         {
             _tokenSource?.Cancel();

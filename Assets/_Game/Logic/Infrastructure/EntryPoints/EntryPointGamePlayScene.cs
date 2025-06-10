@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using _Game.Addressable;
 using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Service.ObjectPool;
@@ -8,6 +7,7 @@ using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.UI;
 using _Game.Gameplay.Logic.UI.AdsView;
 using _Game.Gameplay.Logic.Weapon;
+using _Game.Logic.MetaService.Addressable;
 using _Game.MainMenu.Logic.UI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -29,15 +29,14 @@ namespace _Game.Gameplay.Logic.Infrastructure
         private readonly List<IWarping> _warpingCreature = new();
         private readonly Warp _warp;
         private readonly Camera _camera;
-        private List<GameObject> _addressableResources = new();
+        private readonly List<GameObject> _addressableResources = new();
 
         public EntryPointGamePlayScene([Inject(Id = EnumBullet.Default)] ObjectPool<Bullet> objectPoolBulletsDefault,
             [Inject(Id = EnumBullet.Laser)]
             ObjectPool<Bullet> objectPoolBulletLaser,
             List<ObjectPool<EnemyAbstract>> pools,
             Shoot shoot,
-            ShipAbstract ship,
-            SignalBus signalBus, Camera camera,
+            ShipAbstract ship, Camera camera,
             Warp warp, IAddressableService addressableService, FactoryUI factoryUI)
         {
             _factoryUI = factoryUI;

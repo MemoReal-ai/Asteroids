@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using _Game.Addressable;
+using _Game.Logic.MetaService.Addressable;
 using _Game.MainMenu.Logic.Infrastructure.GameObjectContext;
 using _Game.MainMenu.Logic.UI;
 using _Game.MainMenu.Logic.UI.Authenticator;

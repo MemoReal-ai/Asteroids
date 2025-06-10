@@ -20,7 +20,6 @@ namespace _Game.Gameplay.Logic.Features
         {
             _warpCreature = warpCreature;
         }
-        //Переделать без костыля только Zenject!!
 
         public void Tick()
         {

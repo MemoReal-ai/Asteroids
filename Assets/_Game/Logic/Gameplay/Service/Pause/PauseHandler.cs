@@ -4,6 +4,7 @@ using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
+using _Game.Logic.Gameplay.Enemy;
 using _Game.Logic.Gameplay.Service.Input;
 using Zenject;
 
