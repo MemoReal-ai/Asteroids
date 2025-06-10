@@ -1,22 +1,23 @@
 using System.Collections.Generic;
-using _Game.Gameplay.Logic.Ship;
+using _Game.Gameplay.Logic.Features;
 using UnityEngine;
 using Zenject;
 
-namespace _Game.Gameplay.Logic.Features
+namespace _Game.Logic.Gameplay.Features
 {
     public class Warp : ITickable
     {
         private readonly Camera _camera;
-        private List<IWarping> _warpCreature;
         
+        private List<IWarping> _warpCreature;
         private List<Vector3> _positionsCreature;
 
         public Warp(Camera camera)
         {
             _camera = camera;
         }
-        public void Init( List<IWarping> warpCreature)
+
+        public void Init(List<IWarping> warpCreature)
         {
             _warpCreature = warpCreature;
         }
@@ -32,8 +33,8 @@ namespace _Game.Gameplay.Logic.Features
             {
                 var transformCreature = creature.GetTransform();
                 var view = _camera.WorldToViewportPoint(transformCreature.position);
-                bool  isWarping=false;
-                
+                bool isWarping = false;
+
                 if (view.x > 1)
                 {
                     view.x = 0;
@@ -54,16 +55,12 @@ namespace _Game.Gameplay.Logic.Features
                     view.y = 1;
                     isWarping = true;
                 }
-
-
+                
                 if (isWarping)
                 {
                     creature.SetPosition(_camera.ViewportToWorldPoint(view));
                 }
             }
-
         }
-
-        
     }
 }

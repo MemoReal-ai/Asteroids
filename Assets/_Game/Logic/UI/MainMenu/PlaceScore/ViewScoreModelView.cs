@@ -34,12 +34,7 @@ namespace _Game.MainMenu.Logic.UI
                 Console.WriteLine(e);
             }
         }
-
-        public UniTask CompleteInitialization()
-        {
-            return _initializeTaskCompletionSource.Task;
-        }
-
+        
         public void Dispose()
         {
             ScoreLastSession.Dispose();

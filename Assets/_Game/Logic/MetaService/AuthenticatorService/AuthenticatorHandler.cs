@@ -1,21 +1,22 @@
 using System;
+using _Game.AuthenticatorService;
 using Cysharp.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using UnityEngine;
 using Zenject;
 
-namespace _Game.AuthenticatorService
+namespace _Game.Logic.MetaService.AuthenticatorService
 {
     public class AuthenticatorHandler : IAuthenticatorService, IInitializable
     {
-        private UniTaskCompletionSource _completionSource= new UniTaskCompletionSource();
+        private readonly UniTaskCompletionSource _completionSource = new();
+
         public async void Initialize()
         {
             try
             {
                 await UnityServices.InitializeAsync();
-               
             }
             catch (Exception e)
             {
@@ -28,7 +29,6 @@ namespace _Game.AuthenticatorService
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             _completionSource.TrySetResult();
-            Debug.Log($"AuthenticatorService initialized {AuthenticationService.Instance.PlayerId}");
         }
 
         public bool IsSignedIn()

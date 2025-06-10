@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using _Game.Firebase;
 using _Game.Gameplay.Logic.Enemy;
+using _Game.Gameplay.Logic.Infrastructure;
+using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Weapon;
-using UnityEngine;
 using Zenject;
 
-namespace _Game.Gameplay.Logic.Infrastructure
+namespace _Game.Logic.MetaService.FirebaseService
 {
     public class CounterAllStatsToAnalitycs : IInitializable, IDisposable
     {
@@ -15,10 +16,12 @@ namespace _Game.Gameplay.Logic.Infrastructure
         private readonly Shoot _shoot;
         private readonly List<ObjectPool<EnemyAbstract>> _pools;
         private readonly IServiceAnalytics _serviceAnalytics;
+        private readonly IJsonConverter _jsonConverter;
 
         private string _dataJson;
 
-        public CounterAllStatsToAnalitycs(Shoot shoot, IServiceAnalytics serviceAnalytics, List<ObjectPool<EnemyAbstract>> pools)
+        public CounterAllStatsToAnalitycs(Shoot shoot, IServiceAnalytics serviceAnalytics,
+            List<ObjectPool<EnemyAbstract>> pools)
         {
             _serviceAnalytics = serviceAnalytics;
             _shoot = shoot;
@@ -54,7 +57,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
             }
 
 
-            _dataJson = JsonUtility.ToJson(_dataStatsForAnalitycs);
+            _dataJson = _jsonConverter.Serialize(_dataStatsForAnalitycs);
             _serviceAnalytics.InvokeStats(_dataJson);
         }
 

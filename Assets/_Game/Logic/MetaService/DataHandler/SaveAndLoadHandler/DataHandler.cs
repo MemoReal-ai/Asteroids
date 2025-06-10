@@ -11,18 +11,18 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
 {
     public class DataHandler : IInitializable, IDisposable
     {
+        private const int TRESHOLD_DIFFERENCE_TICK = 10;
         public event Action OnNotValidData;
 
         private readonly ILocalSaver _localSaver;
         private readonly ICloudSaver _cloudSaver;
         private readonly ScoreCounter _scoreCounter;
         private readonly IPurchasingService _purchasingService;
-        private readonly UniTaskCompletionSource _initializationData = new UniTaskCompletionSource();
+        private readonly UniTaskCompletionSource _initializationData = new();
         private readonly IAuthenticatorService _authenticatorService;
 
         private Data _cloudData;
         private Data _localData;
-        private int _thresholdTickDifference=10;
         public Data Data { get; private set; }
 
         public DataHandler(ILocalSaver localSaver, ScoreCounter scoreCounter, IPurchasingService purchasingService,
@@ -63,7 +63,7 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
             CloudSaveData();
         }
 
-        private async Task<bool> CheckValidData()
+        private async UniTask<bool> CheckValidData()
         {
             _localData = _localSaver.LoadData();
             _cloudData = await _cloudSaver.LoadDataCloud();
@@ -75,7 +75,7 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
                 return true;
             }
 
-            if (Mathf.Abs(_cloudData.SaveTime.Date.Ticks - _localData.SaveTime.Date.Ticks) < _thresholdTickDifference)
+            if (Mathf.Abs(_cloudData.SaveTime.Date.Ticks - _localData.SaveTime.Date.Ticks) < TRESHOLD_DIFFERENCE_TICK)
             {
                 return true;
             }
@@ -101,7 +101,6 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
         public void SetData(Data data)
         {
             data ??= _localSaver.LoadData();
-
             Data = data;
             _purchasingService.SetFlagPurchasingAdsSkip(Data.PurchasingSkipAds);
         }

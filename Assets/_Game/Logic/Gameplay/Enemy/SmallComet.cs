@@ -5,6 +5,7 @@ using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Weapon;
 using _Game.Logic.Gameplay.Features;
+using _Game.Logic.Gameplay.Service.ObjectPool;
 using UnityEngine;
 using Zenject;
 

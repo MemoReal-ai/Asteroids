@@ -1,5 +1,6 @@
 using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Service.ObjectPool;
+using _Game.Logic.Gameplay.Service.ObjectPool;
 using UnityEngine;
 using Zenject;
 using Quaternion = UnityEngine.Quaternion;

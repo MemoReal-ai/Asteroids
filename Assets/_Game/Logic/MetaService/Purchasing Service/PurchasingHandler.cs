@@ -6,8 +6,8 @@ namespace _Game.Purchasing_Service
 {
     public class PurchasingHandler : IInitializable, IPurchasingService, IStoreListener
     {
-        private const string REMOVEADSKEY = "RemoveAds";
-        
+        private const string REMOVE_ADS_KEY = "RemoveAds";
+
         private bool _isPurchasingSkipAds;
         private IStoreController _storeController;
         private IExtensionProvider _extensionProvider;
@@ -21,11 +21,12 @@ namespace _Game.Purchasing_Service
         private void InitializePurchasing()
         {
             if (IsInitialized)
+            {
                 return;
+            }
 
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-            builder.AddProduct(REMOVEADSKEY, ProductType.NonConsumable);
-
+            builder.AddProduct(REMOVE_ADS_KEY, ProductType.NonConsumable);
             UnityPurchasing.Initialize(this, builder);
         }
 
@@ -34,7 +35,7 @@ namespace _Game.Purchasing_Service
             if (!_isPurchasingSkipAds)
             {
                 _isPurchasingSkipAds = true;
-                _storeController.InitiatePurchase(REMOVEADSKEY);
+                _storeController.InitiatePurchase(REMOVE_ADS_KEY);
                 Debug.Log("Purchasing service buy");
             }
         }

@@ -1,12 +1,12 @@
 using System;
-using System.Threading.Tasks;
-using Zenject;
+using _Game.Firebase;
+using Cysharp.Threading.Tasks;
 using Firebase;
 using Firebase.Analytics;
-using Firebase.Extensions;
 using UnityEngine;
+using Zenject;
 
-namespace _Game.Firebase
+namespace _Game.Logic.MetaService.FirebaseService
 {
     public class InitServiceAnalytics : IInitializable, IServiceAnalytics
     {
@@ -17,23 +17,19 @@ namespace _Game.Firebase
 
         public void Initialize()
         {
-            FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(InitializeService);
+            InitializeService();    
         }
 
-        private void InitializeService(Task<DependencyStatus> task)
+        private async void InitializeService()
         {
             try
             {
-                if (!task.IsCompletedSuccessfully)
-                {
-                    throw new Exception("Failed to initialize Firebase");
-                }
+                var status = await FirebaseApp.CheckAndFixDependenciesAsync().AsUniTask();
 
-                if (task.Result != DependencyStatus.Available)
+                if (status != DependencyStatus.Available)
                 {
                     throw new Exception("Failed to Available Firebase");
                 }
-
             }
             catch (Exception e)
             {
@@ -43,7 +39,7 @@ namespace _Game.Firebase
 
         public void InvokeStartGame()
         {
-            FirebaseAnalytics.LogEvent(STARTGAME,new Parameter("StartGame","StartGame"));
+            FirebaseAnalytics.LogEvent(STARTGAME, new Parameter("StartGame", "StartGame"));
         }
 
         public void InvokeStats(string dataStatsSDK)
@@ -53,7 +49,7 @@ namespace _Game.Firebase
 
         public void InvokeLaserShoot()
         {
-            FirebaseAnalytics.LogEvent(LASERSHOOT, new Parameter("Shoot","1"));
+            FirebaseAnalytics.LogEvent(LASERSHOOT, new Parameter("Shoot", "1"));
         }
     }
 }

@@ -7,6 +7,7 @@ using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.UI;
 using _Game.Gameplay.Logic.UI.AdsView;
 using _Game.Gameplay.Logic.Weapon;
+using _Game.Logic.Gameplay.Features;
 using _Game.Logic.MetaService.Addressable;
 using _Game.MainMenu.Logic.UI;
 using Cysharp.Threading.Tasks;
