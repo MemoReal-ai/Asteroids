@@ -1,22 +1,22 @@
 using _Game.AdsServiceUnity;
-using _Game.AuthenticatorService;
-using _Game.Firebase;
 using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Features;
-using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Service.SaveAndLoadHandler;
+using _Game.Logic.Gameplay.Service.Sound;
 using _Game.Logic.MetaService.Addressable;
 using _Game.Logic.MetaService.AuthenticatorService;
 using _Game.Logic.MetaService.FirebaseService;
 using _Game.Purchasing_Service;
-using Newtonsoft.Json;
+using UnityEngine;
 using Zenject;
 
 namespace _Game.MainMenu.Logic.Infrastructure
 {
     public class ProjectInstallerGame : MonoInstaller
     {
+        [SerializeField] private SoundHandler _soundHandler;
+
         public override void InstallBindings()
         {
             BindAnalytics();
@@ -27,22 +27,28 @@ namespace _Game.MainMenu.Logic.Infrastructure
             BindSaverService();
             BindAuthenticationService();
             BindJsonConverter();
+            BindSoundService();
 
             Container.BindInterfacesTo<EntryPointProject>().AsSingle();
             Container.Bind<SceneHandler>().AsCached();
             Container.BindInterfacesAndSelfTo<ScoreCounter>().AsSingle();
         }
 
+        private void BindSoundService()
+        {
+            Container.Bind<SoundHandler>().FromComponentInNewPrefab(_soundHandler).AsCached();
+        }
+
         private void BindJsonConverter()
         {
-            Container.BindInterfacesAndSelfTo<JsonConverterHandler>().AsCached();
+            Container.BindInterfacesAndSelfTo<JsonConverterHandler>().AsCached().NonLazy();
         }
 
         private void BindAuthenticationService()
         {
             Container.BindInterfacesAndSelfTo<AuthenticatorHandler>().AsCached().NonLazy();
         }
-                                                                     
+
         private void BindSaverService()
         {
             Container.BindInterfacesAndSelfTo<DataHandler>().AsCached();

@@ -1,6 +1,5 @@
 using _Game.Gameplay.Logic.Ship;
 using UnityEngine;
-using Zenject;
 
 namespace _Game.Gameplay.Logic.Enemy
 {

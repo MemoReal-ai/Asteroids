@@ -8,6 +8,7 @@ using _Game.Gameplay.Logic.UI;
 using _Game.Gameplay.Logic.UI.AdsView;
 using _Game.Gameplay.Logic.Weapon;
 using _Game.Logic.Gameplay.Features;
+using _Game.Logic.Gameplay.Service.Sound;
 using _Game.Logic.MetaService.Addressable;
 using _Game.MainMenu.Logic.UI;
 using Cysharp.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
         private readonly Warp _warp;
         private readonly Camera _camera;
         private readonly List<GameObject> _addressableResources = new();
+        private readonly SoundHandler _soundHandler;
 
         public EntryPointGamePlayScene([Inject(Id = EnumBullet.Default)] ObjectPool<Bullet> objectPoolBulletsDefault,
             [Inject(Id = EnumBullet.Laser)]
@@ -38,7 +40,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
             List<ObjectPool<EnemyAbstract>> pools,
             Shoot shoot,
             ShipAbstract ship, Camera camera,
-            Warp warp, IAddressableService addressableService, FactoryUI factoryUI)
+            Warp warp, IAddressableService addressableService, FactoryUI factoryUI, SoundHandler soundHandler)
         {
             _factoryUI = factoryUI;
             _addressableService = addressableService;
@@ -48,6 +50,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
             _objectPoolBulletDefault = objectPoolBulletsDefault;
             _ship = ship;
             _shoot = shoot;
+            _soundHandler = soundHandler;
         }
 
 
@@ -56,7 +59,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
             CreateWeapon();
             CastAllEnemiesToIWarping();
             _warp.Init(_warpingCreature);
-            _shoot.Init(_weapons, _ship);
+            _shoot.Init(_weapons, _ship,_soundHandler);
             InitUI();
         }
 

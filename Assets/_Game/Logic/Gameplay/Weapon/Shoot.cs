@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using _Game.Firebase;
 using _Game.Gameplay.Logic.Ship;
-using UnityEngine;
+using _Game.Logic.Gameplay.Service.Sound;
 
 namespace _Game.Gameplay.Logic.Weapon
 {
@@ -16,13 +15,15 @@ namespace _Game.Gameplay.Logic.Weapon
         private ShipAbstract _ship;
         private int _currentIndexWeapon;
         private bool _isPaused = false;
+        private SoundHandler _soundHandler;
 
         public IEnumerable<IWeapon> Weapons => _weapons;
 
-        public void Init(List<IWeapon> weapons, ShipAbstract shotPoint)
+        public void Init(List<IWeapon> weapons, ShipAbstract shotPoint, SoundHandler soundHandler)
         {
             _weapons = weapons;
             _ship = shotPoint;
+            _soundHandler = soundHandler;
             _currentIndexWeapon = 0;
             _currentWeapon = _weapons[_currentIndexWeapon];
         }
@@ -46,6 +47,11 @@ namespace _Game.Gameplay.Logic.Weapon
             if (bullet is LaserBullet bulletLaser)
             {
                 OnLaserShoot?.Invoke();
+                _soundHandler.PlayAudioShootLaser();
+            }
+            else
+            {
+                _soundHandler.PlayAudioShootDefault();
             }
 
             OnShoot?.Invoke();

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using _Game.Firebase;
 using _Game.Gameplay.Logic.Service;
+using _Game.Logic.MetaService.JsonConvertHandler;
 using Firebase.Extensions;
 using Firebase.RemoteConfig;
 using UnityEngine;

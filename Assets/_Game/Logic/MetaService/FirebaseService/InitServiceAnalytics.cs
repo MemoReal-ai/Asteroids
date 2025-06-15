@@ -17,7 +17,7 @@ namespace _Game.Logic.MetaService.FirebaseService
 
         public void Initialize()
         {
-            InitializeService();    
+            InitializeService();
         }
 
         private async void InitializeService()
@@ -30,6 +30,8 @@ namespace _Game.Logic.MetaService.FirebaseService
                 {
                     throw new Exception("Failed to Available Firebase");
                 }
+
+                FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
             }
             catch (Exception e)
             {

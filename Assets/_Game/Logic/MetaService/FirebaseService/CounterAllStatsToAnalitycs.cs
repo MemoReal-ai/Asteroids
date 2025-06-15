@@ -6,6 +6,7 @@ using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Weapon;
+using _Game.Logic.MetaService.JsonConvertHandler;
 using Zenject;
 
 namespace _Game.Logic.MetaService.FirebaseService
@@ -21,11 +22,12 @@ namespace _Game.Logic.MetaService.FirebaseService
         private string _dataJson;
 
         public CounterAllStatsToAnalitycs(Shoot shoot, IServiceAnalytics serviceAnalytics,
-            List<ObjectPool<EnemyAbstract>> pools)
+            List<ObjectPool<EnemyAbstract>> pools, IJsonConverter jsonConverter)
         {
             _serviceAnalytics = serviceAnalytics;
             _shoot = shoot;
             _pools = pools;
+            _jsonConverter = jsonConverter;
         }
 
         public void Initialize()

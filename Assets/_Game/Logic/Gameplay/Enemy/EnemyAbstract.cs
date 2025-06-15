@@ -7,6 +7,7 @@ using _Game.Gameplay.Logic.Weapon;
 using _Game.Logic.Gameplay.Enemy;
 using _Game.Logic.Gameplay.Features;
 using _Game.Logic.Gameplay.Service.ObjectPool;
+using _Game.Logic.Gameplay.Service.Sound;
 using UnityEngine;
 using Zenject;
 
@@ -23,14 +24,16 @@ namespace _Game.Gameplay.Logic.Enemy
         protected ShipAbstract TargetShip;
         protected IRemoteConfigProvider Provider;
         protected IScoreCounter ScoreCounter;
+        protected SoundHandler SoundHandler;
 
         private bool _isPaused;
 
         [Inject]
-        public void Construct(IRemoteConfigProvider provider, IScoreCounter scoreCounter)
+        public void Construct(IRemoteConfigProvider provider, IScoreCounter scoreCounter, SoundHandler soundHandler)
         {
             Provider = provider;
             ScoreCounter = scoreCounter;
+            SoundHandler = soundHandler;
         }
 
         protected virtual void OnEnable()
@@ -54,6 +57,7 @@ namespace _Game.Gameplay.Logic.Enemy
             if (other.TryGetComponent(out Bullet _) || other.TryGetComponent(out SmallComet _))
             {
                 InvokeOnDied();
+                SoundHandler.PlayAudioDead();
                 gameObject.SetActive(false);
             }
         }

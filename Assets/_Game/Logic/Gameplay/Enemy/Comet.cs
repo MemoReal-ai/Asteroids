@@ -25,6 +25,13 @@ namespace _Game.Gameplay.Logic.Enemy
             _cometPool = cometPool;
         }
 
+        public override void Spawn(Vector3 position, ShipAbstract targetShip)
+        {
+            TargetShip = targetShip;
+            transform.position = position;
+            gameObject.SetActive(true);
+        }
+        
         protected override void Move()
         {
             if (_initialized)
@@ -39,12 +46,6 @@ namespace _Game.Gameplay.Logic.Enemy
             Fade();
         }
 
-        public override void Spawn(Vector3 position, ShipAbstract targetShip)
-        {
-            TargetShip = targetShip;
-            transform.position = position;
-            gameObject.SetActive(true);
-        }
 
         protected override void Initialize()
         {
@@ -60,12 +61,14 @@ namespace _Game.Gameplay.Logic.Enemy
             {
                 Explode();
                 InvokeOnDied();
+                SoundHandler.PlayAudioDead();
                 gameObject.SetActive(false);
             }
 
             if (other.TryGetComponent(out LaserBullet laserBullet))
             {
                 InvokeOnDied();
+                SoundHandler.PlayAudioDead();
                 gameObject.SetActive(false);
             }
         }

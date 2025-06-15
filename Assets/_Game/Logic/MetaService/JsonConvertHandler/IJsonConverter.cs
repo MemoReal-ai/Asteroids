@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace _Game.Gameplay.Logic.Service
+namespace _Game.Logic.MetaService.JsonConvertHandler
 {
     public interface IJsonConverter
     {
