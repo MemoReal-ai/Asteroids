@@ -31,7 +31,7 @@ namespace _Game.Gameplay.Logic.Enemy
             transform.position = position;
             gameObject.SetActive(true);
         }
-        
+
         protected override void Move()
         {
             if (_initialized)
@@ -60,16 +60,12 @@ namespace _Game.Gameplay.Logic.Enemy
             if (other.TryGetComponent(out BulletDefault bullet))
             {
                 Explode();
-                InvokeOnDied();
-                SoundHandler.PlayAudioDead();
-                gameObject.SetActive(false);
+                CastAllDiedEffects();
             }
 
             if (other.TryGetComponent(out LaserBullet laserBullet))
             {
-                InvokeOnDied();
-                SoundHandler.PlayAudioDead();
-                gameObject.SetActive(false);
+                CastAllDiedEffects();
             }
         }
 
@@ -82,6 +78,14 @@ namespace _Game.Gameplay.Logic.Enemy
                 var smallComet = _cometPool.GetObject();
                 smallComet.Setup(direction, transform);
             }
+        }
+
+        private void CastAllDiedEffects()
+        {
+            InvokeOnDied();
+            SoundHandler.PlayAudioDead();
+            ParticleHandlerDeadEnemy.PlayParticleDead();
+            gameObject.SetActive(false);
         }
 
         private void Fade()

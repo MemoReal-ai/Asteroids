@@ -75,3 +75,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soundHandler: {fileID: 1039874572232200361, guid: 0153d16aaee09f146b3d87a0b48b2675, type: 3}
+  _particleHandler: {fileID: 2080306539038995478, guid: 82adeeca418a791408507014e39dff95, type: 3}

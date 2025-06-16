@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 1002414003758025981}
   - component: {fileID: 302313397018881324}
   - component: {fileID: 4743189687682737323}
+  - component: {fileID: -1817222005568609509}
   m_Layer: 0
   m_Name: Comet
   m_TagString: Untagged
@@ -190,8 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8d39a96fc78c0f4887bde1ed1c26663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 59b549485458b334db956753d87c0b34, type: 2}
-  _cometConfig: {fileID: 11400000, guid: 322f81018938f1647a4fd867b056498e, type: 2}
+  ParticleHandlerDeadEnemy: {fileID: -1817222005568609509}
 --- !u!50 &302313397018881324
 Rigidbody2D:
   serializedVersion: 5
@@ -255,3 +255,16 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &-1817222005568609509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8652291731085256149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d896b26e0050b24b98c4731114455ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleDead: {fileID: 20633678920516083, guid: eb15c691ef8e8aa428080cc3d590ed35, type: 3}

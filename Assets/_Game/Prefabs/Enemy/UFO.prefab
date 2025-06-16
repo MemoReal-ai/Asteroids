@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 2147589620603615017}
   - component: {fileID: 8890320239974666509}
   - component: {fileID: 3473087601553147477}
+  - component: {fileID: 2295737809355999592}
   m_Layer: 0
   m_Name: UFO
   m_TagString: Untagged
@@ -253,4 +254,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ac982a7b546ff4a88e66f73f3273b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 59b549485458b334db956753d87c0b34, type: 2}
+  ParticleHandlerDeadEnemy: {fileID: 2295737809355999592}
+--- !u!114 &2295737809355999592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8081514996618763079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d896b26e0050b24b98c4731114455ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleDead: {fileID: 20633678920516083, guid: eb15c691ef8e8aa428080cc3d590ed35, type: 3}

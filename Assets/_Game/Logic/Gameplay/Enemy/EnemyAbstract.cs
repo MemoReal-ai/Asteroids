@@ -1,9 +1,9 @@
 using System;
 using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Features;
-using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
+using _Game.Logic.Effects;
 using _Game.Logic.Gameplay.Enemy;
 using _Game.Logic.Gameplay.Features;
 using _Game.Logic.Gameplay.Service.ObjectPool;
@@ -19,20 +19,22 @@ namespace _Game.Gameplay.Logic.Enemy
     {
         public event Action<EnemyAbstract> OnDeath;
 
+        [SerializeField] protected ParticleHandlerDeadEnemy ParticleHandlerDeadEnemy;
+
         protected DefaultEnemyConfig Config;
         protected Rigidbody2D Rigidbody;
         protected ShipAbstract TargetShip;
         protected IRemoteConfigProvider Provider;
-        protected IScoreCounter ScoreCounter;
         protected SoundHandler SoundHandler;
 
+        private IScoreCounter _scoreCounter;
         private bool _isPaused;
 
         [Inject]
         public void Construct(IRemoteConfigProvider provider, IScoreCounter scoreCounter, SoundHandler soundHandler)
         {
             Provider = provider;
-            ScoreCounter = scoreCounter;
+            _scoreCounter = scoreCounter;
             SoundHandler = soundHandler;
         }
 
@@ -58,6 +60,7 @@ namespace _Game.Gameplay.Logic.Enemy
             {
                 InvokeOnDied();
                 SoundHandler.PlayAudioDead();
+                ParticleHandlerDeadEnemy.PlayParticleDead();
                 gameObject.SetActive(false);
             }
         }
@@ -75,7 +78,7 @@ namespace _Game.Gameplay.Logic.Enemy
 
         protected void InvokeOnDied()
         {
-            ScoreCounter.IncreaseScore(Config.Reward);
+            _scoreCounter.IncreaseScore(Config.Reward);
             OnDeath?.Invoke(this);
         }
 
