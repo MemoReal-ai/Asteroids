@@ -11,6 +11,7 @@ namespace _Game.Logic.Effects
             var effect=Instantiate(_particleDead,transformEffect.position,Quaternion.identity,null);
             effect.Play();
             Destroy(effect.gameObject, effect.main.duration);
+            // не знаю добавлять в пул или так оставить ?
         }
     }
 }
