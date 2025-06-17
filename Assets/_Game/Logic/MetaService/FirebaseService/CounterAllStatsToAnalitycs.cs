@@ -6,6 +6,7 @@ using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Weapon;
+using _Game.Logic.Gameplay.Enemy;
 using _Game.Logic.MetaService.JsonConvertHandler;
 using Zenject;
 

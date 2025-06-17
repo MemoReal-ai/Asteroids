@@ -3,19 +3,22 @@ using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Service.SaveAndLoadHandler;
+using _Game.Logic.Effects;
 using _Game.Logic.Gameplay.Service.Sound;
 using _Game.Logic.MetaService.Addressable;
 using _Game.Logic.MetaService.AuthenticatorService;
 using _Game.Logic.MetaService.FirebaseService;
+using _Game.MainMenu.Logic.Infrastructure;
 using _Game.Purchasing_Service;
 using UnityEngine;
 using Zenject;
 
-namespace _Game.MainMenu.Logic.Infrastructure
+namespace _Game.Logic.Infrastructure.Installers.Project
 {
     public class ProjectInstallerGame : MonoInstaller
     {
         [SerializeField] private SoundHandler _soundHandler;
+        [SerializeField] private ParticleHandler _particleHandler;
 
         public override void InstallBindings()
         {
@@ -28,10 +31,16 @@ namespace _Game.MainMenu.Logic.Infrastructure
             BindAuthenticationService();
             BindJsonConverter();
             BindSoundService();
+            BindParticleHandler();
 
             Container.BindInterfacesTo<EntryPointProject>().AsSingle();
             Container.Bind<SceneHandler>().AsCached();
             Container.BindInterfacesAndSelfTo<ScoreCounter>().AsSingle();
+        }
+
+        private void BindParticleHandler()
+        {
+            Container.Bind<ParticleHandler>().FromComponentInNewPrefab(_particleHandler).AsCached().NonLazy();
         }
 
         private void BindSoundService()

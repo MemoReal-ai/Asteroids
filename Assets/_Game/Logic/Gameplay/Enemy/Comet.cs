@@ -80,13 +80,7 @@ namespace _Game.Gameplay.Logic.Enemy
             }
         }
 
-        private void CastAllDiedEffects()
-        {
-            InvokeOnDied();
-            SoundHandler.PlayAudioDead();
-            ParticleHandlerDeadEnemy.PlayParticleDead();
-            gameObject.SetActive(false);
-        }
+       
 
         private void Fade()
         {
