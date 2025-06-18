@@ -1,12 +1,14 @@
 using System;
 using _Game.Gameplay.Logic.Features;
+using _Game.Gameplay.Logic.Service;
+using _Game.Gameplay.Logic.Service.SaveAndLoadHandler;
 using _Game.Logic.MetaService.AuthenticatorService;
 using _Game.Purchasing_Service;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
-namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
+namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
 {
     public class DataSyncManager : IInitializable, IDisposable
     {
@@ -18,6 +20,7 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
         private readonly ScoreCounter _scoreCounter;
         private readonly IPurchasingService _purchasingService;
         private readonly UniTaskCompletionSource _initializationData = new();
+        private readonly UniTaskCompletionSource _setValidSave = new();
         private readonly IAuthenticatorService _authenticatorService;
 
         private Data _cloudData;
@@ -43,6 +46,7 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
                 {
                     var validData = await _cloudSaver.LoadDataCloud();
                     SetData(validData);
+                    _setValidSave.TrySetResult();
                 }
                 else
                 {
@@ -62,25 +66,6 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
             CloudSaveData();
         }
 
-        private async UniTask<bool> CheckValidData()
-        {
-            _localData = _localSaver.LoadData();
-            _cloudData = await _cloudSaver.LoadDataCloud();
-            _initializationData.TrySetResult();
-
-            if (_cloudData == null)
-            {
-                OnNotValidData?.Invoke();
-                return true;
-            }
-
-            if (Mathf.Abs(_cloudData.SaveTime.Date.Ticks - _localData.SaveTime.Date.Ticks) < TRESHOLD_DIFFERENCE_TICK)
-            {
-                return true;
-            }
-
-            return false;
-        }
 
         public void LocalSaveData()
         {
@@ -112,6 +97,31 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
         public Data GetCloudSaveData()
         {
             return _cloudData;
+        }
+
+        public async UniTask WaitSetValidData()
+        {
+            await _setValidSave.Task;
+        }
+
+        private async UniTask<bool> CheckValidData()
+        {
+            _localData = _localSaver.LoadData();
+            _cloudData = await _cloudSaver.LoadDataCloud();
+            _initializationData.TrySetResult();
+
+            if (_cloudData == null)
+            {
+                return true;
+            }
+
+            if (Mathf.Abs(_cloudData.SaveTime.Date.Ticks - _localData.SaveTime.Date.Ticks) < TRESHOLD_DIFFERENCE_TICK)
+            {
+                return true;
+            }
+
+            OnNotValidData?.Invoke();
+            return false;
         }
 
         private void SaveData(ISaver saver)

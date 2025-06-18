@@ -6,7 +6,7 @@ namespace _Game.Purchasing_Service
     {
         void BuyRemoveAds();
         bool HasPurchasingAdsSkip();
-        void SetFlagPurchasingAdsSkip(bool skip);
+        void SetFlagPurchasingAdsSkip(bool state);
         event Action<bool> OnBuyRemoveAds;
     }
 }

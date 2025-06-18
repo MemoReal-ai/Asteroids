@@ -40,7 +40,7 @@ namespace _Game.Logic.MetaService.Purchasing_Service
             {
                 _isPurchasingSkipAds = true;
                 _storeController.InitiatePurchase(REMOVE_ADS_KEY);
-                Debug.Log("Purchasing service buy");
+                OnBuyRemoveAds?.Invoke(_isPurchasingSkipAds);
             }
         }
 
@@ -49,14 +49,11 @@ namespace _Game.Logic.MetaService.Purchasing_Service
             return _isPurchasingSkipAds;
         }
 
-        public void SetFlagPurchasingAdsSkip(bool skip)
+        public void SetFlagPurchasingAdsSkip(bool state)
         {
-            _isPurchasingSkipAds = skip;
-            OnBuyRemoveAds?.Invoke(_isPurchasingSkipAds);
+            _isPurchasingSkipAds = state;
         }
-
-
-
+        
         public void OnInitializeFailed(InitializationFailureReason error)
         {
             Debug.LogError($"Initialization failed: {error}");

@@ -1,28 +1,41 @@
 using System;
+using _Game.Gameplay.Logic.Service.SaveAndLoadHandler;
+using _Game.Logic.MetaService.AuthenticatorService;
+using _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler;
 using _Game.Purchasing_Service;
 using R3;
+using UnityEngine;
 using Zenject;
 
 namespace _Game.Logic.UI.MainMenu.Store
 {
     public class StoreViewModel : IInitializable, IDisposable
     {
-        public ReactiveProperty<bool> IsAdsRemoved = new ReactiveProperty<bool>();
-        public ReactiveCommand BuyCommand { get; private set; } = new ReactiveCommand();
+        public readonly ReactiveProperty<bool> IsAdsRemoved = new();
+        public ReactiveCommand BuyCommand { get; private set; } = new();
 
         private readonly IPurchasingService _purchasingService;
+        private readonly DataSyncManager _dataSyncManager;
 
-        public StoreViewModel(IPurchasingService purchasingService)
+        public StoreViewModel(IPurchasingService purchasingService, DataSyncManager dataSyncManager)
         {
             _purchasingService = purchasingService;
+            _dataSyncManager = dataSyncManager;
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
-            _purchasingService.OnBuyRemoveAds += UpdateStateReactiveProperty;
-            UpdateStateReactiveProperty(_purchasingService.HasPurchasingAdsSkip());
-
-            BuyCommand.Subscribe(x => _purchasingService.BuyRemoveAds());
+            try
+            {
+                await _dataSyncManager.WaitSetValidData();
+                _purchasingService.OnBuyRemoveAds += UpdateStateReactiveProperty;
+                UpdateStateReactiveProperty(_purchasingService.HasPurchasingAdsSkip());
+                BuyCommand.Subscribe(x => _purchasingService.BuyRemoveAds());
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
         }
 
         public void Dispose()
