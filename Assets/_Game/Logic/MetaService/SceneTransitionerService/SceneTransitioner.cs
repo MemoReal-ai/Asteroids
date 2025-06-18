@@ -2,12 +2,12 @@ using System;
 using UnityEngine.Device;
 using UnityEngine.SceneManagement;
 
-namespace _Game.Gameplay.Logic.Service
+namespace _Game.Logic.MetaService.SceneTransitorService
 {
-    public class SceneHandler
+    public class SceneTransitioner
     {
-        private const string MAINMENUSCENE = "MainMenu";
-        private const string GAMEPLAYSCENE = "Gameplay";
+        private const string MAIN_MENU_SCENE = "MainMenu";
+        private const string GAMEPLAY_SCENE = "Gameplay";
         public event Action OnSceneRestart;
 
         public void RestartGameplay()
@@ -18,12 +18,12 @@ namespace _Game.Gameplay.Logic.Service
 
         public void LoadGameplayScene()
         {
-            SceneManager.LoadScene(GAMEPLAYSCENE);
+            SceneManager.LoadScene(GAMEPLAY_SCENE);
         }
 
         public void LoadMainMenu()
         {
-            SceneManager.LoadScene(MAINMENUSCENE);
+            SceneManager.LoadScene(MAIN_MENU_SCENE);
         }
 
         public void Quit()

@@ -1,5 +1,4 @@
 using System;
-using _Game.Firebase;
 using Cysharp.Threading.Tasks;
 using Firebase;
 using Firebase.Analytics;
@@ -8,19 +7,19 @@ using Zenject;
 
 namespace _Game.Logic.MetaService.FirebaseService
 {
-    public class InitServiceAnalytics : IInitializable, IServiceAnalytics
+    public class InitFirebaseServiceAnalytics : IInitializable, IFirebaseServiceAnalytics
     {
-        private const string STARTGAME = "StartGame";
-        private const string LASERSHOOT = "LaserShoot";
+        private const string START_GAME = "StartGame";
+        private const string LASER_SHOOT = "LaserShoot";
         private const string STATS = "Stats";
-        private const string DATASTATSSDK = "DataStatsSDK";
+        private const string DATA_STATS_SDK = "DataStatsSDK";
 
         public void Initialize()
         {
-            InitializeService();
+            _ = InitializeService();
         }
 
-        private async void InitializeService()
+        private async UniTask InitializeService()
         {
             try
             {
@@ -39,19 +38,19 @@ namespace _Game.Logic.MetaService.FirebaseService
             }
         }
 
-        public void InvokeStartGame()
+        public void TrackStartGame()
         {
-            FirebaseAnalytics.LogEvent(STARTGAME, new Parameter("StartGame", "StartGame"));
+            FirebaseAnalytics.LogEvent(START_GAME, new Parameter("StartGame", "StartGame"));
         }
 
-        public void InvokeStats(string dataStatsSDK)
+        public void TrackStatsAfterLose(string dataStatsSDK)
         {
-            FirebaseAnalytics.LogEvent(STATS, new Parameter(DATASTATSSDK, dataStatsSDK));
+            FirebaseAnalytics.LogEvent(STATS, new Parameter(DATA_STATS_SDK, dataStatsSDK));
         }
 
-        public void InvokeLaserShoot()
+        public void TrackLaserShoot()
         {
-            FirebaseAnalytics.LogEvent(LASERSHOOT, new Parameter("Shoot", "1"));
+            FirebaseAnalytics.LogEvent(LASER_SHOOT, new Parameter("Shoot", "1"));
         }
     }
 }

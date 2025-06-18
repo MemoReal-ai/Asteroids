@@ -1,3 +1,4 @@
+using _Game.Logic.UI.MainMenu.Authenticator;
 using _Game.MainMenu.Logic.UI.Authenticator;
 using UnityEngine;
 using Zenject;

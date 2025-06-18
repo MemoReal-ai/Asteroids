@@ -1,7 +1,7 @@
 
 using Cysharp.Threading.Tasks;
 
-namespace _Game.AuthenticatorService
+namespace _Game.Logic.MetaService.AuthenticatorService
 {
     public interface IAuthenticatorService
     {

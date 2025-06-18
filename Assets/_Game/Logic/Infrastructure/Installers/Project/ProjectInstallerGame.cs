@@ -5,9 +5,14 @@ using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Service.SaveAndLoadHandler;
 using _Game.Logic.Effects;
 using _Game.Logic.Gameplay.Service.Sound;
+using _Game.Logic.Infrastructure.EntryPoints;
 using _Game.Logic.MetaService.Addressable;
+using _Game.Logic.MetaService.AdsServiceUnity;
 using _Game.Logic.MetaService.AuthenticatorService;
 using _Game.Logic.MetaService.FirebaseService;
+using _Game.Logic.MetaService.JsonConvertService;
+using _Game.Logic.MetaService.Purchasing_Service;
+using _Game.Logic.MetaService.SceneTransitorService;
 using _Game.MainMenu.Logic.Infrastructure;
 using _Game.Purchasing_Service;
 using UnityEngine;
@@ -34,7 +39,7 @@ namespace _Game.Logic.Infrastructure.Installers.Project
             BindParticleHandler();
 
             Container.BindInterfacesTo<EntryPointProject>().AsSingle();
-            Container.Bind<SceneHandler>().AsCached();
+            Container.Bind<SceneTransitioner>().AsCached();
             Container.BindInterfacesAndSelfTo<ScoreCounter>().AsSingle();
         }
 
@@ -50,24 +55,24 @@ namespace _Game.Logic.Infrastructure.Installers.Project
 
         private void BindJsonConverter()
         {
-            Container.BindInterfacesAndSelfTo<JsonConverterHandler>().AsCached().NonLazy();
+            Container.BindInterfacesAndSelfTo<JsonConverterService>().AsCached().NonLazy();
         }
 
         private void BindAuthenticationService()
         {
-            Container.BindInterfacesAndSelfTo<AuthenticatorHandler>().AsCached().NonLazy();
+            Container.BindInterfacesAndSelfTo<MetaService.AuthenticatorService.AuthenticatorService>().AsCached().NonLazy();
         }
 
         private void BindSaverService()
         {
-            Container.BindInterfacesAndSelfTo<DataHandler>().AsCached();
+            Container.BindInterfacesAndSelfTo<DataSyncManager>().AsCached();
             Container.BindInterfacesTo<LocalSaver>().AsCached();
             Container.BindInterfacesTo<CloudSaver>().AsCached();
         }
 
         private void BindPurchasingService()
         {
-            Container.BindInterfacesAndSelfTo<PurchasingHandler>().AsCached();
+            Container.BindInterfacesAndSelfTo<PurchasingService>().AsCached();
         }
 
         private void BindRemoteConfigProvider()
@@ -89,7 +94,7 @@ namespace _Game.Logic.Infrastructure.Installers.Project
 
         private void BindAnalytics()
         {
-            Container.BindInterfacesAndSelfTo<InitServiceAnalytics>().AsCached();
+            Container.BindInterfacesAndSelfTo<InitFirebaseServiceAnalytics>().AsCached();
         }
     }
 }

@@ -1,5 +1,5 @@
 using _Game.FirebaseService;
-using _Game.Gameplay.Logic.Service.ObjectPool;
+using _Game.Gameplay.Logic.Weapon;
 using _Game.Logic.Gameplay.Service.ObjectPool;
 using UnityEngine;
 using Zenject;
@@ -7,7 +7,7 @@ using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
-namespace _Game.Gameplay.Logic.Weapon
+namespace _Game.Logic.Gameplay.Weapon
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public abstract class Bullet : MonoBehaviour, IPoolCreature

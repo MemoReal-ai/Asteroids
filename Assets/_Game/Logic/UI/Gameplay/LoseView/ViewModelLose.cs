@@ -2,6 +2,7 @@ using System;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Ship;
+using _Game.Logic.MetaService.SceneTransitorService;
 using R3;
 using Zenject;
 
@@ -15,15 +16,15 @@ namespace _Game.Gameplay.Logic.UI.LoseUI
 
         private readonly GameTimeHandler _gameTimeHandler;
         private readonly ShipAbstract _ship;
-        private readonly SceneHandler _sceneHandler;
+        private readonly SceneTransitioner _sceneTransitioner;
         private readonly ScoreCounter _scoreCounter;
 
-        public ViewModelLose(GameTimeHandler gameTimeHandler, ShipAbstract ship, SceneHandler sceneHandler,
+        public ViewModelLose(GameTimeHandler gameTimeHandler, ShipAbstract ship, SceneTransitioner sceneTransitioner,
             ScoreCounter scoreCounter)
         {
             _gameTimeHandler = gameTimeHandler;
             _ship = ship;
-            _sceneHandler = sceneHandler;
+            _sceneTransitioner = sceneTransitioner;
             _scoreCounter = scoreCounter;
         }
 
@@ -54,12 +55,12 @@ namespace _Game.Gameplay.Logic.UI.LoseUI
 
         private void Restart()
         {
-            _sceneHandler.RestartGameplay();
+            _sceneTransitioner.RestartGameplay();
         }
 
         private void Quit()
         {
-            _sceneHandler.LoadMainMenu();
+            _sceneTransitioner.LoadMainMenu();
         }
     }
 }

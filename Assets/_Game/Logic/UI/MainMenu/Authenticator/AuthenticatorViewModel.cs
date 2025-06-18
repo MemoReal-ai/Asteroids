@@ -1,5 +1,5 @@
 using System;
-using _Game.AuthenticatorService;
+using _Game.Logic.MetaService.AuthenticatorService;
 using R3;
 using Zenject;
 

@@ -13,20 +13,20 @@ namespace _Game.MainMenu.Logic.UI
         public ReactiveProperty<string> HighScore { get; private set; } = new();
 
         private readonly UniTaskCompletionSource _initializeTaskCompletionSource = new();
-        private readonly DataHandler _dataHandler;
+        private readonly DataSyncManager _dataSyncManager;
 
-        public ViewScoreModelView(DataHandler dataHandler)
+        public ViewScoreModelView(DataSyncManager dataSyncManager)
         {
-            _dataHandler = dataHandler;
+            _dataSyncManager = dataSyncManager;
         }
 
         public async void Initialize()
         {
             try
             {
-                await _dataHandler.CheckLoadedData();
-                ScoreLastSession.Value = _dataHandler.Data.CurrentScore.ToString();
-                HighScore.Value = _dataHandler.Data.HightScore.ToString();
+                await _dataSyncManager.CheckLoadedData();
+                ScoreLastSession.Value = _dataSyncManager.Data.CurrentScore.ToString();
+                HighScore.Value = _dataSyncManager.Data.HightScore.ToString();
                 _initializeTaskCompletionSource.TrySetResult();
             }
             catch (Exception e)

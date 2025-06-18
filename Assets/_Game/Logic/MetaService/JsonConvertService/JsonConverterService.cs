@@ -1,9 +1,9 @@
 using _Game.Logic.MetaService.JsonConvertHandler;
 using Newtonsoft.Json;
 
-namespace _Game.Gameplay.Logic.Service
+namespace _Game.Logic.MetaService.JsonConvertService
 {
-    public class JsonConverterHandler : IJsonConverter
+    public class JsonConverterService : IJsonConverter
     {
         public string Serialize(object obj)
         {

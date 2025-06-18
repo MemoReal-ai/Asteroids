@@ -1,6 +1,7 @@
 using System;
 using _Game.Gameplay.Logic.Service;
 using _Game.Logic.Gameplay.Features;
+using _Game.Logic.MetaService.SceneTransitorService;
 using Zenject;
 
 namespace _Game.Gameplay.Logic.Features
@@ -8,22 +9,22 @@ namespace _Game.Gameplay.Logic.Features
     public class ScoreCounter : IInitializable, IDisposable, IScoreCounter
     {
         private int _maxScore;
-        private readonly SceneHandler _sceneHandler;
+        private readonly SceneTransitioner _sceneTransitioner;
         public int CurrentSessionScore { get; private set; } = 0;
 
-        public ScoreCounter(SceneHandler sceneHandler)
+        public ScoreCounter(SceneTransitioner sceneTransitioner)
         {
-            _sceneHandler = sceneHandler;
+            _sceneTransitioner = sceneTransitioner;
         }
 
         public void Initialize()
         {
-            _sceneHandler.OnSceneRestart += ResetScore;
+            _sceneTransitioner.OnSceneRestart += ResetScore;
         }
 
         public void Dispose()
         {
-            _sceneHandler.OnSceneRestart -= ResetScore;
+            _sceneTransitioner.OnSceneRestart -= ResetScore;
         }
 
         private void ResetScore()

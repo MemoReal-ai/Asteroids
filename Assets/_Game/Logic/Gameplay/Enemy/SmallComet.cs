@@ -6,6 +6,7 @@ using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Weapon;
 using _Game.Logic.Gameplay.Features;
 using _Game.Logic.Gameplay.Service.ObjectPool;
+using _Game.Logic.Gameplay.Weapon;
 using UnityEngine;
 using Zenject;
 
@@ -15,7 +16,7 @@ namespace _Game.Logic.Gameplay.Enemy
     public class SmallComet : MonoBehaviour, IEnemy, IPoolCreature
     {
         private SmallCometConfig _smallCometConfig;
-        private Vector2 _direction;
+        private Vector3 _direction;
         private Rigidbody2D _rigidbody2D;
         private Vector3 _startPosition;
         private IRemoteConfigProvider _provider;
@@ -58,10 +59,10 @@ namespace _Game.Logic.Gameplay.Enemy
             _rigidbody2D.AddForce(_direction * _smallCometConfig.Speed, ForceMode2D.Impulse);
         }
 
-        public void Setup(Vector2 direction, Transform spawnPoint)
+        public void Setup(Vector3 direction, Vector3 spawnPoint)
         {
             _direction = direction;
-            transform.position = spawnPoint.position;
+            transform.position = spawnPoint;
             _startPosition = transform.position;
         }
 

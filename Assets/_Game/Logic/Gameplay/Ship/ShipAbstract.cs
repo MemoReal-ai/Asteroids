@@ -1,5 +1,4 @@
 using System;
-using _Game.Firebase;
 using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Features;

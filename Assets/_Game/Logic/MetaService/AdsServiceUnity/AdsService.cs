@@ -1,20 +1,18 @@
-using System;
 using _Game.Purchasing_Service;
 using _Game.SDKService;
 using UnityEngine;
-using Zenject;
 using UnityEngine.Advertisements;
+using Zenject;
 
-namespace _Game.AdsServiceUnity
+namespace _Game.Logic.MetaService.AdsServiceUnity
 {
     public class AdsService : IInitializable, IAdsService, IUnityAdsInitializationListener
     {
-        private const string ANDROIDID = "5856151";
-        private const string IOSID = "5856150";
+        private const string ANDROID_ID = "5856151";
+        private const string IOS_ID = "5856150";
 
         private readonly IPurchasingService _purchasingService;
-
-        private bool _isTestMod = true;
+        private readonly bool _isTestMod = true;
 
         public AdsService(IPurchasingService purchasingService)
         {
@@ -26,15 +24,6 @@ namespace _Game.AdsServiceUnity
             InitService();
         }
 
-        public void InitService()
-        {
-            if (Advertisement.isSupported)
-            {
-                Advertisement.Initialize(Application.platform == RuntimePlatform.IPhonePlayer ? IOSID : ANDROIDID,
-                    _isTestMod,
-                    this);
-            }
-        }
 
         public void ShowAdsForReward(string idAds, IUnityAdsShowListener listener)
         {
@@ -54,11 +43,23 @@ namespace _Game.AdsServiceUnity
             }
         }
 
-        public void OnInitializationComplete() { }
+        public void OnInitializationComplete()
+        {
+        }
 
         public void OnInitializationFailed(UnityAdsInitializationError error, string message)
         {
             Debug.Log("OnInitializationFailed()");
+        }
+
+        private void InitService()
+        {
+            if (Advertisement.isSupported)
+            {
+                Advertisement.Initialize(Application.platform == RuntimePlatform.IPhonePlayer ? IOS_ID : ANDROID_ID,
+                    _isTestMod,
+                    this);
+            }
         }
     }
 }

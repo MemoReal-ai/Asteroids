@@ -1,13 +1,13 @@
 using System;
 using _Game.Purchasing_Service;
-using Zenject;
 using R3;
+using Zenject;
 
-namespace _Game.MainMenu.Logic.UI.Store
+namespace _Game.Logic.UI.MainMenu.Store
 {
     public class StoreViewModel : IInitializable, IDisposable
     {
-        public ReadOnlyReactiveProperty<bool> IsAdsRemoved = new ReactiveProperty<bool>();
+        public ReactiveProperty<bool> IsAdsRemoved = new ReactiveProperty<bool>();
         public ReactiveCommand BuyCommand { get; private set; } = new ReactiveCommand();
 
         private readonly IPurchasingService _purchasingService;
@@ -19,18 +19,22 @@ namespace _Game.MainMenu.Logic.UI.Store
 
         public void Initialize()
         {
+            _purchasingService.OnBuyRemoveAds += UpdateStateReactiveProperty;
+            UpdateStateReactiveProperty(_purchasingService.HasPurchasingAdsSkip());
+
             BuyCommand.Subscribe(x => _purchasingService.BuyRemoveAds());
-            
-            IsAdsRemoved = Observable.
-                EveryValueChanged(this, _ => !_purchasingService.HasPurchasingAdsSkip()).
-                ToReadOnlyReactiveProperty();
-            
         }
 
         public void Dispose()
         {
+            _purchasingService.OnBuyRemoveAds -= UpdateStateReactiveProperty;
             IsAdsRemoved?.Dispose();
             BuyCommand?.Dispose();
+        }
+
+        private void UpdateStateReactiveProperty(bool state)
+        {
+            IsAdsRemoved.Value = !state;
         }
     }
 }

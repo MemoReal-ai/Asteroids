@@ -1,3 +1,4 @@
+using _Game.Logic.UI.MainMenu.Store;
 using _Game.MainMenu.Logic.UI.Store;
 using UnityEngine;
 using Zenject;

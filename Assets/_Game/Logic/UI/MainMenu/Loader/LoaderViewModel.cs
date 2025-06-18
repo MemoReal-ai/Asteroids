@@ -17,25 +17,25 @@ namespace _Game.MainMenu.Logic.UI.Loader
         public ReactiveCommand ChoiceLocalSaveCommand { get; private set; } = new();
         public ReactiveCommand ChoiceCloudSaveCommand { get; private set; } = new();
 
-        private readonly DataHandler _dataHandler;
+        private readonly DataSyncManager _dataSyncManager;
 
-        public LoaderViewModel(DataHandler dataHandler)
+        public LoaderViewModel(DataSyncManager dataSyncManager)
         {
-            _dataHandler = dataHandler;
+            _dataSyncManager = dataSyncManager;
         }
 
         public async void Initialize()
         {
             try
             {
-                _dataHandler.OnNotValidData += ShowPopup;
+                _dataSyncManager.OnNotValidData += ShowPopup;
 
-                await _dataHandler.CheckLoadedData();
+                await _dataSyncManager.CheckLoadedData();
               
-                var localData = _dataHandler.GetLocalSaveData();
+                var localData = _dataSyncManager.GetLocalSaveData();
                 SetSubscribe(ChoiceLocalSaveCommand, LocalScoreText, LocalDataTime, localData);
                 
-                var cloudData = _dataHandler.GetCloudSaveData();
+                var cloudData = _dataSyncManager.GetCloudSaveData();
                 SetSubscribe(ChoiceCloudSaveCommand, CloudScoreText, CloudDataTime, cloudData ?? new Data());
             }
             catch (Exception e)
@@ -46,14 +46,14 @@ namespace _Game.MainMenu.Logic.UI.Loader
 
         public void Dispose()
         {
-            _dataHandler.OnNotValidData -= ShowPopup;
+            _dataSyncManager.OnNotValidData -= ShowPopup;
             UnsubscribeReactive();
         }
 
         private void SetSubscribe(ReactiveCommand buttonChoice, ReactiveProperty<string> hightScore,
             ReactiveProperty<DateTime> saveTime, Data data)
         {
-            buttonChoice.Subscribe(x => _dataHandler.SetData(data));
+            buttonChoice.Subscribe(x => _dataSyncManager.SetData(data));
             hightScore.Value = $" High Score {data.HightScore.ToString()}";
             saveTime.Value = data.SaveTime;
         }

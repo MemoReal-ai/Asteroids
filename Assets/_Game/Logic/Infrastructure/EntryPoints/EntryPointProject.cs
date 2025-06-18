@@ -1,21 +1,20 @@
-using System;
-using _Game.Firebase;
+using _Game.Logic.MetaService.FirebaseService;
 using Zenject;
 
-namespace _Game.MainMenu.Logic.Infrastructure
+namespace _Game.Logic.Infrastructure.EntryPoints
 {
     public class EntryPointProject : IInitializable
     {
-        private readonly IServiceAnalytics _service;
+        private readonly IFirebaseServiceAnalytics _firebaseService;
 
-        public EntryPointProject(IServiceAnalytics service)
+        public EntryPointProject(IFirebaseServiceAnalytics firebaseService)
         {
-            _service = service;
+            _firebaseService = firebaseService;
         }
 
         public void Initialize()
         {
-            _service.InvokeStartGame();
+            _firebaseService.TrackStartGame();
         }
     }
 }

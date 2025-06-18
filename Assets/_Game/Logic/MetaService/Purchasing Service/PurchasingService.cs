@@ -1,12 +1,16 @@
+using System;
+using _Game.Purchasing_Service;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using Zenject;
 
-namespace _Game.Purchasing_Service
+namespace _Game.Logic.MetaService.Purchasing_Service
 {
-    public class PurchasingHandler : IInitializable, IPurchasingService, IStoreListener
+    public class PurchasingService : IInitializable, IPurchasingService, IStoreListener
     {
         private const string REMOVE_ADS_KEY = "RemoveAds";
+
+        public event Action<bool> OnBuyRemoveAds;
 
         private bool _isPurchasingSkipAds;
         private IStoreController _storeController;
@@ -48,7 +52,10 @@ namespace _Game.Purchasing_Service
         public void SetFlagPurchasingAdsSkip(bool skip)
         {
             _isPurchasingSkipAds = skip;
+            OnBuyRemoveAds?.Invoke(_isPurchasingSkipAds);
         }
+
+
 
         public void OnInitializeFailed(InitializationFailureReason error)
         {

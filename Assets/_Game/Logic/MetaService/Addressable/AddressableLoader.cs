@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using _Game.MainMenu.Logic.UI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -11,7 +12,14 @@ namespace _Game.Logic.MetaService.Addressable
     {
         private CancellationTokenSource _tokenSource = new();
 
-        public async UniTask<GameObject> LoadPrefab<T>()
+        public void Dispose()
+        {
+            _tokenSource?.Cancel();
+            _tokenSource?.Dispose();
+            _tokenSource = null;
+        }
+
+        public async UniTask<GameObject> LoadPrefab<T>(FactoryUI factoryUI)
         {
             try
             {
@@ -24,7 +32,24 @@ namespace _Game.Logic.MetaService.Addressable
                     throw new Exception("Failed to load prefab");
                 }
 
-                return prefabTask.Result;
+                return await CreateAddressablePrefab<T>(factoryUI, prefabTask);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+
+        private async UniTask<GameObject> CreateAddressablePrefab<T>(FactoryUI factoryUI,AsyncOperationHandle<GameObject> prefabTask)
+        {
+            try
+            {
+                var prefab = await prefabTask;
+                var window = factoryUI.Create(prefab);
+                UnloadPrefab(prefab);
+                return window;
             }
             catch (Exception e)
             {
@@ -37,15 +62,8 @@ namespace _Game.Logic.MetaService.Addressable
         {
             if (prefab)
             {
-                Addressables.ReleaseInstance(prefab);
+                Addressables.Release(prefab);
             }
-        }
-
-        public void Dispose()
-        {
-            _tokenSource?.Cancel();
-            _tokenSource?.Dispose();
-            _tokenSource = null;
         }
     }
 }

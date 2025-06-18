@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using _Game.Firebase;
 using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Infrastructure;
 using _Game.Gameplay.Logic.Service;
@@ -17,15 +16,15 @@ namespace _Game.Logic.MetaService.FirebaseService
         private readonly DataStatsForAnalitycs _dataStatsForAnalitycs = new();
         private readonly Shoot _shoot;
         private readonly List<ObjectPool<EnemyAbstract>> _pools;
-        private readonly IServiceAnalytics _serviceAnalytics;
+        private readonly IFirebaseServiceAnalytics _firebaseServiceAnalytics;
         private readonly IJsonConverter _jsonConverter;
 
         private string _dataJson;
 
-        public CounterAllStatsToAnalitycs(Shoot shoot, IServiceAnalytics serviceAnalytics,
+        public CounterAllStatsToAnalitycs(Shoot shoot, IFirebaseServiceAnalytics firebaseServiceAnalytics,
             List<ObjectPool<EnemyAbstract>> pools, IJsonConverter jsonConverter)
         {
-            _serviceAnalytics = serviceAnalytics;
+            _firebaseServiceAnalytics = firebaseServiceAnalytics;
             _shoot = shoot;
             _pools = pools;
             _jsonConverter = jsonConverter;
@@ -35,7 +34,7 @@ namespace _Game.Logic.MetaService.FirebaseService
         {
             _shoot.OnShoot += _dataStatsForAnalitycs.AddCounterShoot;
             _shoot.OnLaserShoot += _dataStatsForAnalitycs.AddShootLaserCount;
-            _shoot.OnLaserShoot += _serviceAnalytics.InvokeLaserShoot;
+            _shoot.OnLaserShoot += _firebaseServiceAnalytics.TrackLaserShoot;
             foreach (var pool in _pools)
             {
                 foreach (var enemy in pool.Objects)
@@ -49,7 +48,7 @@ namespace _Game.Logic.MetaService.FirebaseService
         {
             _shoot.OnShoot -= _dataStatsForAnalitycs.AddCounterShoot;
             _shoot.OnLaserShoot -= _dataStatsForAnalitycs.AddShootLaserCount;
-            _shoot.OnLaserShoot -= _serviceAnalytics.InvokeLaserShoot;
+            _shoot.OnLaserShoot -= _firebaseServiceAnalytics.TrackLaserShoot;
 
             foreach (var pool in _pools)
             {
@@ -61,7 +60,7 @@ namespace _Game.Logic.MetaService.FirebaseService
 
 
             _dataJson = _jsonConverter.Serialize(_dataStatsForAnalitycs);
-            _serviceAnalytics.InvokeStats(_dataJson);
+            _firebaseServiceAnalytics.TrackStatsAfterLose(_dataJson);
         }
 
         private void CounterEnemy(EnemyAbstract enemy)

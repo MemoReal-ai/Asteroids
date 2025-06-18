@@ -1,8 +1,9 @@
-using _Game.AuthenticatorService;
+using _Game.Logic.MetaService.AuthenticatorService;
+using _Game.MainMenu.Logic.UI.Authenticator;
 using R3;
 using Zenject;
 
-namespace _Game.MainMenu.Logic.UI.Authenticator
+namespace _Game.Logic.UI.MainMenu.Authenticator
 {
     public class AuthenticatorBinder : IInitializable
     {
@@ -27,7 +28,6 @@ namespace _Game.MainMenu.Logic.UI.Authenticator
             {
                 return;
             }
-
             _authenticatorView.Show();
             _authenticatorView.LoginButton.OnClickAsObservable().Subscribe(u =>
             {
@@ -35,7 +35,7 @@ namespace _Game.MainMenu.Logic.UI.Authenticator
                 Hide();
             }).AddTo(_authenticatorView);
         }
-        
+
         private void Hide()
         {
             _authenticatorView.Hide();

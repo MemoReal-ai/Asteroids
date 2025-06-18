@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
-using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Service.ObjectPool;
+using _Game.Gameplay.Logic.Weapon;
 
-namespace _Game.Gameplay.Logic.Weapon
+namespace _Game.Logic.Gameplay.Weapon
 {
     public class LaserWeapon : IWeapon
     {

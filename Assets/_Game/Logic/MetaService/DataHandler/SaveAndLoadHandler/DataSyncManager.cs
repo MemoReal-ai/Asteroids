@@ -1,7 +1,6 @@
 using System;
-using System.Threading.Tasks;
-using _Game.AuthenticatorService;
 using _Game.Gameplay.Logic.Features;
+using _Game.Logic.MetaService.AuthenticatorService;
 using _Game.Purchasing_Service;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -9,7 +8,7 @@ using Zenject;
 
 namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
 {
-    public class DataHandler : IInitializable, IDisposable
+    public class DataSyncManager : IInitializable, IDisposable
     {
         private const int TRESHOLD_DIFFERENCE_TICK = 10;
         public event Action OnNotValidData;
@@ -25,7 +24,7 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
         private Data _localData;
         public Data Data { get; private set; }
 
-        public DataHandler(ILocalSaver localSaver, ScoreCounter scoreCounter, IPurchasingService purchasingService,
+        public DataSyncManager(ILocalSaver localSaver, ScoreCounter scoreCounter, IPurchasingService purchasingService,
             ICloudSaver cloudSaver, IAuthenticatorService authenticatorService)
         {
             _localSaver = localSaver;

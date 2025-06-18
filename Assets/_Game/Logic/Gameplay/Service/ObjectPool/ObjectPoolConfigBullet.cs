@@ -1,4 +1,5 @@
 using _Game.Gameplay.Logic.Weapon;
+using _Game.Logic.Gameplay.Weapon;
 using UnityEngine;
 
 namespace _Game.Gameplay.Logic.Service.ObjectPool

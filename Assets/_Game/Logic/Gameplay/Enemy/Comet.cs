@@ -1,14 +1,13 @@
-using System;
-using _Game.Firebase;
+using _Game.Gameplay.Logic.Enemy;
 using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
-using _Game.Logic.Gameplay.Enemy;
+using _Game.Logic.Gameplay.Weapon;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace _Game.Gameplay.Logic.Enemy
+namespace _Game.Logic.Gameplay.Enemy
 {
     public class Comet : EnemyAbstract
     {
@@ -17,12 +16,12 @@ namespace _Game.Gameplay.Logic.Enemy
         private Vector3 _direction;
         private bool _initialized = false;
         private float _currentSpeed;
-        private ObjectPool<SmallComet> _cometPool;
+        private ObjectPool<SmallComet> _smallCometPool;
 
         [Inject]
         public void Construct(ObjectPool<SmallComet> cometPool)
         {
-            _cometPool = cometPool;
+            _smallCometPool = cometPool;
         }
 
         public override void Spawn(Vector3 position, ShipAbstract targetShip)
@@ -49,10 +48,10 @@ namespace _Game.Gameplay.Logic.Enemy
 
         protected override void Initialize()
         {
+            base.Initialize();
             _cometConfig = Provider.GetRemoteConfig<CometConfig>();
             _currentSpeed = Random.Range(_cometConfig.MinSpeed, _cometConfig.MaxSpeed);
             _initialized = true;
-            base.Initialize();
         }
 
         protected override void OnTriggerEnter2D(Collider2D other)
@@ -75,12 +74,12 @@ namespace _Game.Gameplay.Logic.Enemy
             {
                 var angle = i * (360 / Random.value);
                 Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
-                var smallComet = _cometPool.GetObject();
-                smallComet.Setup(direction, transform);
+                var smallComet = _smallCometPool.GetObject();
+                smallComet.Setup(direction, transform.position);
             }
         }
 
-       
+
 
         private void Fade()
         {

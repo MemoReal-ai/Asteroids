@@ -1,5 +1,6 @@
 using System;
 using _Game.Gameplay.Logic.Service;
+using _Game.Logic.MetaService.SceneTransitorService;
 using Zenject;
 using R3;
 
@@ -7,13 +8,13 @@ namespace _Game.MainMenu.Logic.UI
 {
     public class MainMenuViewModel : IInitializable, IDisposable
     {
-        private readonly SceneHandler _sceneHandler;
+        private readonly SceneTransitioner _sceneTransitioner;
         public ReactiveCommand GameplayTransitionCommand { get; private set; } = new ReactiveCommand();
         public ReactiveCommand ExitCommand { get; private set; } = new ReactiveCommand();
 
-        public MainMenuViewModel(SceneHandler sceneHandler)
+        public MainMenuViewModel(SceneTransitioner sceneTransitioner)
         {
-            _sceneHandler = sceneHandler;
+            _sceneTransitioner = sceneTransitioner;
         }
 
 
@@ -31,12 +32,12 @@ namespace _Game.MainMenu.Logic.UI
 
         private void OnGoToGameplayScene()
         {
-            _sceneHandler.LoadGameplayScene();
+            _sceneTransitioner.LoadGameplayScene();
         }
 
         private void OnExitGameplayScene()
         {
-            _sceneHandler.Quit();
+            _sceneTransitioner.Quit();
         }
     }
 }

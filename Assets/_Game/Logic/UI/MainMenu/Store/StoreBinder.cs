@@ -1,8 +1,8 @@
-using Zenject;
+using _Game.MainMenu.Logic.UI.Store;
 using R3;
-using UnityEngine;
+using Zenject;
 
-namespace _Game.MainMenu.Logic.UI.Store
+namespace _Game.Logic.UI.MainMenu.Store
 {
     public class StoreBinder : IInitializable
     {

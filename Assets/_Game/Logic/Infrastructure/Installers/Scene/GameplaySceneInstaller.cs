@@ -12,6 +12,9 @@ using _Game.Gameplay.Logic.Weapon;
 using _Game.Logic.Gameplay.Enemy;
 using _Game.Logic.Gameplay.Features;
 using _Game.Logic.Gameplay.Service.ObjectPool;
+using _Game.Logic.Gameplay.Weapon;
+using _Game.Logic.Infrastructure.EntryPoints;
+using _Game.Logic.MetaService.DataHandler;
 using _Game.Logic.MetaService.FirebaseService;
 using _Game.MainMenu.Logic.Infrastructure;
 using _Game.MainMenu.Logic.UI;
@@ -71,7 +74,7 @@ namespace _Game.Gameplay.Logic.Infrastructure
             Container.BindInterfacesTo<InputPlayer>().AsCached();
             Container.BindInterfacesAndSelfTo<Warp>().AsCached();
             Container.Bind<Camera>().FromInstance(_mainCamera).AsCached();
-            Container.BindInterfacesAndSelfTo<TransitorData>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<EndGameDataSaver>().AsSingle().NonLazy();
         }
 
         private void InstallShip()

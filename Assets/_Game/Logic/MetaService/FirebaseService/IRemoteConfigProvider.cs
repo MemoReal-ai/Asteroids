@@ -1,4 +1,3 @@
-using _Game.Firebase;
 using UnityEngine;
 
 namespace _Game.FirebaseService

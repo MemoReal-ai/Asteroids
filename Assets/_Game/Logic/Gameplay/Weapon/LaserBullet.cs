@@ -1,9 +1,10 @@
 using System;
 using System.Threading;
+using _Game.Gameplay.Logic.Weapon;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace _Game.Gameplay.Logic.Weapon
+namespace _Game.Logic.Gameplay.Weapon
 {
     [RequireComponent(typeof(BoxCollider2D))]
     public class LaserBullet : Bullet

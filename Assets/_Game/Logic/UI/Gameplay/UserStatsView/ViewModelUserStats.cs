@@ -1,6 +1,7 @@
 using System;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.Weapon;
+using _Game.Logic.Gameplay.Weapon;
 using R3;
 using Zenject;
 

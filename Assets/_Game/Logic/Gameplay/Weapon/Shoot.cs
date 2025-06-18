@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Logic.Gameplay.Service.Sound;
+using _Game.Logic.Gameplay.Weapon;
 
 namespace _Game.Gameplay.Logic.Weapon
 {

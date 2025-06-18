@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using _Game.AuthenticatorService;
+using _Game.Logic.MetaService.AuthenticatorService;
 using _Game.Logic.MetaService.JsonConvertHandler;
 using Cysharp.Threading.Tasks;
 using Unity.Services.CloudSave;

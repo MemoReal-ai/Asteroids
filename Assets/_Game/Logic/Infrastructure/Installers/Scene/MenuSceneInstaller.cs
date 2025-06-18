@@ -1,3 +1,5 @@
+using _Game.Logic.Infrastructure.EntryPoints;
+using _Game.Logic.UI.MainMenu.Store;
 using _Game.MainMenu.Logic.UI;
 using _Game.MainMenu.Logic.UI.Authenticator;
 using _Game.MainMenu.Logic.UI.Loader;

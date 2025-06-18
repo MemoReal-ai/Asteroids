@@ -1,14 +1,12 @@
 using System;
-using _Game.AuthenticatorService;
 using Cysharp.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
-using UnityEngine;
 using Zenject;
 
 namespace _Game.Logic.MetaService.AuthenticatorService
 {
-    public class AuthenticatorHandler : IAuthenticatorService, IInitializable
+    public class AuthenticatorService : IAuthenticatorService, IInitializable
     {
         private readonly UniTaskCompletionSource _completionSource = new();
 

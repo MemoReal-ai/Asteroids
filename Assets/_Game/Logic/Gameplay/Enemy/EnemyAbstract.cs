@@ -8,6 +8,7 @@ using _Game.Logic.Effects;
 using _Game.Logic.Gameplay.Features;
 using _Game.Logic.Gameplay.Service.ObjectPool;
 using _Game.Logic.Gameplay.Service.Sound;
+using _Game.Logic.Gameplay.Weapon;
 using UnityEngine;
 using Zenject;
 
@@ -82,7 +83,7 @@ namespace _Game.Logic.Gameplay.Enemy
             gameObject.SetActive(false);
         }
 
-        protected void InvokeOnDied()
+        private void InvokeOnDied()
         {
             _scoreCounter.IncreaseScore(Config.Reward);
             OnDeath?.Invoke(this);
