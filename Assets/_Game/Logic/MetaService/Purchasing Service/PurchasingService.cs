@@ -12,6 +12,7 @@ namespace _Game.Logic.MetaService.Purchasing_Service
 
         public event Action<bool> OnBuyRemoveAds;
 
+        private ConfigurationBuilder _builder;
         private bool _isPurchasingSkipAds;
         private IStoreController _storeController;
         private IExtensionProvider _extensionProvider;
@@ -29,9 +30,9 @@ namespace _Game.Logic.MetaService.Purchasing_Service
                 return;
             }
 
-            var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-            builder.AddProduct(REMOVE_ADS_KEY, ProductType.NonConsumable);
-            UnityPurchasing.Initialize(this, builder);
+            _builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
+            _builder.AddProduct(REMOVE_ADS_KEY, ProductType.NonConsumable);
+            UnityPurchasing.Initialize(this, _builder);
         }
 
         public void BuyRemoveAds()
@@ -39,8 +40,8 @@ namespace _Game.Logic.MetaService.Purchasing_Service
             if (!_isPurchasingSkipAds)
             {
                 _isPurchasingSkipAds = true;
-                _storeController.InitiatePurchase(REMOVE_ADS_KEY);
                 OnBuyRemoveAds?.Invoke(_isPurchasingSkipAds);
+                _storeController.InitiatePurchase(REMOVE_ADS_KEY);
             }
         }
 
@@ -53,7 +54,7 @@ namespace _Game.Logic.MetaService.Purchasing_Service
         {
             _isPurchasingSkipAds = state;
         }
-        
+
         public void OnInitializeFailed(InitializationFailureReason error)
         {
             Debug.LogError($"Initialization failed: {error}");
@@ -71,7 +72,8 @@ namespace _Game.Logic.MetaService.Purchasing_Service
 
         public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
         {
-            Debug.Log("Purchasing service failed");
+            _isPurchasingSkipAds = false;
+            OnBuyRemoveAds?.Invoke(_isPurchasingSkipAds);
         }
 
         public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
