@@ -1,8 +1,8 @@
 using System;
+using _Game.Logic.Infrastructure.Installers.GameObject;
 using _Game.Logic.MetaService.Addressable;
-using _Game.MainMenu.Logic.Infrastructure.GameObjectContext;
+using _Game.Logic.UI.MainMenu.Authenticator;
 using _Game.MainMenu.Logic.UI;
-using _Game.MainMenu.Logic.UI.Authenticator;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;

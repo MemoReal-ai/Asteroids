@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Service;
-using _Game.Gameplay.Logic.Service.SaveAndLoadHandler;
 using _Game.Logic.MetaService.AuthenticatorService;
 using _Game.Purchasing_Service;
 using Cysharp.Threading.Tasks;
@@ -13,10 +13,11 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
     public class DataSyncManager : IInitializable, IDisposable
     {
         private const int TRESHOLD_DIFFERENCE_TICK = 10;
+        private const int LOCAL_INDEX_SAVER_LIST = 0;
+        private const int CLOUD_INDEX_SAVER_LIST = 1;
         public event Action OnNotValidData;
 
-        private readonly ILocalSaver _localSaver;
-        private readonly ICloudSaver _cloudSaver;
+        private readonly List<ISaver> _savers;
         private readonly ScoreCounter _scoreCounter;
         private readonly IPurchasingService _purchasingService;
         private readonly UniTaskCompletionSource _initializationData = new();
@@ -27,14 +28,13 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
         private Data _localData;
         public Data Data { get; private set; }
 
-        public DataSyncManager(ILocalSaver localSaver, ScoreCounter scoreCounter, IPurchasingService purchasingService,
-            ICloudSaver cloudSaver, IAuthenticatorService authenticatorService)
+        public DataSyncManager(ScoreCounter scoreCounter, IPurchasingService purchasingService,
+            IAuthenticatorService authenticatorService, List<ISaver> savers)
         {
-            _localSaver = localSaver;
             _scoreCounter = scoreCounter;
             _purchasingService = purchasingService;
-            _cloudSaver = cloudSaver;
             _authenticatorService = authenticatorService;
+            _savers = savers;
         }
 
         public async void Initialize()
@@ -44,9 +44,8 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
             {
                 if (await CheckValidData())
                 {
-                    var validData = await _cloudSaver.LoadDataCloud();
+                    var validData = await _savers[LOCAL_INDEX_SAVER_LIST].LoadData();
                     SetData(validData);
-                    _setValidSave.TrySetResult();
                 }
                 else
                 {
@@ -62,19 +61,15 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
 
         public void Dispose()
         {
-            LocalSaveData();
-            CloudSaveData();
+            Save();
         }
 
-
-        public void LocalSaveData()
+        public void Save()
         {
-            SaveData(_localSaver);
-        }
-
-        public void CloudSaveData()
-        {
-            SaveData(_cloudSaver);
+            foreach (var saver in _savers)
+            {
+                SaveData(saver);
+            }
         }
 
         public async UniTask CheckLoadedData()
@@ -82,11 +77,19 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
             await _initializationData.Task;
         }
 
-        public void SetData(Data data)
+        public async void SetData(Data data)
         {
-            data ??= _localSaver.LoadData();
-            Data = data;
-            _purchasingService.SetFlagPurchasingAdsSkip(Data.PurchasingSkipAds);
+            try
+            {
+                data ??= await _savers[LOCAL_INDEX_SAVER_LIST].LoadData();
+                Data = data;
+                _purchasingService.SetFlagPurchasingAdsSkip(Data.PurchasingSkipAds);
+                _setValidSave.TrySetResult();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
         }
 
         public Data GetLocalSaveData()
@@ -106,8 +109,8 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
 
         private async UniTask<bool> CheckValidData()
         {
-            _localData = _localSaver.LoadData();
-            _cloudData = await _cloudSaver.LoadDataCloud();
+            _localData = await _savers[LOCAL_INDEX_SAVER_LIST].LoadData();
+            _cloudData = await _savers[CLOUD_INDEX_SAVER_LIST].LoadData();
             _initializationData.TrySetResult();
 
             if (_cloudData == null)

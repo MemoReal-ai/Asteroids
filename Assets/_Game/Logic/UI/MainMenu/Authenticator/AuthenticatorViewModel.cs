@@ -3,27 +3,47 @@ using _Game.Logic.MetaService.AuthenticatorService;
 using R3;
 using Zenject;
 
-namespace _Game.MainMenu.Logic.UI.Authenticator
+namespace _Game.Logic.UI.MainMenu.Authenticator
 {
     public class AuthenticatorViewModel : IInitializable, IDisposable
     {
-        public ReactiveCommand SignInCommand { get; private set; } = new ReactiveCommand();
-
+        private readonly AuthenticatorView _authenticatorView;
         private readonly IAuthenticatorService _authenticatorService;
 
-        public AuthenticatorViewModel(IAuthenticatorService authenticatorService)
+        private ReactiveCommand SignInCommand { get; set; } = new ReactiveCommand();
+
+        public AuthenticatorViewModel(IAuthenticatorService authenticatorService, AuthenticatorView authenticatorView)
         {
             _authenticatorService = authenticatorService;
+            _authenticatorView = authenticatorView;
         }
 
         public void Initialize()
         {
-            SignInCommand.Subscribe(x => _authenticatorService.SignIn());
+            if (_authenticatorService.IsSignedIn())
+            {
+                return;
+            }
+
+            _authenticatorView.Show();
+            SignInCommand.Subscribe(x =>
+            {
+                _authenticatorService.SignIn();
+                _authenticatorView.Hide();
+            });
+
+            Bind();
         }
 
         public void Dispose()
         {
             SignInCommand?.Dispose();
+        }
+
+        private void Bind()
+        {
+            _authenticatorView.LoginButton.OnClickAsObservable().Subscribe(x => SignInCommand.Execute(x))
+                .AddTo(_authenticatorView);
         }
     }
 }

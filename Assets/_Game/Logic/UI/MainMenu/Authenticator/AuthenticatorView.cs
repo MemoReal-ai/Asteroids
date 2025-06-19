@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Game.MainMenu.Logic.UI.Authenticator
+namespace _Game.Logic.UI.MainMenu.Authenticator
 {
     public class AuthenticatorView : MonoBehaviour
     {

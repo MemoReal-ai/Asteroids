@@ -1,7 +1,7 @@
 using System;
 using _Game.Gameplay.Logic.Service;
 using _Game.Logic.Gameplay.Features;
-using _Game.Logic.MetaService.SceneTransitorService;
+using _Game.Logic.MetaService.SceneTransitionerService;
 using Zenject;
 
 namespace _Game.Gameplay.Logic.Features
@@ -19,12 +19,12 @@ namespace _Game.Gameplay.Logic.Features
 
         public void Initialize()
         {
-            _sceneTransitioner.OnSceneRestart += ResetScore;
+            _sceneTransitioner.OnSceneDestroy += ResetScore;
         }
 
         public void Dispose()
         {
-            _sceneTransitioner.OnSceneRestart -= ResetScore;
+            _sceneTransitioner.OnSceneDestroy -= ResetScore;
         }
 
         private void ResetScore()

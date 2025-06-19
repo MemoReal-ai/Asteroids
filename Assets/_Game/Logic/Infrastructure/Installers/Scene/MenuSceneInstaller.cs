@@ -1,12 +1,8 @@
 using _Game.Logic.Infrastructure.EntryPoints;
-using _Game.Logic.UI.MainMenu.Store;
 using _Game.MainMenu.Logic.UI;
-using _Game.MainMenu.Logic.UI.Authenticator;
-using _Game.MainMenu.Logic.UI.Loader;
-using _Game.MainMenu.Logic.UI.Store;
 using Zenject;
 
-namespace _Game.MainMenu.Logic.Infrastructure
+namespace _Game.Logic.Infrastructure.Installers.Scene
 {
     public class MenuSceneInstaller : MonoInstaller
     {
@@ -14,7 +10,6 @@ namespace _Game.MainMenu.Logic.Infrastructure
         {
             InstallEntryPoint();
             InstallFactories();
-            InstallUI();
         }
 
         private void InstallFactories()
@@ -26,14 +21,6 @@ namespace _Game.MainMenu.Logic.Infrastructure
         {
             Container.BindInterfacesAndSelfTo<EntryPointMainMenu>().AsSingle().NonLazy();
         }
-
-        private void InstallUI()
-        {
-            Container.BindInterfacesAndSelfTo<ViewScoreModelView>().AsCached().NonLazy();
-            Container.BindInterfacesAndSelfTo<MainMenuViewModel>().AsCached().NonLazy();
-            Container.BindInterfacesAndSelfTo<StoreViewModel>().AsCached().NonLazy();
-            Container.BindInterfacesAndSelfTo<AuthenticatorViewModel>().AsCached().NonLazy();
-            Container.BindInterfacesAndSelfTo<LoaderViewModel>().AsCached().NonLazy();
-        }
+        
     }
 }

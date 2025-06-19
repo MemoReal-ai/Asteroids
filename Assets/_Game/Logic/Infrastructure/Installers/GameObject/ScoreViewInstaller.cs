@@ -2,7 +2,7 @@ using _Game.MainMenu.Logic.UI;
 using UnityEngine;
 using Zenject;
 
-namespace _Game.MainMenu.Logic.Infrastructure.GameObjectContext
+namespace _Game.Logic.Infrastructure.Installers.GameObject
 {
     public class ScoreViewInstaller : MonoInstaller
     {
@@ -10,8 +10,8 @@ namespace _Game.MainMenu.Logic.Infrastructure.GameObjectContext
 
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<ViewScoreModelView>().AsCached().NonLazy();
             Container.Bind<ViewScore>().FromInstance(_viewScore).AsCached();
-            Container.BindInterfacesTo<BinderViewScore>().AsCached();
         }
     }
 }

@@ -1,46 +1,67 @@
 using System;
+using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Ship;
+using _Game.Gameplay.Logic.UI;
 using _Game.Gameplay.Logic.Weapon;
 using _Game.Logic.Gameplay.Weapon;
 using R3;
 using Zenject;
 
-namespace _Game.Gameplay.Logic.UI.UserStatsView
+namespace _Game.Logic.UI.Gameplay.UserStatsView
 {
-    public class ViewModelUserStats : ITickable, IInitializable
+    public class ViewModelUserStats : ITickable, IInitializable, IDisposable
     {
-        public readonly ReactiveProperty<string> CoordinateX = new();
-
-        public readonly ReactiveProperty<string> CoordinateY = new();
-
-        public readonly ReactiveProperty<string> Velocity = new();
-
-        public readonly ReactiveProperty<string> AngleRotation = new();
-
-        public readonly ReactiveProperty<string> BulletCount = new();
-
-
         private readonly ShipAbstract _ship;
         private readonly Shoot _shoot;
+        private readonly UserView _userView;
 
+        private readonly ReactiveProperty<string> CoordinateX = new();
+        private readonly ReactiveProperty<string> CoordinateY = new();
+        private readonly ReactiveProperty<string> Velocity = new();
+        private readonly ReactiveProperty<string> AngleRotation = new();
+        private readonly ReactiveProperty<string> BulletCount = new();
 
-        public ViewModelUserStats(ShipAbstract ship, Shoot shoot)
+        public ViewModelUserStats(ShipAbstract ship, Shoot shoot, UserView userView)
         {
             _ship = ship;
             _shoot = shoot;
+            _userView = userView;
         }
 
         public void Initialize()
         {
             BulletCounter();
+            Bind();
         }
+
         public void Tick()
         {
             SetUIStats();
             BulletCounter();
         }
 
+        public void Dispose()
+        {
+            CoordinateX?.Dispose();
+            CoordinateY?.Dispose();
+            Velocity?.Dispose();
+            AngleRotation?.Dispose();
+            BulletCount?.Dispose();
+        }
 
+        private void Bind()
+        {
+            CoordinateX.Subscribe(coordinateX => _userView.SetCoordinateX(coordinateX))
+                .AddTo(_userView);
+            CoordinateY.Subscribe(coordinateY => _userView.SetCoordinateY(coordinateY))
+                .AddTo(_userView);
+            AngleRotation.Subscribe(angleRotation => _userView.SetAngleRotation(angleRotation))
+                .AddTo(_userView);
+            Velocity.Subscribe(velocity => _userView.SetVelocity(velocity))
+                .AddTo(_userView);
+            BulletCount.Subscribe(count => _userView.SetCountLaser(count))
+                .AddTo(_userView);
+        }
 
         private void SetUIStats()
         {
@@ -49,8 +70,7 @@ namespace _Game.Gameplay.Logic.UI.UserStatsView
             Velocity.Value = $"{Math.Round(_ship.Rigidbody2D.linearVelocity.magnitude, 2)}";
             AngleRotation.Value = $"{Math.Round(_ship.transform.eulerAngles.z)}";
         }
-
-
+        
         private void BulletCounter()
         {
             foreach (var weapon in _shoot.Weapons)

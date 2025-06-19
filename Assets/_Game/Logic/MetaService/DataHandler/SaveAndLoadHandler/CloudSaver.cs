@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Game.Gameplay.Logic.Service;
 using _Game.Logic.MetaService.AuthenticatorService;
 using _Game.Logic.MetaService.JsonConvertHandler;
 using Cysharp.Threading.Tasks;
@@ -7,9 +8,9 @@ using Unity.Services.CloudSave;
 using Unity.Services.CloudSave.Models;
 using UnityEngine;
 
-namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
+namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
 {
-    public class CloudSaver : ICloudSaver
+    public class CloudSaver : ISaver
     {
         private const string PLAYERDATAKEY = "PlayerData";
 
@@ -39,7 +40,7 @@ namespace _Game.Gameplay.Logic.Service.SaveAndLoadHandler
             }
         }
 
-        public async UniTask<Data> LoadDataCloud()
+        public async UniTask<Data> LoadData()
         {
             try
             {

@@ -1,9 +1,11 @@
+using _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler;
 using _Game.Logic.MetaService.JsonConvertHandler;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace _Game.Gameplay.Logic.Service
 {
-    public class LocalSaver : ILocalSaver
+    public class LocalSaver : ISaver
     {
         private const string KEY = "Data";
 
@@ -17,16 +19,16 @@ namespace _Game.Gameplay.Logic.Service
             _jsonConverter = jsonConverter;
         }
 
-        public Data LoadData()
+        public UniTask<Data> LoadData()
         {
             if (PlayerPrefs.HasKey(KEY))
             {
                 var jsonFile = PlayerPrefs.GetString(KEY);
                 _data = _jsonConverter.Deserialize<Data>(jsonFile);
-                return _data;
+                return UniTask.FromResult(_data);
             }
 
-            return new Data();
+            return UniTask.FromResult(new Data());
         }
 
         public void SaveData(Data data)

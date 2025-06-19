@@ -1,9 +1,8 @@
 using _Game.Logic.UI.MainMenu.Store;
-using _Game.MainMenu.Logic.UI.Store;
 using UnityEngine;
 using Zenject;
 
-namespace _Game.MainMenu.Logic.Infrastructure.GameObjectContext
+namespace _Game.Logic.Infrastructure.Installers.GameObject
 {
     public class StoreInstaller : MonoInstaller
     {
@@ -11,8 +10,8 @@ namespace _Game.MainMenu.Logic.Infrastructure.GameObjectContext
 
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<StoreViewModel>().AsCached().NonLazy();
             Container.Bind<StorePopupView>().FromInstance(_storePopupView);
-            Container.BindInterfacesAndSelfTo<StoreBinder>().AsSingle().NonLazy();
         }
     }
 }

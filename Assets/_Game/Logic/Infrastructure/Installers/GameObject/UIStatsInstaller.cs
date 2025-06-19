@@ -1,9 +1,9 @@
 using _Game.Gameplay.Logic.UI;
-using _Game.Gameplay.Logic.UI.UserStatsVVM;
+using _Game.Logic.UI.Gameplay.UserStatsView;
 using UnityEngine;
 using Zenject;
 
-namespace _Game.Gameplay.Logic.Infrastructure.GameObjectContext
+namespace _Game.Logic.Infrastructure.Installers.GameObject
 {
     public class UIStatsInstaller : MonoInstaller
     {
@@ -12,8 +12,8 @@ namespace _Game.Gameplay.Logic.Infrastructure.GameObjectContext
 
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<ViewModelUserStats>().AsSingle().NonLazy();
             Container.Bind<UserView>().FromInstance(_userView).AsSingle();
-            Container.BindInterfacesTo<BinderUserStats>().AsSingle().NonLazy();
             Container.Bind<ReloadView>().FromInstance(_reloadView).AsSingle();
             Container.BindInterfacesAndSelfTo<PresenterReloadView>().AsSingle().NonLazy();
         }

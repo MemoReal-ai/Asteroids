@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Game.MainMenu.Logic.UI.Store
+namespace _Game.Logic.UI.MainMenu.Store
 {
     public class StorePopupView : MonoBehaviour
     {

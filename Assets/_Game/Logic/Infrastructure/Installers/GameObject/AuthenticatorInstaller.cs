@@ -1,9 +1,8 @@
 using _Game.Logic.UI.MainMenu.Authenticator;
-using _Game.MainMenu.Logic.UI.Authenticator;
 using UnityEngine;
 using Zenject;
 
-namespace _Game.MainMenu.Logic.Infrastructure.GameObjectContext
+namespace _Game.Logic.Infrastructure.Installers.GameObject
 {
     public class AuthenticatorInstaller : MonoInstaller
     {
@@ -11,8 +10,8 @@ namespace _Game.MainMenu.Logic.Infrastructure.GameObjectContext
 
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<AuthenticatorViewModel>().AsCached().NonLazy();
             Container.Bind<AuthenticatorView>().FromInstance(_authenticatorView).AsSingle();
-            Container.BindInterfacesAndSelfTo<AuthenticatorBinder>().AsCached().NonLazy();
         }
     }
 }

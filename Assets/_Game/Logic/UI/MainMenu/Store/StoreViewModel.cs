@@ -1,6 +1,4 @@
 using System;
-using _Game.Gameplay.Logic.Service.SaveAndLoadHandler;
-using _Game.Logic.MetaService.AuthenticatorService;
 using _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler;
 using _Game.Purchasing_Service;
 using R3;
@@ -11,16 +9,21 @@ namespace _Game.Logic.UI.MainMenu.Store
 {
     public class StoreViewModel : IInitializable, IDisposable
     {
-        public readonly ReactiveProperty<bool> IsAdsRemoved = new();
-        public ReactiveCommand BuyCommand { get; private set; } = new();
-
         private readonly IPurchasingService _purchasingService;
         private readonly DataSyncManager _dataSyncManager;
+        private readonly StorePopupView _storeView;
 
-        public StoreViewModel(IPurchasingService purchasingService, DataSyncManager dataSyncManager)
+        private ReactiveProperty<bool> IsAdsRemoved { get; } = new();
+        private ReactiveCommand ShowCommand { get; } = new();
+        private ReactiveCommand BuyCommand { get; } = new();
+        private ReactiveCommand CloseCommand { get; } = new();
+
+        public StoreViewModel(IPurchasingService purchasingService, DataSyncManager dataSyncManager,
+            StorePopupView storeView)
         {
             _purchasingService = purchasingService;
             _dataSyncManager = dataSyncManager;
+            _storeView = storeView;
         }
 
         public async void Initialize()
@@ -28,9 +31,13 @@ namespace _Game.Logic.UI.MainMenu.Store
             try
             {
                 await _dataSyncManager.WaitSetValidData();
-                _purchasingService.OnBuyRemoveAds += UpdateStateReactiveProperty;
                 UpdateStateReactiveProperty(_purchasingService.HasPurchasingAdsSkip());
+                _purchasingService.OnBuyRemoveAds += UpdateStateReactiveProperty;
+
                 BuyCommand.Subscribe(x => _purchasingService.BuyRemoveAds());
+                ShowCommand.Subscribe(x => _storeView.Show());
+                CloseCommand.Subscribe(x => _storeView.Hide());
+                Bind();
             }
             catch (Exception e)
             {
@@ -43,6 +50,26 @@ namespace _Game.Logic.UI.MainMenu.Store
             _purchasingService.OnBuyRemoveAds -= UpdateStateReactiveProperty;
             IsAdsRemoved?.Dispose();
             BuyCommand?.Dispose();
+        }
+
+        private void Bind()
+        {
+            _storeView.ShowPopUpButton
+                .OnClickAsObservable()
+                .Subscribe(ShowCommand.Execute)
+                .AddTo(_storeView);
+
+            _storeView.CloseButton
+                .OnClickAsObservable()
+                .Subscribe(CloseCommand.Execute)
+                .AddTo(_storeView);
+
+            _storeView.PaymentButton
+                .OnClickAsObservable()
+                .Subscribe(BuyCommand.Execute)
+                .AddTo(_storeView);
+            
+            IsAdsRemoved.Subscribe(canBuy => _storeView.PaymentButton.interactable = canBuy).AddTo(_storeView);
         }
 
         private void UpdateStateReactiveProperty(bool state)

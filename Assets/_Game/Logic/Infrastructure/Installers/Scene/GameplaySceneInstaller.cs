@@ -6,8 +6,6 @@ using _Game.Gameplay.Logic.Service.ObjectPool;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.UI;
 using _Game.Gameplay.Logic.UI.AdsView;
-using _Game.Gameplay.Logic.UI.LoseUI;
-using _Game.Gameplay.Logic.UI.UserStatsView;
 using _Game.Gameplay.Logic.Weapon;
 using _Game.Logic.Gameplay.Enemy;
 using _Game.Logic.Gameplay.Features;
@@ -16,7 +14,7 @@ using _Game.Logic.Gameplay.Weapon;
 using _Game.Logic.Infrastructure.EntryPoints;
 using _Game.Logic.MetaService.DataHandler;
 using _Game.Logic.MetaService.FirebaseService;
-using _Game.MainMenu.Logic.Infrastructure;
+using _Game.Logic.UI.Gameplay.AdsView;
 using _Game.MainMenu.Logic.UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -39,7 +37,6 @@ namespace _Game.Gameplay.Logic.Infrastructure
         [SerializeField] private Containers _containers;
 
         private IInstantiator _instantiator;
-
         private ObjectPool<Bullet> _bulletPoolDefault;
         private ObjectPool<Bullet> _bulletPoolLaser;
         private ObjectPool<EnemyAbstract> _objectPoolUFO;
@@ -55,7 +52,6 @@ namespace _Game.Gameplay.Logic.Infrastructure
             InstallShip();
             CreateAndBindObjectPools();
             InstallSpawn();
-            InstallUI();
         }
 
         private void InstallFactories()
@@ -130,14 +126,6 @@ namespace _Game.Gameplay.Logic.Infrastructure
             _poolsEnemies.Add(_objectPoolUFO);
             //Жесткое нарушение DRY но увы хз как сделать лучше;
             Container.Bind<List<ObjectPool<EnemyAbstract>>>().FromInstance(_poolsEnemies).AsCached();
-        }
-
-        private void InstallUI()
-        {
-            Container.BindInterfacesAndSelfTo<ViewModelLose>().AsCached();
-            Container.BindInterfacesAndSelfTo<ViewModelUserStats>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PauseViewModel>().AsCached();
-            Container.BindInterfacesAndSelfTo<AdsViewModel>().AsCached();
         }
 
         private void InstallSDKCounter()

@@ -2,18 +2,18 @@ using System;
 using UnityEngine.Device;
 using UnityEngine.SceneManagement;
 
-namespace _Game.Logic.MetaService.SceneTransitorService
+namespace _Game.Logic.MetaService.SceneTransitionerService
 {
     public class SceneTransitioner
     {
         private const string MAIN_MENU_SCENE = "MainMenu";
         private const string GAMEPLAY_SCENE = "Gameplay";
-        public event Action OnSceneRestart;
+        public event Action OnSceneDestroy;
 
         public void RestartGameplay()
         {
             LoadGameplayScene();
-            OnSceneRestart?.Invoke();
+            OnSceneDestroy?.Invoke();
         }
 
         public void LoadGameplayScene()
@@ -24,6 +24,7 @@ namespace _Game.Logic.MetaService.SceneTransitorService
         public void LoadMainMenu()
         {
             SceneManager.LoadScene(MAIN_MENU_SCENE);
+            OnSceneDestroy?.Invoke();
         }
 
         public void Quit()

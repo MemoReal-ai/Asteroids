@@ -229,7 +229,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' High score 145'
+  m_text: ' High score '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
   m_sharedMaterial: {fileID: -9077585183869708825, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70.5
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' Last session score 0'
+  m_text: ' Last session score'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
   m_sharedMaterial: {fileID: -9077585183869708825, guid: 64e3a34ced771bc4b94667ff499137fb, type: 2}
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.15
+  m_fontSize: 54.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

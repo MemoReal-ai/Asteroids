@@ -1,21 +1,18 @@
+using System.Collections.Generic;
 using _Game.AdsServiceUnity;
 using _Game.FirebaseService;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Service;
-using _Game.Gameplay.Logic.Service.SaveAndLoadHandler;
 using _Game.Logic.Effects;
 using _Game.Logic.Gameplay.Service.Sound;
 using _Game.Logic.Infrastructure.EntryPoints;
 using _Game.Logic.MetaService.Addressable;
 using _Game.Logic.MetaService.AdsServiceUnity;
-using _Game.Logic.MetaService.AuthenticatorService;
 using _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler;
 using _Game.Logic.MetaService.FirebaseService;
 using _Game.Logic.MetaService.JsonConvertService;
 using _Game.Logic.MetaService.Purchasing_Service;
-using _Game.Logic.MetaService.SceneTransitorService;
-using _Game.MainMenu.Logic.Infrastructure;
-using _Game.Purchasing_Service;
+using _Game.Logic.MetaService.SceneTransitionerService;
 using UnityEngine;
 using Zenject;
 
@@ -26,6 +23,8 @@ namespace _Game.Logic.Infrastructure.Installers.Project
         [SerializeField] private SoundHandler _soundHandler;
         [SerializeField] private ParticleHandler _particleHandler;
 
+        private readonly List<ISaver> _savers = new List<ISaver>();
+
         public override void InstallBindings()
         {
             BindAnalytics();
@@ -33,9 +32,9 @@ namespace _Game.Logic.Infrastructure.Installers.Project
             BindAdsService();
             BindRemoteConfigProvider();
             BindPurchasingService();
-            BindSaverService();
             BindAuthenticationService();
             BindJsonConverter();
+            BindSaverService();
             BindSoundService();
             BindParticleHandler();
 
@@ -61,14 +60,19 @@ namespace _Game.Logic.Infrastructure.Installers.Project
 
         private void BindAuthenticationService()
         {
-            Container.BindInterfacesAndSelfTo<MetaService.AuthenticatorService.AuthenticatorService>().AsCached().NonLazy();
+            Container.BindInterfacesAndSelfTo<MetaService.AuthenticatorService.AuthenticatorService>().AsCached()
+                .NonLazy();
         }
 
         private void BindSaverService()
         {
             Container.BindInterfacesAndSelfTo<DataSyncManager>().AsCached();
-            Container.BindInterfacesTo<LocalSaver>().AsCached();
-            Container.BindInterfacesTo<CloudSaver>().AsCached();
+            Container.BindInterfacesAndSelfTo<LocalSaver>().AsCached();
+            Container.BindInterfacesAndSelfTo<CloudSaver>().AsCached();
+            
+            _savers.Add(Container.Resolve<LocalSaver>());
+            _savers.Add(Container.Resolve<CloudSaver>());
+            Container.Bind<List<ISaver>>().FromInstance(_savers).AsCached();
         }
 
         private void BindPurchasingService()

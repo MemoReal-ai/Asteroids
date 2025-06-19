@@ -1,8 +1,9 @@
+using _Game.Logic.UI.MainMenu.MainMenu;
 using _Game.MainMenu.Logic.UI;
 using UnityEngine;
 using Zenject;
 
-namespace _Game.MainMenu.Logic.Infrastructure.GameObjectContext
+namespace _Game.Logic.Infrastructure.Installers.GameObject
 {
     public class MainMenuUIInstaller : MonoInstaller
     {
@@ -10,8 +11,8 @@ namespace _Game.MainMenu.Logic.Infrastructure.GameObjectContext
 
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<MainMenuViewModel>().AsCached().NonLazy();
             Container.Bind<ViewMainMenu>().FromInstance(_viewMainMenu).AsCached();
-            Container.BindInterfacesTo<MainMenuBinder>().AsSingle().NonLazy();
         }
     }
 }

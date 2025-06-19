@@ -1,8 +1,5 @@
 using System;
-using _Game.Gameplay.Logic.Service;
-using _Game.Gameplay.Logic.Service.SaveAndLoadHandler;
 using _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler;
-using Cysharp.Threading.Tasks;
 using Zenject;
 using R3;
 
@@ -10,32 +7,39 @@ namespace _Game.MainMenu.Logic.UI
 {
     public class ViewScoreModelView : IInitializable, IDisposable
     {
-        public ReactiveProperty<string> ScoreLastSession { get; private set; } = new();
-        public ReactiveProperty<string> HighScore { get; private set; } = new();
-
-        private readonly UniTaskCompletionSource _initializeTaskCompletionSource = new();
         private readonly DataSyncManager _dataSyncManager;
+        private readonly ViewScore _viewScore;
 
-        public ViewScoreModelView(DataSyncManager dataSyncManager)
+        private ReactiveProperty<string> ScoreLastSession { get; set; } = new();
+        private ReactiveProperty<string> HighScore { get; set; } = new();
+
+        public ViewScoreModelView(DataSyncManager dataSyncManager, ViewScore viewScore)
         {
             _dataSyncManager = dataSyncManager;
+            _viewScore = viewScore;
         }
 
         public async void Initialize()
         {
             try
             {
-                await _dataSyncManager.CheckLoadedData();
+                await _dataSyncManager.WaitSetValidData();
                 ScoreLastSession.Value = _dataSyncManager.Data.CurrentScore.ToString();
                 HighScore.Value = _dataSyncManager.Data.HightScore.ToString();
-                _initializeTaskCompletionSource.TrySetResult();
+                Bind();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
         }
-        
+
+        private void Bind()
+        {
+            ScoreLastSession.Subscribe(x => _viewScore.SetScoreLastSession(x));
+            HighScore.Subscribe(x => _viewScore.SetHighScore(x));
+        }
+
         public void Dispose()
         {
             ScoreLastSession.Dispose();
