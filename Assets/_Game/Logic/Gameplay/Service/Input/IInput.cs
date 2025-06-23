@@ -1,4 +1,5 @@
 using System;
+using R3;
 
 namespace _Game.Logic.Gameplay.Service.Input
 {
@@ -17,6 +18,6 @@ namespace _Game.Logic.Gameplay.Service.Input
 
         void ResumeInput();
 
-        void PressedResume();
+        ReactiveCommand PressedResumeCommand { get; }
     }
 }

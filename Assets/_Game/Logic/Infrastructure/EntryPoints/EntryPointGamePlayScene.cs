@@ -11,6 +11,7 @@ using _Game.Logic.Gameplay.Features;
 using _Game.Logic.Gameplay.Service.Sound;
 using _Game.Logic.Gameplay.Weapon;
 using _Game.Logic.MetaService.Addressable;
+using _Game.Logic.UI.Gameplay.LosePopupView;
 using _Game.MainMenu.Logic.UI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;

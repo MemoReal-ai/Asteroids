@@ -40,6 +40,12 @@ namespace _Game.Logic.Gameplay.Weapon
             }
         }
 
+        protected virtual void OnDisable()
+        {
+            gameObject.transform.position = Vector2.zero;
+            gameObject.transform.rotation = Quaternion.identity;
+        }
+
         private void Initialize()
         {
             BulletStatsConfig = _configProvider.GetRemoteConfig<BulletStatsConfig>();
@@ -50,12 +56,6 @@ namespace _Game.Logic.Gameplay.Weapon
         private void Move()
         {
             _rigidbody.AddForce(transform.right * BulletStatsConfig.Speed, ForceMode2D.Impulse);
-        }
-
-        protected virtual void OnDisable()
-        {
-            gameObject.transform.position = Vector2.zero;
-            gameObject.transform.rotation = Quaternion.identity;
         }
 
         protected virtual void Fade()

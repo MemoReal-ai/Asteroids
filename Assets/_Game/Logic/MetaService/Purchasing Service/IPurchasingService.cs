@@ -1,12 +1,13 @@
 using System;
+using R3;
 
-namespace _Game.Purchasing_Service
+namespace _Game.Logic.MetaService.Purchasing_Service
 {
     public interface IPurchasingService
-    {
-        void BuyRemoveAds();
+    { 
         bool HasPurchasingAdsSkip();
         void SetFlagPurchasingAdsSkip(bool state);
         event Action<bool> OnBuyRemoveAds;
+        ReactiveCommand BuyRemoveAdsCommand { get; }
     }
 }

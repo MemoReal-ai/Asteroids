@@ -5,13 +5,11 @@ using Zenject;
 
 namespace _Game.Logic.UI.MainMenu.Authenticator
 {
-    public class AuthenticatorViewModel : IInitializable, IDisposable
+    public class AuthenticatorViewModel : IInitializable
     {
         private readonly AuthenticatorView _authenticatorView;
         private readonly IAuthenticatorService _authenticatorService;
-
-        private ReactiveCommand SignInCommand { get; set; } = new ReactiveCommand();
-
+        
         public AuthenticatorViewModel(IAuthenticatorService authenticatorService, AuthenticatorView authenticatorView)
         {
             _authenticatorService = authenticatorService;
@@ -24,25 +22,18 @@ namespace _Game.Logic.UI.MainMenu.Authenticator
             {
                 return;
             }
-
+            
             _authenticatorView.Show();
-            SignInCommand.Subscribe(x =>
-            {
-                _authenticatorService.SignIn();
-                _authenticatorView.Hide();
-            });
-
             Bind();
         }
-
-        public void Dispose()
-        {
-            SignInCommand?.Dispose();
-        }
-
+        
         private void Bind()
         {
-            _authenticatorView.LoginButton.OnClickAsObservable().Subscribe(x => SignInCommand.Execute(x))
+            _authenticatorView.LoginButton.OnClickAsObservable().Subscribe(x =>
+                {
+                   _authenticatorService.SignInCommand.Execute(x);
+                    _authenticatorView.Hide();
+                })
                 .AddTo(_authenticatorView);
         }
     }

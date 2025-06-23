@@ -1,11 +1,12 @@
 using System;
 using _Game.Logic.Gameplay.Service.Input;
+using R3;
 using UnityEngine;
 using Zenject;
 
 namespace _Game.Gameplay.Logic.Service
 {
-    public class KeyboardInput : ITickable, IInput
+    public class KeyboardInput : ITickable, IInput, IDisposable, IInitializable
     {
         public event Action OnPressedPause;
         public event Action OnPressedResume;
@@ -15,6 +16,13 @@ namespace _Game.Gameplay.Logic.Service
         private bool _isPaused = false;
         private bool _isInputPaused = false;
 
+        public ReactiveCommand PressedResumeCommand { get; } = new();
+
+        public void Initialize()
+        {
+            SubscribeProperty();
+        }
+
         public void Tick()
         {
             if (_isInputPaused)
@@ -23,6 +31,11 @@ namespace _Game.Gameplay.Logic.Service
             }
 
             HandleInput();
+        }
+
+        public void Dispose()
+        {
+            DisposeProperty();
         }
 
         public float GetAxisHorizontal()
@@ -76,6 +89,16 @@ namespace _Game.Gameplay.Logic.Service
         {
             OnPressedResume?.Invoke();
             TogglePause();
+        }
+
+        private void DisposeProperty()
+        {
+            PressedResumeCommand.Dispose();
+        }
+
+        private void SubscribeProperty()
+        {
+            PressedResumeCommand.Subscribe(x => PressedResume());
         }
 
         private void TogglePause()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Service;
 using _Game.Logic.MetaService.AuthenticatorService;
-using _Game.Purchasing_Service;
+using _Game.Logic.MetaService.Purchasing_Service;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;

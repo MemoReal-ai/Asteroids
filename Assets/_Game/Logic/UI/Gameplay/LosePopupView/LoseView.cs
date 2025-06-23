@@ -1,9 +1,9 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
-namespace _Game.Gameplay.Logic.UI
+namespace _Game.Logic.UI.Gameplay.LosePopupView
 {
     public class LoseView : MonoBehaviour
     {

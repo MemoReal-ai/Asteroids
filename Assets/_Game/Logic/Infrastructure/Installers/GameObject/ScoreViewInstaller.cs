@@ -1,3 +1,4 @@
+using _Game.Logic.UI.MainMenu.PlaceScore;
 using _Game.MainMenu.Logic.UI;
 using UnityEngine;
 using Zenject;

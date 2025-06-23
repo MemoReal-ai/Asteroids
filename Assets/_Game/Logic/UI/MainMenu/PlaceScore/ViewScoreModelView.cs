@@ -1,9 +1,10 @@
 using System;
 using _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler;
-using Zenject;
+using _Game.MainMenu.Logic.UI;
 using R3;
+using Zenject;
 
-namespace _Game.MainMenu.Logic.UI
+namespace _Game.Logic.UI.MainMenu.PlaceScore
 {
     public class ViewScoreModelView : IInitializable, IDisposable
     {

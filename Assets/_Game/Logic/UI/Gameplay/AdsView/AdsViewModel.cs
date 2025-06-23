@@ -11,8 +11,8 @@ namespace _Game.Logic.UI.Gameplay.AdsView
 {
     public class AdsViewModel : IInitializable, IDisposable
     {
-        private ReactiveCommand HidePopupCommand { get; set; } = new ReactiveCommand();
-        private ReactiveCommand ShowAdsCommand { get; set; } = new ReactiveCommand();
+        private ReactiveCommand HidePopupCommand { get;} = new();
+        private ReactiveCommand ShowAdsCommand { get;} = new();
 
         private readonly IRewardedAdsHandler _adsRewardedAdsHandler;
         private readonly IInterstitialAds _interstitialAdsHandler;

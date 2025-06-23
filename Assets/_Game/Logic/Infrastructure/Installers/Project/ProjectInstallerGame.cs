@@ -39,7 +39,7 @@ namespace _Game.Logic.Infrastructure.Installers.Project
             BindParticleHandler();
 
             Container.BindInterfacesTo<EntryPointProject>().AsSingle();
-            Container.Bind<SceneTransitioner>().AsCached();
+            Container.BindInterfacesAndSelfTo<SceneTransitioner>().AsCached();
             Container.BindInterfacesAndSelfTo<ScoreCounter>().AsSingle();
         }
 
@@ -69,7 +69,7 @@ namespace _Game.Logic.Infrastructure.Installers.Project
             Container.BindInterfacesAndSelfTo<DataSyncManager>().AsCached();
             Container.BindInterfacesAndSelfTo<LocalSaver>().AsCached();
             Container.BindInterfacesAndSelfTo<CloudSaver>().AsCached();
-            
+
             _savers.Add(Container.Resolve<LocalSaver>());
             _savers.Add(Container.Resolve<CloudSaver>());
             Container.Bind<List<ISaver>>().FromInstance(_savers).AsCached();

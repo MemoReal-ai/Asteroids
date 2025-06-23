@@ -6,13 +6,10 @@ using Zenject;
 
 namespace _Game.Logic.UI.MainMenu.MainMenu
 {
-    public class MainMenuViewModel : IInitializable, IDisposable
+    public class MainMenuViewModel : IInitializable
     {
         private readonly SceneTransitioner _sceneTransitioner;
         private readonly ViewMainMenu _viewMainMenu;
-        private ReactiveCommand GameplayTransitionCommand { get; } = new();
-        private ReactiveCommand ExitCommand { get; } = new();
-
         public MainMenuViewModel(SceneTransitioner sceneTransitioner, ViewMainMenu viewMainMenu)
         {
             _sceneTransitioner = sceneTransitioner;
@@ -21,38 +18,20 @@ namespace _Game.Logic.UI.MainMenu.MainMenu
 
         public void Initialize()
         {
-            GameplayTransitionCommand.Subscribe(x => OnGoToGameplayScene());
-            ExitCommand.Subscribe(x => OnExitGameplayScene());
             Bind();
         }
-
-        public void Dispose()
-        {
-            GameplayTransitionCommand?.Dispose();
-            ExitCommand?.Dispose();
-        }
-
+        
         private void Bind()
         {
             _viewMainMenu.StartGameButton
                 .OnClickAsObservable()
-                .Subscribe(GameplayTransitionCommand.Execute)
+                .Subscribe(_sceneTransitioner.GameplayTransitionCommand.Execute)
                 .AddTo(_viewMainMenu);
 
             _viewMainMenu.ExitGameButton
                 .OnClickAsObservable()
-                .Subscribe(ExitCommand.Execute)
+                .Subscribe(_sceneTransitioner.ExitGameCommand.Execute)
                 .AddTo(_viewMainMenu);
-        }
-
-        private void OnGoToGameplayScene()
-        {
-            _sceneTransitioner.LoadGameplayScene();
-        }
-
-        private void OnExitGameplayScene()
-        {
-            _sceneTransitioner.Quit();
         }
     }
 }

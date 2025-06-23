@@ -1,9 +1,7 @@
 using _Game.Gameplay.Logic.Enemy;
-using _Game.Logic.Gameplay.Enemy;
-using _Game.Logic.Gameplay.Weapon;
 using UnityEngine;
 
-namespace _Game.Gameplay.Logic.Weapon
+namespace _Game.Logic.Gameplay.Weapon
 {
     [RequireComponent(typeof(CircleCollider2D))]
     public class BulletDefault : Bullet
@@ -11,7 +9,7 @@ namespace _Game.Gameplay.Logic.Weapon
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out EnemyAbstract enemy))
+            if (other.TryGetComponent(out IEnemy _))
             {
                 Fade();
             }

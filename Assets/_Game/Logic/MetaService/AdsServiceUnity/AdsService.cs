@@ -1,4 +1,4 @@
-using _Game.Purchasing_Service;
+using _Game.Logic.MetaService.Purchasing_Service;
 using _Game.SDKService;
 using UnityEngine;
 using UnityEngine.Advertisements;

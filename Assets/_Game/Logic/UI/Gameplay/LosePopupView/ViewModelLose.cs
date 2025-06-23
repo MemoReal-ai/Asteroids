@@ -6,23 +6,20 @@ using _Game.Logic.MetaService.SceneTransitionerService;
 using R3;
 using Zenject;
 
-namespace _Game.Logic.UI.Gameplay.LoseView
+namespace _Game.Logic.UI.Gameplay.LosePopupView
 {
     public class ViewModelLose : IInitializable, IDisposable
     {
-        private readonly _Game.Gameplay.Logic.UI.LoseView _loseView;
+        private readonly LoseView _loseView;
         private readonly GameTimeHandler _gameTimeHandler;
         private readonly ShipAbstract _ship;
         private readonly SceneTransitioner _sceneTransitioner;
         private readonly ScoreCounter _scoreCounter;
 
-        private ReactiveProperty<string> Points { get; set; } = new();
-        private ReactiveCommand RestartCommand { get; set; } = new();
-        private ReactiveCommand QuitCommand { get; set; } = new();
-
+        private ReactiveProperty<string> Points { get; } = new();
 
         public ViewModelLose(GameTimeHandler gameTimeHandler, ShipAbstract ship, SceneTransitioner sceneTransitioner,
-            ScoreCounter scoreCounter, _Game.Gameplay.Logic.UI.LoseView loseView)
+            ScoreCounter scoreCounter, LoseView loseView)
         {
             _gameTimeHandler = gameTimeHandler;
             _ship = ship;
@@ -33,22 +30,16 @@ namespace _Game.Logic.UI.Gameplay.LoseView
 
         public void Initialize()
         {
-            RestartCommand.Subscribe(_ => Restart());
-            QuitCommand.Subscribe(_ => Quit());
-
             _ship.OnLoseLastLife += _loseView.Show;
             _ship.OnLoseLastLife += ShowPoints;
             _ship.OnLoseLastLife += _gameTimeHandler.LoseGame;
             Bind();
         }
 
-
         public void Dispose()
         {
-            RestartCommand?.Dispose();
-            QuitCommand?.Dispose();
             Points?.Dispose();
-            
+
             _ship.OnLoseLastLife -= _loseView.Show;
             _ship.OnLoseLastLife -= ShowPoints;
             _ship.OnLoseLastLife -= _gameTimeHandler.LoseGame;
@@ -56,15 +47,11 @@ namespace _Game.Logic.UI.Gameplay.LoseView
 
         private void Bind()
         {
-            _loseView.RestartButton.
-                OnClickAsObservable().
-                Subscribe(RestartCommand.Execute).
-                AddTo(_loseView);
-            
-            _loseView.QuitButton.
-                OnClickAsObservable().
-                Subscribe(QuitCommand.Execute).
-                AddTo(_loseView);
+            _loseView.RestartButton.OnClickAsObservable().Subscribe(_sceneTransitioner.RestartGameCommand.Execute)
+                .AddTo(_loseView);
+
+            _loseView.QuitButton.OnClickAsObservable().Subscribe(_sceneTransitioner.MainMenuTransitionCommand.Execute)
+                .AddTo(_loseView);
 
             Points.Subscribe(x => _loseView.ShowPoints(x));
         }
@@ -72,16 +59,6 @@ namespace _Game.Logic.UI.Gameplay.LoseView
         private void ShowPoints()
         {
             Points.Value = $"You points :{_scoreCounter.CurrentSessionScore} ";
-        }
-
-        private void Restart()
-        {
-            _sceneTransitioner.RestartGameplay();
-        }
-
-        private void Quit()
-        {
-            _sceneTransitioner.LoadMainMenu();
         }
     }
 }

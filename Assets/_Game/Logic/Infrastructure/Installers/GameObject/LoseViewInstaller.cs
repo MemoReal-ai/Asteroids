@@ -1,5 +1,5 @@
 using _Game.Gameplay.Logic.UI;
-using _Game.Logic.UI.Gameplay.LoseView;
+using _Game.Logic.UI.Gameplay.LosePopupView;
 using UnityEngine;
 using Zenject;
 

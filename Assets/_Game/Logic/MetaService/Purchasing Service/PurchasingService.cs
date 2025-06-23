@@ -1,12 +1,12 @@
 using System;
-using _Game.Purchasing_Service;
+using R3;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using Zenject;
 
 namespace _Game.Logic.MetaService.Purchasing_Service
 {
-    public class PurchasingService : IInitializable, IPurchasingService, IStoreListener
+    public class PurchasingService : IInitializable, IPurchasingService, IStoreListener, IDisposable
     {
         private const string REMOVE_ADS_KEY = "RemoveAds";
 
@@ -16,26 +16,23 @@ namespace _Game.Logic.MetaService.Purchasing_Service
         private bool _isPurchasingSkipAds;
         private IStoreController _storeController;
         private IExtensionProvider _extensionProvider;
+
         private bool IsInitialized => _storeController != null && _extensionProvider != null;
+
+        public ReactiveCommand BuyRemoveAdsCommand { get; } = new();
 
         public void Initialize()
         {
             InitializePurchasing();
+            SubscribeProperty();
         }
 
-        private void InitializePurchasing()
+        public void Dispose()
         {
-            if (IsInitialized)
-            {
-                return;
-            }
-
-            _builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-            _builder.AddProduct(REMOVE_ADS_KEY, ProductType.NonConsumable);
-            UnityPurchasing.Initialize(this, _builder);
+            BuyRemoveAdsCommand?.Dispose();
         }
 
-        public void BuyRemoveAds()
+       private void BuyRemoveAds()
         {
             if (!_isPurchasingSkipAds)
             {
@@ -81,6 +78,23 @@ namespace _Game.Logic.MetaService.Purchasing_Service
             Debug.Log("Purchasing service initialized");
             _storeController = controller;
             _extensionProvider = extensions;
+        }
+
+        private void SubscribeProperty()
+        {
+            BuyRemoveAdsCommand.Subscribe(x => BuyRemoveAds());
+        }
+
+        private void InitializePurchasing()
+        {
+            if (IsInitialized)
+            {
+                return;
+            }
+
+            _builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
+            _builder.AddProduct(REMOVE_ADS_KEY, ProductType.NonConsumable);
+            UnityPurchasing.Initialize(this, _builder);
         }
     }
 }
