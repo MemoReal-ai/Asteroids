@@ -43,8 +43,7 @@ namespace _Game.Logic.UI.Gameplay.AdsView
 
             Bind();
         }
-
-
+        
         public void Dispose()
         {
             ShowAdsCommand?.Dispose();
