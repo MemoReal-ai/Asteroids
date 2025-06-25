@@ -25,8 +25,8 @@ namespace _Game.Logic.UI.MainMenu.PlaceScore
             try
             {
                 await _dataSyncManager.WaitSetValidData();
-                ScoreLastSession.Value = _dataSyncManager.Data.CurrentScore.ToString();
-                HighScore.Value = _dataSyncManager.Data.HightScore.ToString();
+                ScoreLastSession.Value = _dataSyncManager.PlayerProgressData.CurrentScore.ToString();
+                HighScore.Value = _dataSyncManager.PlayerProgressData.HightScore.ToString();
                 Bind();
             }
             catch (Exception e)

@@ -8,6 +8,6 @@ namespace _Game.Logic.MetaService.AuthenticatorService
     {
         bool IsSignedIn();
         UniTask WaitSignIn();
-        ReactiveCommand SignInCommand { get; }
+        UniTask SignIn();
     }
 }

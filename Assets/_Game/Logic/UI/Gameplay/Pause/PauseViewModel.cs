@@ -15,6 +15,8 @@ namespace _Game.Logic.UI.Gameplay.Pause
         private readonly PauseView _pauseView;
         private readonly GameTimeHandler _gameTimeHandler;
 
+        private ReactiveCommand MainMenuTransitionCommand = new();
+
         public PauseViewModel(SceneTransitioner sceneTransitioner, IInput input,
             PauseView pauseView, GameTimeHandler gameTimeHandler)
         {
@@ -28,18 +30,26 @@ namespace _Game.Logic.UI.Gameplay.Pause
         {
             _gameTimeHandler.OnPaused += _pauseView.Show;
             _gameTimeHandler.OnResume += _pauseView.Hide;
+            SubscribeProperty();
             Bind();
         }
+
 
         public void Dispose()
         {
             _gameTimeHandler.OnPaused -= _pauseView.Show;
             _gameTimeHandler.OnResume -= _pauseView.Hide;
+            MainMenuTransitionCommand?.Dispose();
+        }
+
+        private void SubscribeProperty()
+        {
+            MainMenuTransitionCommand.Subscribe(_ => _sceneTransitioner.LoadMainMenu());
         }
 
         private void Bind()
         {
-            _pauseView.ExitButton.OnClickAsObservable().Subscribe(_sceneTransitioner.MainMenuTransitionCommand.Execute)
+            _pauseView.ExitButton.OnClickAsObservable().Subscribe(MainMenuTransitionCommand.Execute)
                 .AddTo(_pauseView);
             _pauseView.ResumeButton.OnClickAsObservable().Subscribe(_input.PressedResumeCommand.Execute)
                 .AddTo(_pauseView);

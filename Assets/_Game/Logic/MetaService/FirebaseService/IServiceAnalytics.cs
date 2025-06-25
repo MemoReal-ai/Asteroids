@@ -1,6 +1,6 @@
 namespace _Game.Logic.MetaService.FirebaseService
 {
-    public interface IFirebaseServiceAnalytics
+    public interface IServiceAnalytics
     {
         void TrackStartGame();
         void TrackStatsAfterLose(string dataStatsSDK);

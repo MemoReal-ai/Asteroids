@@ -16,12 +16,12 @@ namespace _Game.Logic.MetaService.FirebaseService
         private readonly DataStatsForAnalitycs _dataStatsForAnalitycs = new();
         private readonly Shoot _shoot;
         private readonly List<ObjectPool<EnemyAbstract>> _pools;
-        private readonly IFirebaseServiceAnalytics _firebaseServiceAnalytics;
+        private readonly IServiceAnalytics _firebaseServiceAnalytics;
         private readonly IJsonConverter _jsonConverter;
 
         private string _dataJson;
 
-        public CounterAllStatsToAnalitycs(Shoot shoot, IFirebaseServiceAnalytics firebaseServiceAnalytics,
+        public CounterAllStatsToAnalitycs(Shoot shoot, IServiceAnalytics firebaseServiceAnalytics,
             List<ObjectPool<EnemyAbstract>> pools, IJsonConverter jsonConverter)
         {
             _firebaseServiceAnalytics = firebaseServiceAnalytics;

@@ -1,13 +1,13 @@
 using System;
 using System.Threading.Tasks;
-using _Game.Gameplay.Logic.Service;
+using _Game.FirebaseService;
 using _Game.Logic.MetaService.JsonConvertHandler;
 using Firebase.Extensions;
 using Firebase.RemoteConfig;
 using UnityEngine;
 using Zenject;
 
-namespace _Game.FirebaseService
+namespace _Game.Logic.MetaService.FirebaseService
 {
     public class RemoteConfigProvider : IInitializable, IRemoteConfigProvider
     {

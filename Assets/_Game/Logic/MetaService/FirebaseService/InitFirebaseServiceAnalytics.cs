@@ -7,19 +7,14 @@ using Zenject;
 
 namespace _Game.Logic.MetaService.FirebaseService
 {
-    public class InitFirebaseServiceAnalytics : IInitializable, IFirebaseServiceAnalytics
+    public class InitFirebaseServiceAnalytics : IInitializable, IServiceAnalytics
     {
         private const string START_GAME = "StartGame";
         private const string LASER_SHOOT = "LaserShoot";
         private const string STATS = "Stats";
         private const string DATA_STATS_SDK = "DataStatsSDK";
 
-        public void Initialize()
-        {
-            _ = InitializeService();
-        }
-
-        private async UniTask InitializeService()
+        public async void Initialize()
         {
             try
             {
@@ -37,6 +32,7 @@ namespace _Game.Logic.MetaService.FirebaseService
                 Debug.Log(e);
             }
         }
+        
 
         public void TrackStartGame()
         {

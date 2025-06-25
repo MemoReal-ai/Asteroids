@@ -1,10 +1,10 @@
 using System;
 using System.Threading;
-using _Game.MainMenu.Logic.UI;
+using _Game.Logic.UI.MainMenu.Factory;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Object = UnityEngine.Object;
 
 namespace _Game.Logic.MetaService.Addressable
 {
@@ -19,11 +19,11 @@ namespace _Game.Logic.MetaService.Addressable
             _tokenSource = null;
         }
 
-        public async UniTask<GameObject> LoadPrefab<T>(FactoryUI factoryUI)
+        public async UniTask<T> LoadPrefab<T>(FactoryUI factoryUI)
         {
             try
             {
-                AsyncOperationHandle<GameObject> prefabTask = Addressables.LoadAssetAsync<GameObject>(typeof(T).Name);
+                AsyncOperationHandle<Object> prefabTask = Addressables.LoadAssetAsync<Object>(typeof(T).Name);
 
                 await prefabTask;
 
@@ -32,7 +32,7 @@ namespace _Game.Logic.MetaService.Addressable
                     throw new Exception("Failed to load prefab");
                 }
 
-                return await CreateAddressablePrefab<T>(factoryUI, prefabTask);
+                return await CreateOnSceneAddressablePrefab<T>(factoryUI, prefabTask);
             }
             catch (Exception e)
             {
@@ -42,12 +42,12 @@ namespace _Game.Logic.MetaService.Addressable
         }
 
 
-        private async UniTask<GameObject> CreateAddressablePrefab<T>(FactoryUI factoryUI,AsyncOperationHandle<GameObject> prefabTask)
+        private async UniTask<T> CreateOnSceneAddressablePrefab<T>(FactoryUI factoryUI, AsyncOperationHandle<Object> prefabTask)
         {
             try
             {
-                var prefab = await prefabTask;
-                var window = factoryUI.Create(prefab);
+                Object prefab = await prefabTask;
+                var window = factoryUI.Create<T>(prefab);
                 UnloadPrefab(prefab);
                 return window;
             }
@@ -58,7 +58,7 @@ namespace _Game.Logic.MetaService.Addressable
             }
         }
 
-        public void UnloadPrefab(GameObject prefab)
+        private void UnloadPrefab(Object prefab)
         {
             if (prefab)
             {

@@ -2,10 +2,10 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace _Game.Gameplay.Logic.Service
+namespace _Game.Logic.MetaService.DataServices.SaveAndLoadHandler
 {
     [Serializable]
-    public class Data
+    public class PlayerProgressData
     {
         public int CurrentScore;
         public int HightScore;
@@ -13,7 +13,6 @@ namespace _Game.Gameplay.Logic.Service
         
         [JsonConverter(typeof(IsoDateTimeConverter))]
         public DateTime SaveTime;
-
 
         public void ChangeScore()
         {

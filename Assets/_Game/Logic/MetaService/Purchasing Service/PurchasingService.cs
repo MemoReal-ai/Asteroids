@@ -6,7 +6,7 @@ using Zenject;
 
 namespace _Game.Logic.MetaService.Purchasing_Service
 {
-    public class PurchasingService : IInitializable, IPurchasingService, IStoreListener, IDisposable
+    public class PurchasingService : IInitializable, IPurchasingService, IStoreListener
     {
         private const string REMOVE_ADS_KEY = "RemoveAds";
 
@@ -19,20 +19,19 @@ namespace _Game.Logic.MetaService.Purchasing_Service
 
         private bool IsInitialized => _storeController != null && _extensionProvider != null;
 
-        public ReactiveCommand BuyRemoveAdsCommand { get; } = new();
-
         public void Initialize()
         {
-            InitializePurchasing();
-            SubscribeProperty();
+            if (IsInitialized)
+            {
+                return;
+            }
+
+            _builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
+            _builder.AddProduct(REMOVE_ADS_KEY, ProductType.NonConsumable);
+            UnityPurchasing.Initialize(this, _builder);
         }
 
-        public void Dispose()
-        {
-            BuyRemoveAdsCommand?.Dispose();
-        }
-
-       private void BuyRemoveAds()
+        public void BuyRemoveAds()
         {
             if (!_isPurchasingSkipAds)
             {
@@ -78,23 +77,6 @@ namespace _Game.Logic.MetaService.Purchasing_Service
             Debug.Log("Purchasing service initialized");
             _storeController = controller;
             _extensionProvider = extensions;
-        }
-
-        private void SubscribeProperty()
-        {
-            BuyRemoveAdsCommand.Subscribe(x => BuyRemoveAds());
-        }
-
-        private void InitializePurchasing()
-        {
-            if (IsInitialized)
-            {
-                return;
-            }
-
-            _builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-            _builder.AddProduct(REMOVE_ADS_KEY, ProductType.NonConsumable);
-            UnityPurchasing.Initialize(this, _builder);
         }
     }
 }

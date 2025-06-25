@@ -9,6 +9,7 @@ using _Game.Logic.Infrastructure.EntryPoints;
 using _Game.Logic.MetaService.Addressable;
 using _Game.Logic.MetaService.AdsServiceUnity;
 using _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler;
+using _Game.Logic.MetaService.DataServices.SaveAndLoadHandler;
 using _Game.Logic.MetaService.FirebaseService;
 using _Game.Logic.MetaService.JsonConvertService;
 using _Game.Logic.MetaService.Purchasing_Service;
@@ -88,8 +89,8 @@ namespace _Game.Logic.Infrastructure.Installers.Project
         private void BindAdsService()
         {
             Container.BindInterfacesAndSelfTo<AdsService>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<RewardAdsHandler>().AsSingle();
-            Container.BindInterfacesAndSelfTo<InterstitialAdsHandler>().AsSingle();
+            Container.BindInterfacesAndSelfTo<RewardAdsManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<InterstitialAdsManager>().AsSingle();
         }
 
         private void BindAddressableService()

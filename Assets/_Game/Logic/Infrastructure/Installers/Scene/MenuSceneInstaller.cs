@@ -1,4 +1,5 @@
 using _Game.Logic.Infrastructure.EntryPoints;
+using _Game.Logic.UI.MainMenu.Factory;
 using _Game.MainMenu.Logic.UI;
 using Zenject;
 

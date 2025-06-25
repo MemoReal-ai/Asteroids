@@ -7,42 +7,22 @@ using Zenject;
 
 namespace _Game.Logic.MetaService.AuthenticatorService
 {
-    public class AuthenticatorService : IAuthenticatorService, IInitializable, IDisposable
+    public class AuthenticatorService : IAuthenticatorService, IInitializable
     {
         private readonly UniTaskCompletionSource _completionSource = new();
-
-        public ReactiveCommand SignInCommand { get; } = new();
-
         public async void Initialize()
         {
             try
             {
                 await UnityServices.InitializeAsync();
-                SubscribeProperty();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
             }
         }
-
-        public void Dispose()
-        {
-            DisposeProperty();
-        }
-
-        private void DisposeProperty()
-        {
-            SignInCommand?.Dispose();
-        }
-
-        private void SubscribeProperty()
-        {
-            SignInCommand.Subscribe(x => { _ = SignIn(); });
-        }
-
-        private async UniTask SignIn()
+        
+        public async UniTask SignIn()
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             _completionSource.TrySetResult();

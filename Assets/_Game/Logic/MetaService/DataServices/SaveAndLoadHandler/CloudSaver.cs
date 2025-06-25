@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using _Game.Gameplay.Logic.Service;
 using _Game.Logic.MetaService.AuthenticatorService;
+using _Game.Logic.MetaService.DataServices.SaveAndLoadHandler;
 using _Game.Logic.MetaService.JsonConvertHandler;
 using Cysharp.Threading.Tasks;
 using Unity.Services.CloudSave;
@@ -23,11 +24,11 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
             _authenticationService = authenticationService;
         }
 
-        public async void SaveData(Data data)
+        public async UniTask SaveData(PlayerProgressData playerProgressData)
         {
             try
             {
-                var jsonData = _jsonConverter.Serialize(data);
+                var jsonData = _jsonConverter.Serialize(playerProgressData);
                 var dataToSave = new Dictionary<string, object>
                 {
                     { "PlayerData", jsonData }
@@ -40,7 +41,7 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
             }
         }
 
-        public async UniTask<Data> LoadData()
+        public async UniTask<PlayerProgressData> LoadData()
         {
             try
             {
@@ -53,7 +54,7 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
                 if (playerData.TryGetValue(PLAYERDATAKEY, out Item data))
                 {
                     var jsonData = data.Value.GetAsString();
-                    var dataFromJson = _jsonConverter.Deserialize<Data>(jsonData);
+                    var dataFromJson = _jsonConverter.Deserialize<PlayerProgressData>(jsonData);
                     return dataFromJson;
                 }
                 return null;

@@ -1,11 +1,11 @@
 using _Game.Gameplay.Logic.Service;
 using Cysharp.Threading.Tasks;
 
-namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
+namespace _Game.Logic.MetaService.DataServices.SaveAndLoadHandler
 {
     public interface ISaver
     {
-        void SaveData(Data data);
-        UniTask<Data> LoadData();
+        UniTask SaveData(PlayerProgressData playerProgressData);
+        UniTask<PlayerProgressData> LoadData();
     }
 }

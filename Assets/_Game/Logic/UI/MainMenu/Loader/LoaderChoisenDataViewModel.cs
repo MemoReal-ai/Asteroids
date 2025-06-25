@@ -1,13 +1,14 @@
 using System;
 using _Game.Gameplay.Logic.Service;
 using _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler;
+using _Game.Logic.MetaService.DataServices.SaveAndLoadHandler;
+using _Game.MainMenu.Logic.UI;
 using R3;
-using UnityEngine;
 using Zenject;
 
-namespace _Game.MainMenu.Logic.UI.Loader
+namespace _Game.Logic.UI.MainMenu.Loader
 {
-    public class LoaderViewModel : IInitializable, IDisposable
+    public class LoaderChoisenDataViewModel : IInitializable, IDisposable
     {
         private readonly DataSyncManager _dataSyncManager;
         private readonly LoaderView _loaderView;
@@ -19,7 +20,7 @@ namespace _Game.MainMenu.Logic.UI.Loader
         private ReactiveCommand ChoiceLocalSaveCommand { get; set; } = new();
         private ReactiveCommand ChoiceCloudSaveCommand { get; set; } = new();
 
-        public LoaderViewModel(DataSyncManager dataSyncManager, LoaderView loaderView)
+        public LoaderChoisenDataViewModel(DataSyncManager dataSyncManager, LoaderView loaderView)
         {
             _dataSyncManager = dataSyncManager;
             _loaderView = loaderView;
@@ -37,7 +38,7 @@ namespace _Game.MainMenu.Logic.UI.Loader
                 SetSubscribe(ChoiceLocalSaveCommand, LocalScoreText, LocalDataTime, localData);
 
                 var cloudData = _dataSyncManager.GetCloudSaveData();
-                SetSubscribe(ChoiceCloudSaveCommand, CloudScoreText, CloudDataTime, cloudData ?? new Data());
+                SetSubscribe(ChoiceCloudSaveCommand, CloudScoreText, CloudDataTime, cloudData ?? new PlayerProgressData());
 
                 Bind();
             }
@@ -54,15 +55,15 @@ namespace _Game.MainMenu.Logic.UI.Loader
         }
 
         private void SetSubscribe(ReactiveCommand buttonChoice, ReactiveProperty<string> hightScore,
-            ReactiveProperty<DateTime> saveTime, Data data)
+            ReactiveProperty<DateTime> saveTime, PlayerProgressData playerProgressData)
         {
             buttonChoice.Subscribe(x =>
             {
-                _dataSyncManager.SetData(data);
+                _dataSyncManager.SetData(playerProgressData);
                 Hide();
             });
-            hightScore.Value = $" High Score {data.HightScore.ToString()}";
-            saveTime.Value = data.SaveTime;
+            hightScore.Value = $" High Score {playerProgressData.HightScore.ToString()}";
+            saveTime.Value = playerProgressData.SaveTime;
         }
 
         private void Hide()

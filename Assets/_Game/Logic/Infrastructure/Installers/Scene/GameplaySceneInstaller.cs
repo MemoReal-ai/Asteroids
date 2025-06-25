@@ -15,6 +15,7 @@ using _Game.Logic.Infrastructure.EntryPoints;
 using _Game.Logic.MetaService.DataHandler;
 using _Game.Logic.MetaService.FirebaseService;
 using _Game.Logic.UI.Gameplay.AdsView;
+using _Game.Logic.UI.MainMenu.Factory;
 using _Game.MainMenu.Logic.UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;

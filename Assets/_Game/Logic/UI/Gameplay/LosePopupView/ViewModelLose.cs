@@ -17,6 +17,8 @@ namespace _Game.Logic.UI.Gameplay.LosePopupView
         private readonly ScoreCounter _scoreCounter;
 
         private ReactiveProperty<string> Points { get; } = new();
+        private ReactiveCommand MainMenuTransitionCommand = new();
+        private ReactiveCommand RestartGameCommand = new();
 
         public ViewModelLose(GameTimeHandler gameTimeHandler, ShipAbstract ship, SceneTransitioner sceneTransitioner,
             ScoreCounter scoreCounter, LoseView loseView)
@@ -33,24 +35,33 @@ namespace _Game.Logic.UI.Gameplay.LosePopupView
             _ship.OnLoseLastLife += _loseView.Show;
             _ship.OnLoseLastLife += ShowPoints;
             _ship.OnLoseLastLife += _gameTimeHandler.LoseGame;
+            SubscribeProperty();
             Bind();
         }
 
         public void Dispose()
         {
             Points?.Dispose();
+            MainMenuTransitionCommand?.Dispose();
+            RestartGameCommand?.Dispose();
 
             _ship.OnLoseLastLife -= _loseView.Show;
             _ship.OnLoseLastLife -= ShowPoints;
             _ship.OnLoseLastLife -= _gameTimeHandler.LoseGame;
         }
 
+        private void SubscribeProperty()
+        {
+            MainMenuTransitionCommand.Subscribe(x => _sceneTransitioner.LoadMainMenu());
+            RestartGameCommand.Subscribe(x => _sceneTransitioner.RestartGameplay());
+        }
+
         private void Bind()
         {
-            _loseView.RestartButton.OnClickAsObservable().Subscribe(_sceneTransitioner.RestartGameCommand.Execute)
+            _loseView.RestartButton.OnClickAsObservable().Subscribe(RestartGameCommand.Execute)
                 .AddTo(_loseView);
 
-            _loseView.QuitButton.OnClickAsObservable().Subscribe(_sceneTransitioner.MainMenuTransitionCommand.Execute)
+            _loseView.QuitButton.OnClickAsObservable().Subscribe(MainMenuTransitionCommand.Execute)
                 .AddTo(_loseView);
 
             Points.Subscribe(x => _loseView.ShowPoints(x));

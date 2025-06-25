@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Game.Gameplay.Logic.Features;
 using _Game.Gameplay.Logic.Service;
 using _Game.Logic.MetaService.AuthenticatorService;
+using _Game.Logic.MetaService.DataServices.SaveAndLoadHandler;
 using _Game.Logic.MetaService.Purchasing_Service;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -24,9 +25,9 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
         private readonly UniTaskCompletionSource _setValidSave = new();
         private readonly IAuthenticatorService _authenticatorService;
 
-        private Data _cloudData;
-        private Data _localData;
-        public Data Data { get; private set; }
+        private PlayerProgressData _cloudPlayerProgressData;
+        private PlayerProgressData _localPlayerProgressData;
+        public PlayerProgressData PlayerProgressData { get; private set; }
 
         public DataSyncManager(ScoreCounter scoreCounter, IPurchasingService purchasingService,
             IAuthenticatorService authenticatorService, List<ISaver> savers)
@@ -77,13 +78,13 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
             await _initializationData.Task;
         }
 
-        public async void SetData(Data data)
+        public async void SetData(PlayerProgressData playerProgressData)
         {
             try
             {
-                data ??= await _savers[LOCAL_INDEX_SAVER_LIST].LoadData();
-                Data = data;
-                _purchasingService.SetFlagPurchasingAdsSkip(Data.PurchasingSkipAds);
+                playerProgressData ??= await _savers[LOCAL_INDEX_SAVER_LIST].LoadData();
+                PlayerProgressData = playerProgressData;
+                _purchasingService.SetFlagPurchasingAdsSkip(PlayerProgressData.PurchasingSkipAds);
                 _setValidSave.TrySetResult();
             }
             catch (Exception e)
@@ -92,14 +93,14 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
             }
         }
 
-        public Data GetLocalSaveData()
+        public PlayerProgressData GetLocalSaveData()
         {
-            return _localData;
+            return _localPlayerProgressData;
         }
 
-        public Data GetCloudSaveData()
+        public PlayerProgressData GetCloudSaveData()
         {
-            return _cloudData;
+            return _cloudPlayerProgressData;
         }
 
         public async UniTask WaitSetValidData()
@@ -109,16 +110,16 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
 
         private async UniTask<bool> CheckValidData()
         {
-            _localData = await _savers[LOCAL_INDEX_SAVER_LIST].LoadData();
-            _cloudData = await _savers[CLOUD_INDEX_SAVER_LIST].LoadData();
+            _localPlayerProgressData = await _savers[LOCAL_INDEX_SAVER_LIST].LoadData();
+            _cloudPlayerProgressData = await _savers[CLOUD_INDEX_SAVER_LIST].LoadData();
             _initializationData.TrySetResult();
 
-            if (_cloudData == null)
+            if (_cloudPlayerProgressData == null)
             {
                 return true;
             }
 
-            if (Mathf.Abs(_cloudData.SaveTime.Date.Ticks - _localData.SaveTime.Date.Ticks) < TRESHOLD_DIFFERENCE_TICK)
+            if (Mathf.Abs(_cloudPlayerProgressData.SaveTime.Date.Ticks - _localPlayerProgressData.SaveTime.Date.Ticks) < TRESHOLD_DIFFERENCE_TICK)
             {
                 return true;
             }
@@ -129,11 +130,11 @@ namespace _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler
 
         private void SaveData(ISaver saver)
         {
-            Data.CurrentScore = _scoreCounter.CurrentSessionScore;
-            Data.ChangeScore();
-            Data.PurchasingSkipAds = _purchasingService.HasPurchasingAdsSkip();
-            Data.SaveTime = DateTime.UtcNow;
-            saver.SaveData(Data);
+            PlayerProgressData.CurrentScore = _scoreCounter.CurrentSessionScore;
+            PlayerProgressData.ChangeScore();
+            PlayerProgressData.PurchasingSkipAds = _purchasingService.HasPurchasingAdsSkip();
+            PlayerProgressData.SaveTime = DateTime.UtcNow;
+            saver.SaveData(PlayerProgressData);
         }
     }
 }

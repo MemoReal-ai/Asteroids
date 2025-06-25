@@ -2,38 +2,38 @@ using _Game.SDKService;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using Zenject;
+using Application = UnityEngine.Device.Application;
 
 namespace _Game.AdsServiceUnity
 {
-    public class InterstitialAdsHandler : IInitializable, IInterstitialAds, IUnityAdsShowListener, IUnityAdsLoadListener
+    public class RewardAdsManager : IInitializable, IRewardedAdsHandler, IUnityAdsShowListener, IUnityAdsLoadListener
     {
-        private const string INTERSTITIALANDROID = "Interstitial_Android";
-        private const string INTERSTITIALIOS = "Interstitial_IOS";
+        private const string REWARDEDANDROADS = "Rewarded_Android";
+        private const string REWARDEDIOS = "Rewarded_IOS";
 
         private readonly IAdsService _adsService;
 
-        private string _interstitialAdsId;
+        private string _adsId;
 
-        public InterstitialAdsHandler(IAdsService adsService)
+        public RewardAdsManager(IAdsService adsService)
         {
             _adsService = adsService;
         }
 
         public void Initialize()
         {
-            _interstitialAdsId = Application.platform == RuntimePlatform.IPhonePlayer
-                ? INTERSTITIALIOS
-                : INTERSTITIALANDROID;
-        }
-
-        public void ShowAds()
-        {
-            _adsService.ShowPassiveAds(_interstitialAdsId, this);
+            _adsId = Application.platform == RuntimePlatform.IPhonePlayer ? REWARDEDIOS : REWARDEDANDROADS;
+            LoadAds();
         }
 
         private void LoadAds()
         {
-            Advertisement.Load(_interstitialAdsId, this);
+            Advertisement.Load(_adsId, this);
+        }
+
+        public void ShowAds()
+        {
+            _adsService.ShowAdsForReward(_adsId, this);
         }
 
         public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
@@ -58,7 +58,6 @@ namespace _Game.AdsServiceUnity
 
         public void OnUnityAdsAdLoaded(string placementId)
         {
-            Debug.Log($"Unity Ads ad loaded: {placementId}");
         }
 
         public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)

@@ -19,12 +19,12 @@ namespace _Game.Gameplay.Logic.Features
 
         public void Initialize()
         {
-            _sceneTransitioner.OnSceneDestroy += ResetScore;
+            _sceneTransitioner.OnDestroyGameplayScene += ResetScore;
         }
 
         public void Dispose()
         {
-            _sceneTransitioner.OnSceneDestroy -= ResetScore;
+            _sceneTransitioner.OnDestroyGameplayScene -= ResetScore;
         }
 
         private void ResetScore()

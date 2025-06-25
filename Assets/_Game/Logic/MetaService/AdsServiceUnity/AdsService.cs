@@ -21,7 +21,12 @@ namespace _Game.Logic.MetaService.AdsServiceUnity
 
         public void Initialize()
         {
-            InitService();
+            if (Advertisement.isSupported)
+            {
+                Advertisement.Initialize(Application.platform == RuntimePlatform.IPhonePlayer ? IOS_ID : ANDROID_ID,
+                    _isTestMod,
+                    this);
+            }
         }
 
 
@@ -50,16 +55,6 @@ namespace _Game.Logic.MetaService.AdsServiceUnity
         public void OnInitializationFailed(UnityAdsInitializationError error, string message)
         {
             Debug.Log("OnInitializationFailed()");
-        }
-
-        private void InitService()
-        {
-            if (Advertisement.isSupported)
-            {
-                Advertisement.Initialize(Application.platform == RuntimePlatform.IPhonePlayer ? IOS_ID : ANDROID_ID,
-                    _isTestMod,
-                    this);
-            }
         }
     }
 }

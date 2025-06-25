@@ -1,4 +1,5 @@
 using _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler;
+using _Game.Logic.MetaService.DataServices.SaveAndLoadHandler;
 using _Game.Logic.MetaService.JsonConvertHandler;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace _Game.Gameplay.Logic.Service
 
         private readonly IJsonConverter _jsonConverter;
 
-        private Data _data;
+        private PlayerProgressData _playerProgressData;
         private string _dataSerialize;
 
         public LocalSaver(IJsonConverter jsonConverter)
@@ -19,24 +20,25 @@ namespace _Game.Gameplay.Logic.Service
             _jsonConverter = jsonConverter;
         }
 
-        public UniTask<Data> LoadData()
+        public UniTask<PlayerProgressData> LoadData()
         {
             if (PlayerPrefs.HasKey(KEY))
             {
                 var jsonFile = PlayerPrefs.GetString(KEY);
-                _data = _jsonConverter.Deserialize<Data>(jsonFile);
-                return UniTask.FromResult(_data);
+                _playerProgressData = _jsonConverter.Deserialize<PlayerProgressData>(jsonFile);
+                return UniTask.FromResult(_playerProgressData);
             }
 
-            return UniTask.FromResult(new Data());
+            return UniTask.FromResult(new PlayerProgressData());
         }
 
-        public void SaveData(Data data)
+        public UniTask SaveData(PlayerProgressData playerProgressData)
         {
-            _data = data;
-            _dataSerialize = _jsonConverter.Serialize(_data);
+            _playerProgressData = playerProgressData;
+            _dataSerialize = _jsonConverter.Serialize(_playerProgressData);
             PlayerPrefs.SetString(KEY, _dataSerialize);
             PlayerPrefs.Save();
+            return UniTask.CompletedTask;
         }
     }
 }

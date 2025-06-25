@@ -5,9 +5,9 @@ namespace _Game.Logic.Infrastructure.EntryPoints
 {
     public class EntryPointProject : IInitializable
     {
-        private readonly IFirebaseServiceAnalytics _firebaseService;
+        private readonly IServiceAnalytics _firebaseService;
 
-        public EntryPointProject(IFirebaseServiceAnalytics firebaseService)
+        public EntryPointProject(IServiceAnalytics firebaseService)
         {
             _firebaseService = firebaseService;
         }
