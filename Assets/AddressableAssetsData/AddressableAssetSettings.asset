@@ -92,7 +92,7 @@ MonoBehaviour:
       - m_Id: ebb1cf6eef6b70d49b2f93b5631528f1
         m_Value: <undefined>
       - m_Id: ff648626158506342a4056420b481d09
-        m_Value: 'https://storage.yandexcloud.net/unityasteroids/StandaloneWindows64/[BuildTarget]'
+        m_Value: 'https://storage.yandexcloud.net/unityasteroids/[BuildTarget]'
     m_ProfileEntryNames:
     - m_Id: 4ce5ea220a7494b42a103ae5227c0c91
       m_Name: Local.BuildPath

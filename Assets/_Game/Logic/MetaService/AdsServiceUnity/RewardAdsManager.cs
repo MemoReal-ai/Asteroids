@@ -1,4 +1,4 @@
-using _Game.SDKService;
+using _Game.Logic.MetaService.AdsServiceUnity;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using Zenject;

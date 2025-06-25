@@ -1,4 +1,4 @@
-namespace _Game.AdsServiceUnity
+namespace _Game.Logic.MetaService.AdsServiceUnity
 {
     public interface IInterstitialAds
     {

@@ -4,6 +4,7 @@ using _Game.Gameplay.Logic.Service;
 using _Game.Gameplay.Logic.Ship;
 using _Game.Gameplay.Logic.UI.AdsView;
 using _Game.Logic.Gameplay.Enemy;
+using _Game.Logic.MetaService.AdsServiceUnity;
 using R3;
 using Zenject;
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using _Game.Logic.UI.MainMenu.Factory;
 using Cysharp.Threading.Tasks;
@@ -11,9 +12,11 @@ namespace _Game.Logic.MetaService.Addressable
     public class AddressableLoader : IAddressableService, IDisposable
     {
         private CancellationTokenSource _tokenSource = new();
+        private readonly List<Object> _objectsForRelease = new();
 
         public void Dispose()
         {
+            UnloadPrefab(_objectsForRelease);
             _tokenSource?.Cancel();
             _tokenSource?.Dispose();
             _tokenSource = null;
@@ -42,13 +45,14 @@ namespace _Game.Logic.MetaService.Addressable
         }
 
 
-        private async UniTask<T> CreateOnSceneAddressablePrefab<T>(FactoryUI factoryUI, AsyncOperationHandle<Object> prefabTask)
+        private async UniTask<T> CreateOnSceneAddressablePrefab<T>(FactoryUI factoryUI,
+            AsyncOperationHandle<Object> prefabTask)
         {
             try
             {
                 Object prefab = await prefabTask;
                 var window = factoryUI.Create<T>(prefab);
-                UnloadPrefab(prefab);
+                _objectsForRelease.Add(prefab);
                 return window;
             }
             catch (Exception e)
@@ -58,9 +62,9 @@ namespace _Game.Logic.MetaService.Addressable
             }
         }
 
-        private void UnloadPrefab(Object prefab)
+        private void UnloadPrefab(List<Object> prefabs)
         {
-            if (prefab)
+            foreach (var prefab in prefabs)
             {
                 Addressables.Release(prefab);
             }

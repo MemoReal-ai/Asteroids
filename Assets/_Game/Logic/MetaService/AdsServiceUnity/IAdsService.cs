@@ -1,6 +1,6 @@
 using UnityEngine.Advertisements;
 
-namespace _Game.SDKService
+namespace _Game.Logic.MetaService.AdsServiceUnity
 {
     public interface IAdsService
     {
