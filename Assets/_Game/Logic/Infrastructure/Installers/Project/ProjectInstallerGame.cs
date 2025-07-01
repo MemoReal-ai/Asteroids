@@ -8,12 +8,14 @@ using _Game.Logic.Gameplay.Service.Sound;
 using _Game.Logic.Infrastructure.EntryPoints;
 using _Game.Logic.MetaService.Addressable;
 using _Game.Logic.MetaService.AdsServiceUnity;
+using _Game.Logic.MetaService.AppodealAds;
 using _Game.Logic.MetaService.DataHandler.SaveAndLoadHandler;
 using _Game.Logic.MetaService.DataServices.SaveAndLoadHandler;
 using _Game.Logic.MetaService.FirebaseService;
 using _Game.Logic.MetaService.JsonConvertService;
 using _Game.Logic.MetaService.Purchasing_Service;
 using _Game.Logic.MetaService.SceneTransitionerService;
+using AppodealStack.Monetization.Api;
 using UnityEngine;
 using Zenject;
 
@@ -88,9 +90,9 @@ namespace _Game.Logic.Infrastructure.Installers.Project
 
         private void BindAdsService()
         {
-            Container.BindInterfacesAndSelfTo<AdsService>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<RewardAdsManager>().AsSingle();
-            Container.BindInterfacesAndSelfTo<InterstitialAdsManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<AppodealController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<AppodealRewardedAds>().AsSingle();
+            Container.BindInterfacesAndSelfTo<AppodealInterstitialAds>().AsSingle();
         }
 
         private void BindAddressableService()
