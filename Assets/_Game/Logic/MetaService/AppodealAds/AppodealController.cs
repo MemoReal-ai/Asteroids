@@ -14,10 +14,10 @@ namespace _Game.Logic.MetaService.AppodealAds
 
         public void Initialize()
         {
-            Appodeal.Cache(AppodealAdType.RewardedVideo);
             Appodeal.SetTesting(TOGGLE_TESTING_MOD);
             Appodeal.MuteVideosIfCallsMuted(true);
             Appodeal.Initialize(KEY_APP, AppodealAdType.Interstitial | AppodealAdType.RewardedVideo);
+            Appodeal.Cache(AppodealAdType.RewardedVideo);
         }
 
         public void ShowAdsForReward(string idAds, IUnityAdsShowListener _ = null)
@@ -34,7 +34,7 @@ namespace _Game.Logic.MetaService.AppodealAds
             if (Appodeal.IsLoaded(AppodealAdType.Interstitial))
             {
                 Debug.Log("Appodeal is loaded passive ads");
-                Appodeal.Show(AppodealAdType.Interstitial);
+                    Appodeal.Show(AppodealAdType.Interstitial);
             }
         }
     }
